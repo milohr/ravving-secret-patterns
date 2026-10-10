@@ -43,6 +43,14 @@ LIBRARY = {"drums": "drum-presets.json", "bass": "bass-presets.json",
 NEAR = 0.8  # Jaccard similarity of two presets' notes at which they count as near-identical
 
 errors, warnings = [], []
+# milo's SFZ Drum Machines folder (kits.json kitFolder), listed 2026-10-10
+KIT_FOLDER = {f + ".sf3" for f in (
+    "Acetone Rhythm Ace", "Akai XE8", "Akai XR10", "Alesis HR16", "Boss DR220", "Boss DR55", "DrumFire",
+    "DrumTraks", "Drumula 1", "Drumula 2", "E Ave", "Electro Puff", "Fricke MSB512", "Kawai R50", "Korg DDD1",
+    "Korg DDM110", "Lab", "LINN9000 1", "LINN9000 2", "Mattel Synsonic", "MXR 185", "Retrobox", "Roland CR78",
+    "Roland TR606", "Roland TR727", "Roland TR808", "Roland TR909", "SCI Tom", "Simmons", "SP1200 1",
+    "SP1200 2", "SP 12", "Sween", "Tama Tech Star 1", "Tama Tech Star 2", "Tama Tech Star 3", "Tyson 1",
+    "Tyson 2", "Tyson 3", "Yamaha RX11")}
 
 
 def known_sounds():
@@ -57,6 +65,8 @@ def known_sounds():
         if machine["key"] in LIBRARY and machine.get("presets") != LIBRARY[machine["key"]]:
             errors.append(f"kits.json: {machine['key']} reads {machine.get('presets')}, not {LIBRARY[machine['key']]}")
     paths = {m["engine"]["soundfont"] for m in kits["drumMachines"]} | {k["path"] for k in kits["presetKits"]}
+    # the kit folder's machines (the kit picker lists the folder): as on milo, 2026-10-10
+    paths |= {kits["kitFolder"].rstrip("/") + "/" + name for name in KIT_FOLDER}
     for demo in glob.glob(os.path.join(DATA, "demos", "*.json")):
         paths |= set(re.findall(r'"kit": "([^"]+)"', open(demo).read()))
     return sources, paths
@@ -193,6 +203,9 @@ def check_mono(where, chart):
     if "NOTES" not in chart:
         errors.append(f"{where}: no NOTES")
         return set(), 16
+    # the notes' own velocity and nudge, by step (MonoMachine::applyChart): checked below
+    by_step = {k: chart[k] for k in ("VELOCITY", "NUDGE") if k in chart}
+    chart = {k: v for k, v in chart.items() if k not in by_step}
     rows, length = rows_of(where, chart, MONO)
     lane = lambda key: rows.get(key, "." * length)  # noqa: E731
     notes, octave, accent, slide, hold, alter = (lane(k) for k in ("NOTES", "OCTAVE", "ACCENT", "SLIDE", "HOLD", "ALTER"))
@@ -201,6 +214,17 @@ def check_mono(where, chart):
     for key in ("ACCENT", "SLIDE", "HOLD"):
         chars(where, key, lane(key), ".x")
     chars(where, "ALTER", alter, ".123456789")
+    for key, values in by_step.items():
+        if not isinstance(values, dict):
+            errors.append(f"{where}: {key} is not a map of steps")
+            continue
+        for step, value in values.items():
+            if not step.isdigit() or int(step) >= length or notes[int(step)] not in "1234567":
+                errors.append(f"{where}: {key} at step {step}, where no note starts")
+            elif key == "VELOCITY" and not (isinstance(value, int) and 1 <= value <= 127):
+                errors.append(f"{where}: VELOCITY {value!r} at step {step} (1-127)")
+            elif key == "NUDGE" and not (isinstance(value, (int, float)) and -50 <= value <= 50 and value != 0):
+                errors.append(f"{where}: NUDGE {value!r} at step {step} (-50..50 %, not 0)")
     if not any(c in "1234567" for c in notes):
         errors.append(f"{where}: no notes")
     signature = set()

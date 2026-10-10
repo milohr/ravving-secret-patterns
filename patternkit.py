@@ -31,9 +31,12 @@
 #           accented one. An accent is the whole step's (DrumMachine::setAccent), so every
 #           hit on an accented step is written X, as the machine's own chart() writes it.
 #   mono    (bass, lead) tokens: "." a rest, "_" the note before still sounding (HOLD), or a
-#           note: [b|#]<degree 1-7>[+|-][!][~]: b/# a semitone down/up (written as the
-#           degree below plus ALTER, as MonoMachine::chart() does), +/- an octave, ! an
-#           accent, ~ a slide into the next note (which must start where this one ends).
+#           note: [b|#]<degree 1-7>[+|-][!][~][@velocity][<|>nudge]: b/# a semitone down/up
+#           (written as the degree below plus ALTER, as MonoMachine::chart() does), +/- an
+#           octave, ! an accent, ~ a slide into the next note (which must start where this one
+#           ends), @64 the note's own velocity (1-127, SELECT's knob 2), <10 / >10 the note
+#           played that % of a step early / late (SELECT's NUDGE, at most 50): the chart's
+#           VELOCITY and NUDGE lanes, by step.
 #   chords  tokens: "." nothing, "=" the chord before goes on, "1"-"7" the chord on that
 #           degree (stacked in thirds, as the CHORD SET says), "@name" a voicing of the
 #           pack's own: ("x", scale degrees from degree I, 0-based) or ("c", semitones from
@@ -77,6 +80,21 @@ KITS = {
     # merengue / bachata: SNARE high bongo, TOM low bongo, CLAP conga slap, OPEN tumba (the
     # tambora's low stroke), HAT maracas, CYMBAL cowbell, PERC cabasa (the metal güira)
     "GUIRA": GM + "#128:0?SNARE=60&TOM=61&CLAP=62&OPEN=64&HAT=70&CYMBAL=56&PERC=69",
+    # the kit folder's machines (the kit picker lists them all): post-punk's and the 80s'
+    "DR55": DRUM_MACHINES + "Boss DR55.sf3",
+    "CR78": DRUM_MACHINES + "Roland CR78.sf3",
+    "HR16": DRUM_MACHINES + "Alesis HR16.sf3",
+    "SIMMONS": DRUM_MACHINES + "Simmons.sf3",
+    "TR606": DRUM_MACHINES + "Roland TR606.sf3",
+    # kits.json presetKits, added with the folk / metal / post-punk / gothic packs: the AVL
+    # acoustic kits (their LV2s' soundfonts) and the folk room kit (TOM a low floor tom for the
+    # bodhrán, PERC the tambourine, CYMBAL the ride)
+    "BLACK_PEARL": "/zynthian/zynthian-plugins/lv2/Black_Pearl_5.lv2/FluidPlug.sf2",
+    "RED_ZEPPELIN": "/zynthian/zynthian-plugins/lv2/Red_Zeppelin_5.lv2/FluidPlug.sf2",
+    "FOLK": GM + "#128:8?TOM=41&PERC=54&CYMBAL=51",
+    # the orchestra kit with its timpani on D (TOM) and A below (HAT): a D-minor or D-Dorian
+    # tonic and dominant, for the Gregorian pack
+    "ORCHESTRA_D": GM + "#128:48?TOM=50&HAT=45&OPEN=81&CYMBAL=57&PERC=54",
 }
 
 LIBRARY = {"drums": "drum-presets.json", "bass": "bass-presets.json",
@@ -199,10 +217,16 @@ class Pack:
 
     # --- bass and lead ----------------------------------------------------------------------
     def _note(self, token):
-        m = re.fullmatch(r"([#b]?)([1-7])([+-]?)([!~]*)", token)
+        m = re.fullmatch(r"([#b]?)([1-7])([+-]?)([!~]*)(?:@(\d{1,3}))?(?:([<>])(\d{1,2}))?", token)
         if not m:
             raise ValueError(f"bad note token {token!r}")
-        shift, degree, octave, flags = m.groups()
+        shift, degree, octave, flags, velocity, way, nudge = m.groups()
+        self._extra = (int(velocity) if velocity else None,
+                       (-1 if way == "<" else 1) * int(nudge) if nudge else 0)
+        if self._extra[0] is not None and not 1 <= self._extra[0] <= 127:
+            raise ValueError(f"{token!r}: velocity out of 1-127")
+        if abs(self._extra[1]) > 50:
+            raise ValueError(f"{token!r}: nudge past half a step")
         semitones = self.scale[int(degree) - 1] + {"+": 12, "-": -12, "": 0}[octave] + {"#": 1, "b": -1, "": 0}[shift]
         octave = semitones // 12
         pc = semitones - 12 * octave
@@ -224,6 +248,7 @@ class Pack:
         lanes = {lane: ["."] * length for lane in ("NOTES", "OCTAVE", "ACCENT", "SLIDE", "HOLD", "ALTER")}
         sounding = False
         starts = []
+        velocities, nudges = {}, {}
         for i, token in enumerate(tokens):
             if token == ".":
                 sounding = False
@@ -239,6 +264,11 @@ class Pack:
                     lanes["ALTER"][i] = str(alter)
                 lanes["ACCENT"][i] = "x" if accent else "."
                 lanes["SLIDE"][i] = "x" if slide else "."
+                velocity, nudge = self._extra
+                if velocity is not None:
+                    velocities[str(i)] = velocity
+                if nudge:
+                    nudges[str(i)] = nudge
                 sounding = True
                 starts.append(i)
         # a slide glides into the note that starts where it ends
@@ -254,6 +284,11 @@ class Pack:
         for lane in ("HOLD", "ALTER"):
             if set(chart[lane]) == {"."}:
                 del chart[lane]
+        # the notes' own velocity and nudge (MonoMachine::applyChart), by step
+        if velocities:
+            chart["VELOCITY"] = velocities
+        if nudges:
+            chart["NUDGE"] = nudges
         self._write(group, name, chart, self._sound(group, source, mods))
 
     def bass(self, name, source, text, mods=None):

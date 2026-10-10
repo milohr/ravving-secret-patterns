@@ -1,8 +1,9 @@
 # Secret pattern packs
 
-Nine genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
-tropical and cumbia. Each has five pattern presets for each of the drums, the
-bass, the lead and the chords. A smaller style pack, piig, has three of each. They are not installed with ravving. To play one, copy a
+Fourteen genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
+tropical, cumbia, folk, heavy metal, black metal, post-punk and Gregorian (old gothic). Each has
+five pattern presets for each of the drums, the bass, the lead and the chords. A smaller style
+pack, piig, has three of each. They are not installed with ravving. To play one, copy a
 pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
 plays them straight from there (`PresetExchange::stickPatterns` / `loadStickPattern`), and
 the USB page can import them.
@@ -22,8 +23,9 @@ chords, `{"kit": …}` for the drums (a subset of `Machine::soundState()`).
 **The notes are scale degrees.** They follow the session's root and scale. Each genre is
 written for one scale, so its four instruments play together:
 
-- Natural Minor: hip-hop, trap, reggaeton, piig.
-- Major: classical, pop, rock, punk, tropical, cumbia.
+- Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk.
+- Major: classical, pop, rock, punk, tropical, cumbia, folk.
+- Dorian: Gregorian.
 - Tropical's minor styles (salsa, bachata) and cumbia's (villera, chicha) sit on degree 6,
   the relative minor, so each pack stays in one key. In C major they play in A minor.
 
@@ -42,6 +44,16 @@ quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) exc
 | Piig · every preset | 56–60, the lazy MPC swing |
 
 Set the same swing on every machine playing along.
+
+**The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
+`VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
+`<10` / `>10` (10 % of a step early / late). The packs made since use them: palm-muted chugs,
+tremolo down- and up-strokes, a fiddle's bow, grace notes snapped in early, a dub bass behind the
+beat, a chant's swell. A note's LENGTH is its `_` steps (HOLD), as before.
+
+**6/8 and 3/4 in the new packs** work as the waltz trio does (below): three 16-step bars hold
+four 12-step bars, and the tempo counts a quarter of four steps (a jig at a dotted quarter of
+110 is "165").
 
 **The waltz trio is in 3/4.** Classical · Waltz, Waltz Oom and Waltz Pah-Pah are three
 16-step bars long, which hold four 12-step waltz bars, so the three loop together.
@@ -123,6 +135,41 @@ copy is present.
 **Limits of these sounds:** FluidSynth sources don't glide; a SLIDE only overlaps the notes.
 The 808 lines therefore use "808 · Monosynth", which does glide. "Sine sub" (8:80) stays
 registered, but no preset uses it any more.
+
+### Added with the folk, metal, black metal, post-punk and Gregorian packs (2026-10-10)
+
+Sources from soundfonts already on milo (`SF2 Instruments/`; each preset found with
+`tools/soundfont.py presets` and rendered there: peaks 0.02–0.31 like the others, except
+**Organ · Plein jeu**, 0.66: lower its machine's VOL):
+
+| Machine | Source | Soundfont, bank:program |
+|---|---|---|
+| chords | Guitar · Heavy rhythm | Heavy Guitars 0:0 |
+| chords, lead | Guitar · Chorus | Stratocaster 0:3 (STRAT VS chorus) |
+| chords | Guitar · 12-string, Guitar · Acoustic | Acoustic Guitars 0:8, 0:0 |
+| chords | Organ · Vox humana, Organ · Plein jeu | Pipe Organ 0:45, 0:114 |
+| chords, lead | Harp | FluidR3Mono_GM 0:46 |
+| bass | Squier bass | Squierbass 0:0 |
+| bass | Organ · Bourdon 16 | Pipe Organ 0:59 |
+| bass, lead | Guitar · Heavy muted | Heavy Guitars 0:4 (palm-muted) |
+| lead | Guitar · Heavy lead, Guitar · Valve OD | Heavy Guitars 0:2, Valve OD Guitar 0:0 |
+| lead | Choir, Voice oohs | FluidR3Mono_GM 0:52, 0:53 |
+| lead | Fiddle, Banjo, Bagpipe, Recorder | FluidR3Mono_GM 0:110, 0:105, 0:109, 0:74 |
+| lead | Organ · Krummhorn | Pipe Organ 0:124 |
+
+Kits (`presetKits`, and the kit folder's machines the packs name):
+
+- **Black Pearl 5**, **Red Zeppelin 5**: the AVL acoustic kits, the soundfonts inside their
+  FluidPlug LV2s (`/zynthian/zynthian-plugins/lv2/<kit>.lv2/FluidPlug.sf2`; the `sf2/` links to
+  them are broken, their names hold a literal `*`). Velocity-layered, mapped by General MIDI
+  key (their samples are unnamed); rendered: kick 0.09, snare 0.05, a little under the drum
+  machines. DrumKit names such a kit after its bundle ("Black Pearl 5", not "FluidPlug").
+- **Folk · bodhrán**: FluidR3's Room kit with TOM the low floor tom (the bodhrán), PERC the
+  tambourine, CYMBAL the ride.
+- **Orchestra · D**: the orchestra kit with its timpani on D (TOM, key 50) and the A below
+  (HAT, key 45), a D tonic and dominant.
+- From the kit folder: Boss DR55 (the Sisters of Mercy's Doktor Avalanche), Roland CR78.
+  `validate.py` knows the folder's files as listed on milo.
 
 ## Classical: Major
 
@@ -466,6 +513,176 @@ reverb) get part of the way.
 References: [24K, tempo and key (songbpm)](https://songbpm.com/@biig-piig/24k);
 [Biig Piig chords and tabs (Ultimate Guitar)](https://www.ultimate-guitar.com/artist/biig_piig_618029):
 *Perdida*, *Sunny*, *Switch*, *Oh No*, *Feels Right*.
+
+## Folk: Major, the modal tunes on degree 2 (Dorian)
+
+Made for **G major**. The chords are the songs' (Ultimate Guitar): Knockin' on Heaven's Door
+(G D Am | G D C), The Times They Are A-Changin' in 3/4 (G Em C G | G Am C D), The House of the
+Rising Sun in 6/8 (Am C D F Am E Am E: the F and the E major from outside the key), Dirty Old
+Town and Whiskey in the Jar (I IV I | V vi), Scarborough Fair and Matty Groves (A Dorian in G
+major: ii I ii IV | ii IV V ii). Drunken Sailor is the traditional tune (public domain).
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Dylan Shuffle | drums | 2 | folk rock's train beat, the tambourine on the off-beats | 68–80 | Folk · bodhrán |
+| Bodhran Jig | drums | 3 (6/8) | the bodhrán's eighths, 1 and 4 strong | 150–170 | Folk · bodhrán |
+| Reel Stomp | drums | 2 | a foot on every beat, bodhrán eighths, claps, tambourine sixteenths | 110–125 | Folk · bodhrán |
+| Changin' Waltz | drums | 3 (3/4) | kick on one, the snare on two and three, the ride | 85–95 | Folk · bodhrán |
+| Whiskey Gallop | drums | 2 | driving eighths, the backbeat, a tom roll | 120–140 | Folk · bodhrán |
+| Heaven's Door Roots | bass | 2 | root and fifth under I V ii / I V IV | 68–75 | Acoustic bass |
+| Jig Bass | bass | 3 (6/8) | root on 1, fifth on 4, the strong one louder | 150–170 | Upright |
+| Rising Sun Walk | bass | 6 (8 of 6/8) | falling with the eight chords | 110–120 | Contrabass |
+| Changin' Oom-Pah | bass | 3 (3/4) | the root, then the fifth twice | 85–95 | Acoustic bass |
+| Dorian Drone | bass | 4 | the A held, stepping to G, swelling and easing | 60–90 | Contrabass |
+| Fiddle Jig | lead | 3 (6/8) | eighths in threes, the bow leaning on each first, a grace note snapped in early | 150–170 | Fiddle |
+| Banjo Roll | lead | 2 | a Scruggs roll 3 + 3 + 2 over I and IV, accented | 100–120 | Banjo |
+| Whistle Air | lead | 4 | a slow air, each long note led in by a cut played early | 60–75 | Recorder |
+| Drunken Sailor | lead | 4 | the traditional shanty, in the Dorian of degree 2 | 100–120 | Bagpipe |
+| Rising Sun Harp | lead | 6 (8 of 6/8) | the song's picking: root, fifth, octave, third, fifth, octave | 110–120 | Harp |
+| Heaven's Door Strum | chords | 4 | G D Am / G D C strummed, down-up-down | 68–75 | Guitar · Acoustic |
+| Changin' 12-String | chords | 6 (8 of 3/4) | G Em C G / G Am C D, on one, two and three | 85–95 | Guitar · 12-string |
+| Rising Sun Accordion | chords | 6 (8 of 6/8) | the eight chords held a 6/8 bar each | 110–120 | Accordion |
+| Dirty Old Town Pah | chords | 4 | I IV I / V vi, the accordion's off-beat "pah" | 100–120 | Accordion |
+| Scarborough Harp | chords | 4 | ii I ii IV / ii IV V ii (A Dorian), held | 60–90 | Harp |
+
+## Heavy Metal: Natural Minor, with the ♭2, the ♭5 and the raised 7th
+
+Made for **E minor**. From Ultimate Guitar's tabs and chord sheets: Black Sabbath's Paranoid
+(Em D G D Em) and Iron Man (B D D E E, G F♯ G F♯ G F♯ D D E E); Iron Maiden's The Trooper
+(E5 D G D, C5 D) and Fear of the Dark (Dm B♭ C: i VI VII); Judas Priest; Metallica's Master of
+Puppets (the chromatic fall from E); Motörhead's Ace of Spades. The drums are on the AVL kits.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Paranoid Drive | drums | 2 | eighth hats, backbeat, the kick pushing the "and"s | 160–165 | Black Pearl 5 |
+| Maiden Gallop | drums | 2 | the gallop on the kick, sixteenth hats (Clive Burr's) | 160–180 | Black Pearl 5 |
+| Doom Half-Time | drums | 2 | Sabbath's half time, the ride's quarters, a tom roll | 70–80 | Black Pearl 5 |
+| Double Kick | drums | 2 | sixteenth double bass, backbeat, crashes | 110–140 | Black Pearl 5 |
+| Speed Rock | drums | 2 | the kick on every eighth, the ride driving | 135–145 | Red Zeppelin 5 |
+| Paranoid Eighths | bass | 2 | i VII III VII i in eighths, picked hard on the beat | 160–165 | Picked bass |
+| Harris Gallop | bass | 4 | Steve Harris's gallop under i VI VII i, the eighth louder | 160–180 | Picked bass |
+| Iron Riff | bass | 4 | after Iron Man, slow, a slide into the first note | 70–80 | Guitar · Heavy muted |
+| Thrash Chromatic | bass | 2 | a palm-muted E in sixteenths (@72–78), accented notes falling E D♯ D C♯ | 180–200 | Guitar · Heavy muted |
+| Anthem Octaves | bass | 2 | i VI VII in eighths jumping octaves | 140–160 | Picked bass |
+| Trooper Twin Lead | lead | 4 | a gallop melody climbing and falling | 160–175 | Guitar · Heavy lead |
+| Iron Theme | lead | 4 | Iron Man's riff an octave up | 70–80 | Guitar · Heavy lead |
+| Pentatonic Lick | lead | 2 | a blues lick, slides into the bend notes, ringing out | 80–110 | Guitar · Valve OD |
+| Harmonic Run | lead | 2 | sixteenth arpeggios of i and the major V | 100–130 | Guitar · Heavy lead |
+| Dark Anthem | lead | 4 | long notes over i VI VII with pickups | 140–160 | Guitar · Heavy lead |
+| Paranoid Power | chords | 2 | Em D G D Em in palm-muted eighths | 160–165 | Guitar · Heavy rhythm |
+| Trooper Gallop | chords | 2 | E5 D C5 galloping (two voicings alternate so each hit sounds) | 160–175 | Guitar · Heavy rhythm |
+| Iron Doom | chords | 2 | B5 D5 E5, G5 F♯5, held | 70–80 | Guitar · Heavy rhythm |
+| Anthem i-VI-VII | chords | 4 | i VI VII, struck twice a bar | 140–160 | Guitar · Heavy rhythm |
+| Chromatic Fall | chords | 2 | E5 D♯5 D5 C♯5, then the ♭II | 180–200 | Guitar · Heavy rhythm |
+
+## Black Metal: Natural Minor, with the Phrygian ♭2 and the ♭5
+
+Made for **E minor**. From Ultimate Guitar's tabs: Darkthrone's Transilvanian Hunger (a falling
+tremolo line over an open pedal), Burzum's Dunkelheit (Em arpeggios moving a half step up),
+Mayhem's Freezing Moon, Emperor's I Am the Black Wizards, Bathory's One Rode to Asa Bay
+(i VII … VI). The blast beat after Wikipedia's: the kick and the snare alternating sixteenths,
+a cymbal with each kick; the hammer blast all three together; the skank beat. SyncTimer stops
+at 200 BPM: the fastest presets sit just under it.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Traditional Blast | drums | 2 | kick and snare alternating sixteenths, the crash with the kick | 180–200 | Black Pearl 5 |
+| Hammer Blast | drums | 2 | kick, snare and cymbal together on the eighths | 180–200 | Black Pearl 5 |
+| Skank Beat | drums | 2 | kick on the beat, snare on its "and" | 160–190 | Black Pearl 5 |
+| Frozen March | drums | 2 | sixteenth double kick, the snare on three | 100–130 | Black Pearl 5 |
+| Viking March | drums | 2 | Bathory's slow epic, the floor toms answering | 80–100 | Black Pearl 5 |
+| Tremolo Roots | bass | 2 | i VI VII in eighths | 160–200 | Picked bass |
+| Pedal Swell | bass | 2 | the root in sixteenths swelling 70→118 and back | 160–200 | Picked bass |
+| Phrygian Crawl | bass | 4 | i and ♭II in half notes, the ♭5 passing | 100–180 | Picked bass |
+| Symphonic Drone | bass | 4 | i VI VII i held, swelling (Emperor's keyboards) | any | Organ · Bourdon 16 |
+| Viking Walk | bass | 4 | i VII i VII VI under the march | 80–100 | Picked bass |
+| Hunger Tremolo | lead | 4 | after Transilvanian Hunger: a falling line, each note tremolo-picked a beat (down 112, up 86) | 160–200 | Guitar · Heavy lead |
+| Dunkelheit Arpeggio | lead | 4 | Em arpeggio in eighths, then a half step up (F) | 100–130 | Guitar · Heavy lead |
+| Frozen Melody | lead | 4 | slow notes tremolo-picked half a bar each | 160–200 | Guitar · Heavy lead |
+| Symphonic Choir | lead | 4 | long sung notes over the drone | any | Choir |
+| Tritone Riff | lead | 2 | root, ♭2 and ♭5 in accented sixteenths | 140–180 | Guitar · Heavy lead |
+| Hunger Chords | chords | 4 | i VI VII i held | 160–200 | Guitar · Heavy rhythm |
+| Phrygian Dread | chords | 4 | i for two bars, the ♭II, back | any | Guitar · Heavy rhythm |
+| Symphonic Strings | chords | 4 | i iv V i, slow strings | any | Strings · Bowed |
+| Dunkelheit Shapes | chords | 4 | Em, then F (the ♭II), two bars each | 100–130 | Guitar · Heavy rhythm |
+| Cathedral Organ | chords | 4 | i iv i V, in full | 60–90 | Organ · Plein jeu |
+
+## Post-Punk: Natural Minor, with the Dorian IV
+
+Made for **A minor**. The progressions are the bands' (Ultimate Guitar), each on its degrees of
+a minor key: The Cure's A Forest (Am C F D: i III VI IV, the Dorian major IV), Lullaby (i VI) and
+Boys Don't Cry (A Bm C♯m D in F♯ minor: III iv v VI); Joy Division's Love Will Tear Us Apart
+(D A Bm Em in B minor: III VII i iv), Disorder and She's Lost Control; Siouxsie and the Banshees'
+Spellbound (D Dorian: i7 VII IV); The Sisters of Mercy's Temple of Love (i III IV) and Lucretia My
+Reflection (i III iv); Bauhaus's Bela Lugosi's Dead. The bass leads (Peter Hook), high and
+melodic, some notes a little late (NUDGE).
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Lost Control | drums | 2 | sixteenth hats, the snare cracking, a syncopated kick | 140–150 | Room kit |
+| Tribal Toms | drums | 2 | a floor-tom figure instead of the backbeat | 130–160 | Room kit |
+| Doktor Avalanche | drums | 2 | the Sisters' drum machine: four on the floor, open hats on the "and" | 125–140 | Boss DR55 |
+| Forest Run | drums | 2 | A Forest's beat, an open hat on the "and" of four | 130–140 | Roland CR78 |
+| Undead Dub | drums | 2 | Bela Lugosi's rim-click clave, soft hats, toms | 115–125 | Room kit |
+| Hook Melody | bass | 4 | the bass carrying the melody over III VII i iv, off-beats late | 145–150 | Squier bass |
+| Forest Pulse | bass | 4 | A Forest's eighth-note pulse on i III VI IV | 130–140 | Squier bass |
+| Undead Dub Bass | bass | 2 | a falling dub figure, all behind the beat | 115–125 | Squier bass |
+| Disorder Run | bass | 2 | busy eighths climbing the minor | 155–165 | Squier bass |
+| Boys Walk | bass | 2 | III iv v VI in eighths, up the scale | 155–170 | Squier bass |
+| Forest Arpeggio | lead | 4 | a chorused arpeggio on i III VI IV | 130–140 | Guitar · Chorus |
+| Tear Apart Synth | lead | 4 | a falling, singing synth figure | 145–150 | Calf Monosynth |
+| Spellbound Sixteenths | lead | 4 | fast arpeggios on i VII IV | 145–150 | Guitar · Chorus |
+| Temple Chime | lead | 2 | high ringing eighths over i III IV | 135–145 | Guitar · Valve OD |
+| Lullaby Creep | lead | 2 | plucked notes tiptoeing, some early | 110–120 | Guitar · Clean |
+| Forest Chords | chords | 4 | Am C F D(add9), struck and pushed | 130–140 | Guitar · Chorus |
+| Tear Apart Strings | chords | 4 | III VII i iv on the string synth | 145–150 | Strings · Fat |
+| Boys Strum | chords | 2 | III iv v VI in eighth strums | 155–170 | Guitar · Clean |
+| Spellbound Dorian | chords | 4 | i7 VII IV i7–VII | 145–150 | Guitar · 12-string |
+| Lucretia Gloom | chords | 4 | i III iv on the organ's vox humana | 125–135 | Organ · Vox humana |
+
+## Gregorian (old gothic): Dorian
+
+Made for **D Dorian** (SCALE Dorian, ROOT D), the chant's first mode. The Dies Irae (13th
+century, public domain) is the three phrases of the mfiles.co.uk MIDI: F E F D E C D D |
+F F G F E D C E | F E D A C D D. **Organum Above** (lead) and **Organum Below** (bass) sing it a
+perfect fifth over and a perfect fourth under, note for note, in its rhythm (organum's parallel
+fifths and fourths, after the Musica enchiriadis): any two of the three loop together. Dead Can
+Dance's i v VII IV (In Power We Entrust the Love Advocated: Am Em G D), a saltarello in 6/8, the
+drone under the chant, and a breakbeat under it the 90s way. The chant's notes swell to the
+phrase's middle (80–98) and lean a hair early or late.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Processional | drums | 2 | timpani D on one, A on three, the bass drum, a cymbal swell | 55–70 | Orchestra · D |
+| Saltarello | drums | 3 (6/8) | tambourine eighths (1 and 4 strong), the frame drum leaping | 150–170 | Folk · bodhrán |
+| Chant Breakbeat | drums | 2 | a lazy break under the chant | 92–100 | SP1200 1 |
+| Wrath Timpani | drums | 2 | the D, the A, a roll into the bar, the cymbal | 55–70 | Orchestra · D |
+| Ritual Frame | drums | 2 | the frame drum's 3 + 3 + 2, the tambourine's shimmer | 70–90 | Folk · bodhrán |
+| Ison Drone | bass | 4 | the final held, the fifth a bar, a breath | 50–80 | Organ · Bourdon 16 |
+| Organum Below | bass | 8 | the Dies Irae a fourth under | 60–80 | Cello |
+| Open Fifths | bass | 4 | D and A, two bars each, swelling | 50–80 | Contrabass |
+| Ostinato Pulse | bass | 4 | quarters on D growing 40→110, the A falling back | 60–90 | Contrabass |
+| Dorian Ground | bass | 4 | i v VII IV, roots held, a step into each | 60–90 | Cello |
+| Dies Irae | lead | 8 | the chant, sung | 60–80 | Choir |
+| Organum Above | lead | 8 | the Dies Irae a fifth over | 60–80 | Voice oohs |
+| Krummhorn Estampie | lead | 4 | a lively Dorian dance in eighths | 100–120 | Organ · Krummhorn |
+| Kyrie Melisma | lead | 4 | one syllable over many notes, rising to the fifth | 55–70 | Choir |
+| Saltarello Recorder | lead | 3 (6/8) | leaping eighths, 1 and 4 leaned on | 150–170 | Recorder |
+| Organum Fifths | chords | 8 | open fifths D C A D, two bars each, sung | 55–80 | Choir |
+| Dorian Cadence | chords | 4 | i IV VII i (the mode's major IV) | 55–80 | Organ · Pipe 16+8+4 |
+| Gothic Choir | chords | 4 | i v VII IV, held | 60–90 | Choir |
+| Vox Humana | chords | 4 | Dsus2 Dm Dsus4 Dm | 50–80 | Organ · Vox humana |
+| Harp Psalter | chords | 3 (6/8) | i and VII on the dotted quarters | 150–170 | Harp |
+
+References for the five packs:
+[Ultimate Guitar](https://www.ultimate-guitar.com) (each song's chord sheet or tab, found with
+`tools/genre-research/ug-chords.py`);
+[Blast beat (Wikipedia)](https://en.wikipedia.org/wiki/Blast_beat);
+[Organum (Wikipedia)](https://en.wikipedia.org/wiki/Organum);
+[Dies Irae, score and MIDI (mfiles)](https://www.mfiles.co.uk/scores/gregorian-dies-irae.htm);
+[The jig rhythm (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/jig-rhythm);
+[A Matter of Life and Drums (Invisible Oranges)](https://www.invisibleoranges.com/?p=44567)
+(Clive Burr's sixteenth hats).
 
 ## Jazz
 
