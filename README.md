@@ -1,0 +1,472 @@
+# Secret pattern packs
+
+Nine genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
+tropical and cumbia. Each has five pattern presets for each of the drums, the
+bass, the lead and the chords. A smaller style pack, piig, has three of each. They are not installed with ravving. To play one, copy a
+pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
+plays them straight from there (`PresetExchange::stickPatterns` / `loadStickPattern`), and
+the USB page can import them.
+
+```
+data/secret/<genre>-presets/build.py                     the generator (python3 build.py)
+data/secret/<genre>-presets/ravving/presets/<drums|bass|lead|chords>/patterns/<Genre> · <Name>.json
+data/secret/patternkit.py                                shared by the genre build.py files (not the jazz one)
+data/secret/validate.py                                  checks every pack against ravving's parsers
+```
+
+Each file is `{"ravving": "preset", "type": "pattern", "library": "<x>-presets.json",
+"preset": {"name", "genre", "chart", "sound"}}`. The chart is the shipped libraries' format.
+`sound` is the sound the pattern was written for: `{"soundSource": …}` for the bass, lead and
+chords, `{"kit": …}` for the drums (a subset of `Machine::soundState()`).
+
+**The notes are scale degrees.** They follow the session's root and scale. Each genre is
+written for one scale, so its four instruments play together:
+
+- Natural Minor: hip-hop, trap, reggaeton, piig.
+- Major: classical, pop, rock, punk, tropical, cumbia.
+- Tropical's minor styles (salsa, bachata) and cumbia's (villera, chicha) sit on degree 6,
+  the relative minor, so each pack stays in one key. In C major they play in A minor.
+
+Notes from outside the scale use ALTER (for example rock's ♭3/♭7, trap's ♭2 and raised 7th).
+Chords from outside the key use chromatic `c` voicings.
+
+**Tempo and swing are not stored** in a pattern. The tables give each preset's tempo, in
+quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) except these:
+
+| Preset | SWING |
+|---|---|
+| Hip-Hop · Golden Era Swing | 58–62 |
+| Hip-Hop · Boom Bap, Lo-Fi Lazy and their bass, lead and chords | 54–60 if wanted; straight works |
+| Hip-Hop · Jazz Rap, Jazz Rap Walk | 60–66 |
+| Rock · Half-Time Shuffle | about 66, the triplet shuffle |
+| Piig · every preset | 56–60, the lazy MPC swing |
+
+Set the same swing on every machine playing along.
+
+**The waltz trio is in 3/4.** Classical · Waltz, Waltz Oom and Waltz Pah-Pah are three
+16-step bars long, which hold four 12-step waltz bars, so the three loop together.
+
+## Sounds
+
+Every sound named is a source in `data/kits.json` (or a kit path), and `validate.py` checks
+this. I added two kinds of entries to `kits.json`, all from the FluidR3Mono_GM.sf3 already on
+the device (`/zynthian/zynthian-data/soundfonts/SF2 Instruments/`):
+
+- **Chords sources:** Harpsichord 0:6, Guitar · Clean 0:27, Guitar · Overdrive 0:29,
+  Guitar · Distortion 0:30, Marimba 0:12, Steel drums 0:114, Accordion 0:21,
+  Brass section 0:61, Pizzicato strings 0:45.
+- **Bass sources:** Picked bass 0:34, Slap bass 0:36, Sine sub 8:80, Contrabass 0:43,
+  Cello 0:42.
+- **Lead sources:** Violin 0:40, Harpsichord 0:6, Trumpet 0:56, Guitar · Overdrive 0:29,
+  Marimba 0:12, Steel drums 0:114, Pan flute 0:75, Accordion 0:21, Music box 0:10,
+  Guitar · Clean 0:27 (champeta's soukous lead).
+- **Bass source "808 · Monosynth":** a `jalv` source on Calf Monosynth, the lead machine's
+  own engine (a second instance on the bass track). Its controls are real port values,
+  checked against the plugin's lv2info dump in
+  `engine-mods/calf_monosynth_mod/docs/engine-symbols.txt`:
+  - Sound: osc 1 Sine (`o1_wave` 3), plus 15 % of a triangle an octave up (`o2_wave` 4,
+    `o2_xpose` 12, `o12_mix` 0.15) for the harmonics an 808's saturation gives.
+  - Filter: 12 dB low-pass at 400 Hz that follows the key, opened by a 60 ms filter envelope
+    (`env2cutoff` 2400 cents): the click of the attack.
+  - Amp envelope: 1 ms attack, 1.8 s decay to 0.3, 250 ms release.
+  - Glide: `legato` 3 (Fingered Legato) with `portamento` 80 ms, so only overlapping notes
+    (a SLIDE) glide.
+  - Off: LFO-to-pitch, LFO-to-filter, the mod wheel; `master` 0.5.
+  - What it cannot do:
+    - **No pitch drop.** The Monosynth's modulation matrix is LV2 state, not ports (the mod's
+      RESEARCH.md), so kits.json can't set a pitch envelope.
+    - **No drive port.** Turn on the bass machine's DRIVE for the saturation.
+    - The bass page's knobs (Nekobi's) don't apply to it.
+- **presetKits:**
+  - Power `#128:16`
+  - Orchestra `#128:48?TOM=48&HAT=43&OPEN=81&CYMBAL=57&PERC=54`. The rows land on:
+
+    | Row | Sound |
+    |---|---|
+    | KICK | concert bass drum |
+    | SNARE | concert (field) snare |
+    | CLAP | castanets |
+    | TOM | timpani on C (key 48) |
+    | HAT | timpani on G below (key 43) |
+    | OPEN | triangle |
+    | CYMBAL | concert crash (clash cymbals) |
+    | PERC | tambourine |
+
+    The timpani suit a key of C: drum kits don't follow the session's key.
+  - Cumbia · timbal `#128:0?PERC=73&TOM=65&CYMBAL=56&CLAP=63`: PERC the güiro, TOM the high
+    timbale, CYMBAL the cowbell (campana), CLAP the high conga (llamador).
+  - Cumbia · room `#128:8?PERC=74&TOM=66&CYMBAL=56&CLAP=63`: the room kit, with the long güiro
+    and the low timbale.
+  - Latin · congas `#128:0?SNARE=63&CLAP=62&TOM=64&HAT=75&OPEN=70&CYMBAL=56&PERC=73`, for
+    salsa: SNARE open conga, CLAP conga slap, TOM tumba, HAT claves, OPEN maracas, CYMBAL
+    cowbell (campana), PERC güiro; KICK stays the kick.
+  - Latin · güira `#128:0?SNARE=60&TOM=61&CLAP=62&OPEN=64&HAT=70&CYMBAL=56&PERC=69`, for
+    merengue and bachata: SNARE high bongo, TOM low bongo, CLAP conga slap, OPEN tumba (the
+    tambora's low stroke), HAT maracas, CYMBAL cowbell, PERC cabasa (the metal güira).
+  - All the Latin keys were named from the font and rendered; every one sounds.
+
+**Nothing needs installing on the device.** The device's font is MuseScore 2.3.2's
+FluidR3Mono_GM.sf3. It matches by sha256
+`cfcd66d89e8386823400eca64934b14fbea7bf48ba1f00d21189af1262794ec2`, the hash in zynthbox-qml's
+`config/soundfonts.json`, entry SF_00022. A byte-identical copy is in
+`~/Downloads/ravving-soundfonts/fluidr3mono/`, from
+<https://github.com/musescore/MuseScore/raw/v2.3.2/share/sound/FluidR3Mono_GM.sf3>. Its
+licence is MIT (Frank Wen 2000–2002, mono version Michael Cowgill 2014–16; see
+`LICENSE-FluidR3Mono.md` there).
+
+**How the new sounds were checked.** Every new preset was rendered offline from that copy
+with `tools/soundfont.py render`. All of them sound, with peak levels from 0.02 to 0.20 and
+none silent. The kit rows were also worked out with a port of `DrumKit::fromSoundfont`.
+`validate.py` checks that every FluidR3Mono bank:program in kits.json exists, whenever the
+copy is present.
+
+**Limits of these sounds:** FluidSynth sources don't glide; a SLIDE only overlaps the notes.
+The 808 lines therefore use "808 · Monosynth", which does glide. "Sine sub" (8:80) stays
+registered, but no preset uses it any more.
+
+## Classical: Major
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Waltz | drums | 3 (3/4) | Viennese waltz: timpani C/G on the I and V downbeats, triangle on the "pah-pah", bass drum and cymbals on the first one, snare roll into the phrase | 160–190 | Orchestra kit |
+| March | drums | 2 | orchestral march in 2/4: field-snare rudiments, bass drum and clash cymbals on the strong beats, timpani tonic and dominant | 110–120 | Orchestra kit |
+| Galop | drums | 2 | Offenbach galop (can-can): the snare's "ta-ta-ta", bass drum "oom" and cymbal "pah", triangle, stop-time V–I on the timpani | 140–160 | Orchestra kit |
+| Habanera | drums | 2 | the habanera rhythm (dotted 8th, 16th, two 8ths) on castanets, tambourine, timpani tonic then dominant | 70–90 | Orchestra kit |
+| Timpani Cadence | drums | 4 | maestoso: timpani alternating tonic and dominant, a dominant roll into the final tonic stroke with bass drum and cymbals | 70–90 | Orchestra kit |
+| Alberti Bass | bass | 4 | low–high–middle–high eighths over I, IV6/4, V6/5 (Mozart K. 545 texture) | 110–140 | Cello |
+| Pachelbel Ground | bass | 2 | Pachelbel's eight-note ground, in quarter notes | 50–70 | Cello |
+| Lament Bass | bass | 4 | chromatic descending tetrachord from 1 to 5 in half notes, then IV–ii–V | 60–80 | Contrabass |
+| Waltz Oom | bass | 3 (3/4) | the "oom" on each downbeat: I, IV, V, I | 160–190 | Upright |
+| Octave Continuo | bass | 2 | Baroque octave-leaping eighths down the scale (after the Air, BWV 1068) | 55–70 | Contrabass |
+| Prelude Arpeggio | lead | 4 | Bach WTC I C-major prelude figure, bars 1–3 and 5 | 60–80 | Harpsichord |
+| Classical Phrase | lead | 4 | a period's antecedent, ending on a half cadence | 90–120 | Violin |
+| Ode Theme | lead | 4 | Beethoven's Ode to Joy, first four bars | 100–120 | Oboe |
+| Baroque Sequence | lead | 2 | turning sixteenth figure stepping down each beat | 90–110 | Flute |
+| Fanfare | lead | 2 | dotted triad calls rising to the octave | 100–120 | Trumpet |
+| Chorale Cadence | chords | 4 | four-part SATB: I vi IV ii6 I6/4 V7 I, with strict voice leading | 60–80 | Choir |
+| Pachelbel Progression | chords | 2 | I V vi iii IV I IV V, with the upper voices stepping down | 50–70 | Strings · Ensemble |
+| Waltz Pah-Pah | chords | 3 (3/4) | chords on beats 2 and 3: I, IV6/4, V7, I | 160–190 | Pizzicato strings |
+| Prinner Pulse | chords | 2 | the galant Prinner (IV–I6–vii°6–I) in repeated eighths | 90–120 | Strings · Bowed |
+| Circle of Fifths | chords | 4 | I IV vii° iii vi ii V I in half notes | 70–100 | Harpsichord |
+
+References: [Lament bass (Wikipedia)](https://en.wikipedia.org/wiki/Lament_bass);
+[Music theory behind Canon in D](https://musiciangoods.com/blogs/music-theory/music-theory-behind-canon-in-d);
+[The art of the ostinato](https://thelistenersclub.com/2012/04/15/the-listeners-club-the-art-of-the-ostinato/);
+R. Gjerdingen, *Music in the Galant Style* (the Prinner).
+
+The public-domain scores, on IMSLP: Bach BWV 846 and BWV 1068, Pachelbel's Canon, Beethoven
+Symphony 9, Mozart K. 545, Bizet *Carmen*.
+
+## Hip-Hop: Natural Minor
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Boom Bap | drums | 2 | kick on 1 and pushes, snare 2 and 4, eighth hats, ghost snare, open hat | 85–95 | SP1200 1 |
+| Golden Era Swing | drums | 2 | sixteenth hats to swing (SWING 58–62), skipping kick, rim ghosts | 88–98 | LINN9000 1 |
+| Lo-Fi Lazy | drums | 2 | soft, off-beat hats only, late kick, rim clicks | 70–85 | SP1200 1 |
+| Old School 808 | drums | 2 | electro-rap kick, claps 2 and 4, cowbell | 95–110 | Roland TR808 |
+| Jazz Rap | drums | 2 | ride "ding, ding-a" and hi-hat foot over boom bap | 85–95 | Jazz · ride kit |
+| Boom Bap Root | bass | 2 | roots on the kick, i→iv, VI walking back | 85–95 | Finger bass |
+| Jazz Rap Walk | bass | 2 | upright walking i–iv with pickups | 85–95 | Upright |
+| G-Funk Glide | bass | 2 | Moog-style gliding octave and pentatonic line | 90–96 | Nekobi |
+| Lo-Fi Sub | bass | 4 | long notes under i–VI–iv–v with pickups | 70–85 | Fretless |
+| Electro Funk | bass | 2 | sixteenth octave pops with a slide | 100–112 | Nekobi |
+| Rhodes Riff | lead | 2 | minor-pentatonic riff with a falling answer | 80–95 | Rhodes |
+| Horn Stabs | lead | 2 | chopped-soul horn hits and falls | 85–95 | Muted trumpet |
+| Vibes Loop | lead | 2 | eighth arpeggios of i and iv | 75–90 | Vibes |
+| G-Funk Whistle | lead | 2 | high portamento whistle line | 90–96 | Calf Monosynth |
+| Flute Loop | lead | 2 | flute falling from the octave, turning on the third | 80–95 | Flute |
+| Boom Bap Keys | chords | 2 | chopped i, then iv / III / VII stabs (CHORD SET sevenths) | 85–95 | Rhodes |
+| Soul Loop | chords | 2 | i7–iv7–VII–III, half a bar each | 80–95 | Strings · Ensemble |
+| Lo-Fi Ninths | chords | 4 | im9–ivm9–VImaj9–v7, each a 16th late | 70–85 | Upright piano |
+| Dark Strings | chords | 4 | i (two bars) – VI – v triads | 80–95 | Strings · Bowed |
+| Organ Vamp | chords | 2 | soul-jazz i7–IV7 (Dorian IV) stabs | 90–100 | Jazz organ |
+
+References: [Best drum patterns for hip hop](https://violetrecording.com/best-drum-patterns-for-hip-hop/);
+[What is boom bap (Native Instruments)](https://blog.native-instruments.com/what-is-boom-bap/);
+[How to make a boom bap beat](https://violetrecording.com/how-to-make-a-boom-bap-beat/);
+[Boom bap in FL Studio](https://www.audeobox.com/learn/fl-studio/how-to-make-boom-bap-beats-in-fl-studio/).
+
+## Pop: Major
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Four on the Floor | drums | 2 | dance pop: kick every beat, claps 2 and 4, off-beat open hats | 118–128 | Roland TR909 |
+| Half-Time Ballad | drums | 2 | one snare a bar on 3 | 130–150 (felt half) | Standard kit |
+| 80s Gated | drums | 2 | big 2 and 4 snare, doubled kick, tom run | 110–125 | LINN9000 1 |
+| 808 Pop | drums | 2 | half-time claps, sparse kicks, hat rolls | 130–150 (felt half) | Roland TR808 |
+| Motown Stomp | drums | 2 | snare on all four beats, tambourine on 2 and 4 | 120–135 | Room kit |
+| Axis Eighths | bass | 4 | pumping eighths on I–V–vi–IV | 100–130 | Finger bass |
+| Synth Octaves | bass | 4 | octave-jumping eighths on vi–IV–I–V | 110–128 | Synth bass |
+| Ballad Descent | bass | 4 | I–V/7–vi–IV descending bass, walk-up home | 60–80 | Fretless |
+| Funk-Pop Sixteenths | bass | 2 | syncopated sixteenths with octave pops | 105–120 | Slap bass |
+| Motown Walk | bass | 2 | melodic pickups into I–vi–IV–V | 110–130 | Finger bass |
+| Axis Hook | lead | 2 | sung-style hook: repeated notes, leap to the fifth | 100–128 | Calf Monosynth |
+| Piano Ostinato | lead | 2 | sixteenth ostinato grouped 3+3+2 | 110–130 | Grand piano |
+| Sax Hook | lead | 2 | 80s sax hook up to the octave | 100–120 | Alto sax |
+| Pluck Arp | lead | 4 | sixteenth arpeggios over I–V–vi–IV | 110–128 | Vibes |
+| Ballad Melody | lead | 4 | long notes, ends open on 2 | 60–80 | Rhodes |
+| Axis Quarters | chords | 4 | I–V–vi–IV in quarter notes | 90–120 | Grand piano |
+| Minor-Start Pulse | chords | 4 | vi–IV–I–V pulsing eighths | 110–128 | TAL NoiseMaker |
+| Doo-Wop Changes | chords | 2 | 50s I–vi–IV–V triads | 60–80 | Upright piano |
+| Royal Road | chords | 4 | IV–V–iii–vi, each bar pushed 3+3+2 | 90–110 | Rhodes |
+| Ballad Strings | chords | 4 | I–V/7–vi–IV–V with the stepping bass voiced in | 60–80 | Strings · Ensemble |
+
+References: [Hooktheory chord trends](https://www.hooktheory.com/blog/chord-progression-search-patterns-and-trends/);
+[Common pop progressions (Mixed In Key)](https://mixedinkey.com/captain-plugins/common-chord-progressions-pop-music/);
+[15 common drum beats](https://thedrumninja.com/common-drum-beats/);
+[Drum patterns (muted.io)](https://muted.io/drum-patterns/).
+
+## Rock: Major, with ♭3, ♭7 and ♭VI/♭VII borrowed
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Straight Backbeat | drums | 2 | kick 1 and 3, snare 2 and 4, eighth hats | 100–140 | Power kit |
+| Arena Ride | drums | 2 | driving eighths on the ride, doubled kicks | 110–140 | Power kit |
+| Half-Time Shuffle | drums | 2 | backbeat on 3 with ghost notes (SWING about 66) | 80–95 | Room kit |
+| Bo Diddley Toms | drums | 2 | 3-2 "shave and a haircut" on toms, maracas | 100–125 | Room kit |
+| Gallop | drums | 2 | eighth plus two sixteenths on the kick every beat | 140–180 | Power kit |
+| Root Eighths | bass | 4 | pumping eighths I–♭VII–IV–I | 110–150 | Picked bass |
+| Boogie Walk | bass | 4 | 1-3-5-6-♭7 boogie over I–IV–I–V | 140–170 | Finger bass |
+| Blues-Rock Riff | bass | 2 | minor-pentatonic unison riff with ♯4 | 90–120 | Finger bass |
+| Gallop Bass | bass | 4 | gallop on I–♭VI–♭VII–I | 140–180 | Picked bass |
+| Root–Fifth Two-Beat | bass | 4 | country-rock root–fifth with a walk home | 100–130 | Acoustic bass |
+| Pentatonic Lick | lead | 2 | blues-rock lick, ♭3 sliding into 3 | 90–120 | Guitar · Overdrive |
+| Honking Sax | lead | 2 | rock'n'roll honks with a ♭7 growl | 140–170 | Tenor sax |
+| Anthem Hook | lead | 4 | arena "whoa-oh" long notes | 110–140 | Guitar · Overdrive |
+| Clean Arpeggio | lead | 4 | open-chord picking Iadd9–IV–vi–Vsus | 70–100 | Nylon guitar |
+| Boogie Piano | lead | 2 | 3–5 tremolo, then a run down with a ♭3–3 crush | 140–170 | Grand piano |
+| Power I–♭VII–IV | chords | 4 | chugged power chords | 110–150 | Guitar · Distortion |
+| Organ Pushes | chords | 2 | R&B-rock organ holds with stabs | 100–125 | Jazz organ |
+| ♭VI–♭VII–I | chords | 2 | Aeolian rock cadence, parallel triads | 100–140 | Guitar · Overdrive |
+| Piano Pump | chords | 4 | I–IV–V–IV in a "1 2 3, 1 2 3, 1 2" push | 120–150 | Grand piano |
+| Clean Strum | chords | 4 | strummed I–V–IV–V, guitar voicings | 90–120 | Guitar · Clean |
+
+References: [15 common drum beats (shuffle, half-time shuffle)](https://thedrumninja.com/common-drum-beats/);
+[Basic drum beats (Gear4music)](https://www.gear4music.com/blog/?p=43811);
+[Rock and disco drum patterns](https://c.enwp.org/wiki/File:Characteristic_rock_and_disco_drum_patterns.png);
+the Bo Diddley beat (Wikipedia).
+
+## Trap: Natural Minor, with harmonic-minor 7 and Phrygian ♭2
+
+The drum grid is sixteenths at the track's tempo, with the clap on beat 3: a half-time feel.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Classic Trap | drums | 2 | clap on 3, eighth hats with sixteenth rolls, open hat | 130–150 | Roland TR808 |
+| Triplet Flow | drums | 2 | hats grouped in threes against the beat | 130–150 | Roland TR808 |
+| Drill | drums | 2 | snare on 3 plus a late one, 3-3-2 skipping hats | 140–145 | Roland TR808 |
+| Phonk Cowbell | drums | 2 | cowbell riff, claps 2 and 4, Memphis kick | 120–140 | Roland TR808 |
+| Sparse Snap | drums | 2 | quarter hats with one roll, snap on 3 | 140–160 | SP1200 1 |
+| 808 Root Glide | bass | 2 | long root gliding up the octave, VII sliding home | 130–150 | 808 · Monosynth |
+| Triplet 808 | bass | 2 | 808 hits in threes | 130–150 | 808 · Monosynth |
+| Drill Slides | bass | 2 | slides through the ♭2 and the leading note | 140–145 | 808 · Monosynth |
+| Phonk Bounce | bass | 2 | short punchy hits | 120–140 | 808 · Monosynth |
+| Harmonic Minor 808 | bass | 2 | raised 7th pulling to the root | 130–150 | 808 · Monosynth |
+| Flute Riff | lead | 2 | pentatonic flute riff, 3-3-2 | 130–150 | Flute |
+| Bell Melody | lead | 2 | sixteenth music-box figure | 130–150 | Music box |
+| Dark Piano | lead | 2 | sparse piano, leading tone to octave | 130–150 | Grand piano |
+| Triplet Synth | lead | 2 | synth lead in threes | 130–150 | Calf Monosynth |
+| Phrygian Riff | lead | 2 | drill string riff on the ♭2 | 140–145 | Violin |
+| i–VI Pad | chords | 4 | i and VI, two bars each | 130–150 | Strings · Ensemble |
+| i–iv–VI–V Stabs | chords | 4 | stab and echo; V major (chromatic) | 130–150 | Grand piano |
+| Choir i–VII–VI–VII | chords | 4 | a bar each | 130–150 | Choir |
+| Drill Pizzicato | chords | 2 | i and ♭II plucked 3-3-2 | 140–145 | Pizzicato strings |
+| Glassy Stabs | chords | 2 | i–v–VI–VII, each half bar 3-3-2 | 130–150 | Alien · Glassy |
+
+References: [Best drum patterns for trap](https://violetrecording.com/best-drum-patterns-for-trap/);
+[Creating trap rhythms (Cubase seminar)](https://sleepfreaks-dtm.com/en/produce-recipe/cubase-pro-10-musicseminar-1);
+[MPC modern trap workflow](https://www.audeobox.com/learn/mpc-software/modern-trap-workflow/);
+[How to make trap beats](https://thedrumninja.com/how-to-make-trap-beats/).
+
+## Reggaeton: Natural Minor
+
+The dembow: the kick on every beat, the snare on steps 4, 7, 12 and 15 (3-3-2 twice a bar).
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Dembow Clásico | drums | 2 | the dembow ("Dem Bow" riddim) | 88–98 | Roland TR808 |
+| Perreo Lento | drums | 2 | kick 1 and 3, claps on the "and"s, off-beat hats | 85–92 | Roland TR808 |
+| Dembow Timbal | drums | 2 | dembow with a cowbell line and a timbal roll | 90–98 | Roland TR808 |
+| Dembow Dominicano | drums | 2 | faster, doubled snare, sixteenth hats, claps 2 and 4 | 115–130 | Roland TR808 |
+| Moombahton | drums | 2 | dembow under house claps and open hats | 105–110 | Roland TR909 |
+| Dembow 808 | bass | 4 | tresillo roots i–VI–III–VII | 88–98 | 808 · Monosynth |
+| Perreo Sub | bass | 2 | held root sliding down through VII | 85–95 | 808 · Monosynth |
+| Syncopated Synth | bass | 2 | off-beat octave synth bass | 90–100 | Synth bass |
+| Romántico Walk | bass | 2 | eighth walk i–iv–VII–III | 85–95 | Finger bass |
+| Offbeat Pump | bass | 2 | Dominican off-beat eighths | 115–130 | 808 · Monosynth |
+| Pluck Hook | lead | 2 | tresillo synth hook | 88–98 | Calf Monosynth |
+| Guitarra Romántica | lead | 2 | Andalusian 3-2-1 with the raised 7 | 85–95 | Nylon guitar |
+| Flauta Perreo | lead | 2 | short syncopated high flute | 88–98 | Flute |
+| Marimba Dembow | lead | 2 | marimba in the dembow's rhythm | 90–98 | Marimba |
+| Sax Romántico | lead | 2 | long sax notes, turn into the leading tone | 85–95 | Alto sax |
+| i–VI–III–VII Dembow | chords | 4 | stabs in 3+3+2 | 88–98 | TAL NoiseMaker |
+| Romántico Piano | chords | 4 | i–iv–VII–III held | 85–95 | Grand piano |
+| Andalusian Strum | chords | 4 | i–VII–VI–V strummed (V chromatic) | 88–98 | Nylon guitar |
+| Pad VI–VII–i | chords | 4 | sustained pad | 88–98 | Strings · Digital |
+| Organ Offbeats | chords | 4 | off-beat stabs i–VI–i–v | 105–110 | Organ · House |
+
+References: [How to make reggaeton beats](https://violetrecording.com/how-to-make-reggaeton-beats/);
+[Reggaetón Lento (Hooktheory)](https://www.hooktheory.com/theorytab/view/cnco/reggaeton-lento-(bailemos));
+[Reggaeton chord progressions](https://unison.audio/reggaeton-chord-progressions/);
+Wikipedia's "Dembow" (Shabba Ranks' "Dem Bow", Steely & Clevie's "Poco Man Jam" riddim).
+
+## Punk: Major, with ♭3, ♭7 and ♭VI/♭VII borrowed
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Skate Beat | drums | 2 | polka: kick on the beats, snare on every "and" | 170–200 | Power kit |
+| D-Beat | drums | 2 | Discharge beat: kick 1, &1, &2, 3, &3, &4; crash eighths, no hat | 150–190 | Room kit |
+| Straight Eighths | drums | 2 | Ramones-style eighth hats and backbeat | 160–190 | Standard kit |
+| Half-Time Breakdown | drums | 2 | pop-punk breakdown with crash quarters and a tom fill | 140–180 | Power kit |
+| Ska Offbeat | drums | 2 | off-beat hats, snare 2 and 4 | 150–180 | Standard kit |
+| Pop-Punk Eighths | bass | 4 | down-picked staccato eighths, I–V–vi–IV | 160–190 | Picked bass |
+| Skate Walk-Up | bass | 4 | eighths with walk-ups, I–IV–V–I | 170–200 | Picked bass |
+| D-Beat Riff | bass | 2 | crust riff with ♭3 and ♯4 | 150–180 | Picked bass |
+| Ska Walk | bass | 4 | walking quarters I–vi–IV–V | 140–170 | Finger bass |
+| New Wave Octaves | bass | 4 | octave eighths I–IV–I–V | 140–160 | Synth bass |
+| Pop-Punk Hook | lead | 2 | repeated-note hook up to the fifth | 160–190 | Guitar · Overdrive |
+| Ska Horns | lead | 2 | off-beat horn pushes and a fall | 150–180 | Trumpet |
+| Street Riff | lead | 2 | Oi!/street-punk single-note riff | 150–180 | Guitar · Overdrive |
+| Gang Chant | lead | 2 | "whoa-oh" long notes | 150–180 | Calf Monosynth |
+| Piano Pounding | lead | 2 | high octave and fifth pounding eighths | 160–190 | Grand piano |
+| Power I–IV–V | chords | 4 | I–I–IV–V chugged eighths | 160–200 | Guitar · Distortion |
+| Pop-Punk Pushes | chords | 4 | I–V–vi–IV, each change an eighth early | 160–190 | Guitar · Distortion |
+| Ska Upstrokes | chords | 4 | off-beat chops I–vi–IV–V | 150–180 | Guitar · Clean |
+| Crust I–♭VI–♭VII | chords | 2 | chugged I, then ♭VI–♭VII | 150–190 | Guitar · Overdrive |
+| Piano Bash | chords | 4 | straight eighth triads I–IV–I–V | 160–190 | Grand piano |
+
+References: [D-beat (Wikipedia)](https://en.wikipedia.org/wiki/D-beat);
+[Punk drum beats and rhythms](https://drumhelper.com/learning-drums/punk-drum-beats-and-rhythms/);
+[The history of the punk beat in 10 songs](https://www.pastemagazine.com/music/punk/the-history-of-the-punk-beat-in-10-songs).
+
+## Tropical: Major, with salsa and bachata on the relative minor (degree 6)
+
+Latin "música tropical" without cumbia, which has its own pack below. Five styles, one preset
+per style for each instrument: salsa, merengue, bachata, vallenato, champeta. All play
+straight (SWING 50).
+
+| Preset | Part | Bars | What it is | Tempo · swing | Sound |
+|---|---|---|---|---|---|
+| Salsa | drums | 2 | 2-3 son clave; conga marcha (slap on 2, open tones on 4 and its "and"), tumba answer; campana on the beats; bombo on the 3-side's "and" of 2 | 170–200, straight | Latin · congas |
+| Merengue | drums | 2 | güira on every beat with its "and-a"; tambora hand and stick strokes, the quintillo into beat 3; orquesta kick on every beat | 130–160, straight | Latin · güira |
+| Bachata | drums | 2 | bongo martillo eighths, low-bongo open tone on 4, güira keeping time | 120–140, straight | Latin · güira |
+| Vallenato | drums | 2 | paseo: caja hand strokes and rim slaps, guacharaca scrape | 90–110, straight | Cumbia · room |
+| Champeta | drums | 2 | drum machine up front, kick on 1, &2 and 3, snare on 2 and 4, soukous cavacha sixteenths on the hats | 110–125, straight | Roland TR808 |
+| Salsa Tumbao | bass | 4 | tresillo off-beats only (the "and" of 2, beat 4 held over the bar line), relative-minor i–iv–V–i | 170–200, straight | Upright |
+| Merengue Bass | bass | 4 | on the beat and the "and" of 2, I and V | 130–160, straight | Finger bass |
+| Bachata Bass | bass | 4 | root–fifth syncopations, relative-minor i–iv–V–i | 120–140, straight | Acoustic bass |
+| Vallenato Paseo | bass | 4 | root and fifth with pickups, I–IV–V–I | 90–110, straight | Picked bass |
+| Champeta Bass | bass | 4 | fast octave sixteenths, I–IV–V–IV | 110–125, straight | Synth bass |
+| Mambo Horns | lead | 2 | syncopated horn call and answer, leading tone (♯5) | 170–200, straight | Trumpet |
+| Sax Jaleo | lead | 2 | merengue's running sixteenth arpeggio, I then V7 | 130–160, straight | Alto sax |
+| Requinto | lead | 2 | bachata lead-guitar arpeggios on i then V | 120–140, straight | Nylon guitar |
+| Acordeón Paseo | lead | 2 | accordion paseo melody, V then I | 90–110, straight | Accordion |
+| Sebene Guitar | lead | 2 | soukous sebene picking high on the neck | 110–125, straight | Guitar · Clean |
+| Piano Montuno | chords | 4 | syncopated montuno stabs, relative-minor i–iv–V7–i | 170–200, straight | Grand piano |
+| Merengue Brass | chords | 4 | off-beat hits, I–I–V7–V7 | 130–160, straight | Brass section |
+| Segunda Strum | chords | 4 | strummed on each beat, the 4th held, relative-minor i–iv–V–i | 120–140, straight | Guitar · Clean |
+| Vallenato Guitar | chords | 4 | strum pattern, I–IV–V–I | 90–110, straight | Nylon guitar |
+| Champeta Stabs | chords | 4 | synth stabs on the "e" after each beat, I–IV–V–IV | 110–125, straight | TAL NoiseMaker |
+
+References:
+- Salsa: [Tumbao (Wikipedia)](https://www.wikipedia.org/wiki/Tumbao);
+  [Tumbao (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/tumbao);
+  [Latin and counting (TalkBass)](https://www.talkbass.com/threads/latin-and-counting.366625/)
+- Merengue: [Merengue rhythm (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/merengue-rhythm);
+  [Merengue music (Wikipedia)](https://www.wikipedia.org/wiki/Merenque);
+  [Merengue típico (Wikipedia)](https://www.wikipedia.com/wiki/Perico_Ripiao)
+- Bachata: [Breaking down bachata, part 1](https://www.ubisoft.com/en-us/game/rocksmith/plus/news-updates/4JGuRsatSHe2lZ4XuGxuUF/breaking-down-bachata-part-1-overview)
+  and [part 3, guitars](https://www.ubisoft.com/en-us/game/rocksmith/plus/news-updates/42YP2fih1AY3wVyZhWhLrZ/breaking-down-bachata-part-3-guitars)
+- Vallenato: the Colombian university theses on paseo bass lines
+  ([UPN](https://repositorio.upn.edu.co/bitstreams/a8d7eb05-b98d-43b9-8c23-10c73eb38508/download),
+  [Unireformada](https://repository.unireformada.edu.co/bitstreams/235e80db-ab95-4fed-be63-fb1fa7493731/download))
+- Champeta: [Champeta (Wikipedia)](https://en.wikipedia.org/wiki/Champeta);
+  [Palenque Records guide (Bandcamp Daily)](https://daily.bandcamp.com/lists/palaneque-records-label-guide)
+
+## Cumbia: Major, with the minor styles on the relative minor (degree 6)
+
+The drums play the "Cumbia" kits: PERC güiro, CLAP conga (llamador), TOM timbale, CYMBAL
+cowbell (campana). The güiro plays "chu-chucu": a stroke on the beat, then down-up on its
+"and-a".
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Colombiana | drums | 2 | tambora on 1 and 3, llamador on 2 and 4, güiro every beat, the alegre answering | 85–100 | Cumbia · room |
+| Sonidera | drums | 2 | slower; kick with a pickup, llamador on every "and", campana quarters, timbal fill | 80–92 | Cumbia · timbal |
+| Villera | drums | 2 | harder: snare cracking on 2 and 4, kick on 1, the "a" of 2 and 3, timbal rolls | 95–105 | Cumbia · timbal |
+| Chicha | drums | 2 | timbales' pattern over the güiro, conga off-beat eighths | 90–100 | Cumbia · room |
+| Digital | drums | 2 | drum-machine cumbia: hats playing the güiro figure, claps on 2 and 4 | 90–105 | Roland TR808 |
+| Root–Fifth Tumbao | bass | 2 | root for a dotted quarter, fifth anticipating; I then V | 85–100 | Finger bass |
+| Tónica-Dominante | bass | 4 | root on 1, fifth on 3, a pickup into each chord, I–IV–V–I | 85–100 | Acoustic bass |
+| Sonidera Walk | bass | 2 | round bass walking I up to IV and back | 80–92 | Fretless |
+| Villera i–VII | bass | 2 | repeating keyboard bass on the relative minor's i–VII | 95–105 | Synth bass |
+| Digital 808 | bass | 4 | the tumbao rhythm on an 808 over vi–IV–I–V, gliding into each root | 90–105 | 808 · Monosynth |
+| Acordeón | lead | 2 | accordion eighth runs | 85–100 | Accordion |
+| Caña de Millo | lead | 2 | sixteenth trills, the cumbia's original cane flute | 85–100 | Flute |
+| Chicha Guitar | lead | 2 | tremolo-picked pairs in the relative minor, the raised 7th to the tonic | 90–100 | Guitar · Overdrive |
+| Villera Lead | lead | 2 | sharp keyboard lead around the relative minor | 95–105 | Calf Monosynth |
+| Orquesta Brass | lead | 2 | 1950s big-band cumbia call and answer | 90–105 | Trumpet |
+| Accordion Offbeats | chords | 4 | off-beat accordion chords I–V–V–I | 85–100 | Accordion |
+| Sonidera Organ | chords | 4 | combo organ on the "and" of 1 and 3, held; I–IV–V–I | 80–92 | Jazz organ |
+| Villera Stabs | chords | 4 | two quick stabs each half bar, relative minor i–VII (vi–V) | 95–105 | TAL NoiseMaker |
+| Chicha Surf | chords | 4 | surf guitar strums: i–VII–i–V of the relative minor (V major, chromatic) | 90–100 | Guitar · Clean |
+| Orquesta Hits | chords | 4 | brass hits on the "and" of 2 and on 4, I–IV–V–I | 90–105 | Brass section |
+
+References:
+- [Cumbia villera (Wikipedia)](https://en.wikipedia.org/wiki/Cumbia_villera);
+  [Cumbia santafesina (Wikipedia)](https://en.wikipedia.org/wiki/Cumbia_santafesina);
+  [Guacharaca (Wikipedia)](https://en.wikipedia.org/wiki/Guacharaca)
+- [Latin Beats: cumbia on a drum kit and congas (Reverb)](https://reverb.com/news/latin-beats-how-to-play-the-cumbia-style);
+  [What is cumbia (Orphiq)](https://orphiq.com/resources/what-is-cumbia)
+- The Jamzone cumbia lesson, which gives the güira's down, down-up figure; its PDF link is now
+  dead.
+- Sergio Martín's gaita / porro / cumbia analysis in the [Berklee archive](https://archives.berklee.edu/node/50311/ocr)
+- Chicha: [MasterClass chicha guide](https://www.masterclass.com/articles/chicha-music-guide);
+  [My Hot Chicha Summer](https://newdirectionsinmusic.substack.com/p/my-hot-chicha-summer);
+  [Cumbia is just like techno](https://globalbassstudies.substack.com/p/im-here-to-convince-you-that-cumbia)
+
+## Piig: Natural Minor, with the Dorian IV and the harmonic V
+
+After the candle-lit lo-fi hip-hop and neo-soul of Biig Piig's early EPs (*Big Fan of the
+Sesh*, *A World Without Snooze*, *No Place for Patience*): lazy 2- and 4-bar loops, muted
+drums (rim, shaker, brushes, soft kicks), a round legato bass, Rhodes and jazz-guitar 7th and
+9th chords, and saxes in the background. **Play it in D minor at 79 BPM**, the key and tempo
+of *24K* (songbpm.com; chord sites that say 150 count it in double time), with SWING 56–60.
+
+Three families, one preset of each instrument in each. A family's four presets share their
+chord changes, so they play together; the 2-bar drums loop under the 4-bar parts. The
+progressions come from the songs (Ultimate Guitar's chord sheets), and every line is original:
+
+| Family | Progression | From |
+|---|---|---|
+| Smoke | i – IV – iv – VI VII (Dm G Gm Bb C) | *24K*: the Dorian IV (B natural) falling to the minor iv |
+| Lay Here | i7 – V7 | *Perdida* (Gm7 D7 there): the V's raised third |
+| Daffodil | VII – iv – i – i | *Sunny* (Dm Am Em there) |
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Smoke Dust | drums | 2 | dusty boom bap: kick on one and the "a" of two, sixteenth hats with holes, rim ghosts, an open hat turning bar two | 76–84 | SP1200 1 |
+| Lay Here Bossa | drums | 2 | a lazy bossa: surdo-like kick, side stick on the bossa clave, closed hat as the shaker | 76–84 | Standard kit |
+| Daffodil Brushes | drums | 2 | ride "ding, ding-a", hat foot on 2 and 4, feathered kick, brush snare | 76–84 | Brush · ride |
+| Smoke Sub | bass | 4 | round sustained sub gliding between roots, B natural under the IV, B flat under the iv | 76–84 | 808 · Monosynth |
+| Lay Here Upright | bass | 2 | bossa root and fifth, the raised 7th leading home | 76–84 | Upright |
+| Daffodil Walk | bass | 4 | held roots walking into each change | 76–84 | Finger bass |
+| Smoke Alto | lead | 4 | background alto rising to the octave, then the same fall over IV and iv | 76–84 | Alto sax |
+| Lay Here Tenor | lead | 2 | a tenor answering late in the bar, the V's third resolving | 76–84 | Tenor sax |
+| Daffodil Alto | lead | 4 | long alto tones between the chords and a falling answer | 76–84 | Alto sax |
+| Smoke Rhodes | chords | 4 | i9 – IV9 – iv9 – VImaj7 VIIadd9, each a sixteenth late with a pushed re-hit | 76–84 | Rhodes |
+| Lay Here Guitar | chords | 2 | i7 – V7 comped in the bossa's eighths | 76–84 | Jazz guitar |
+| Daffodil Keys | chords | 4 | VIIadd9 – iv9 – i9 – i11, laid late and touched again | 76–84 | Upright piano |
+
+The texture the records have (vinyl crackle, a 12-bit sampler's grit, the tape's wobble, a
+low-pass on the chords) is not in a pattern: the machines' FX (a low-pass, DRIVE, a little
+reverb) get part of the way.
+
+References: [24K, tempo and key (songbpm)](https://songbpm.com/@biig-piig/24k);
+[Biig Piig chords and tabs (Ultimate Guitar)](https://www.ultimate-guitar.com/artist/biig_piig_618029):
+*Perdida*, *Sunny*, *Switch*, *Oh No*, *Feels Right*.
+
+## Jazz
+
+The original pack. It has no `sound` field. See `jazz-presets/build.py`.
