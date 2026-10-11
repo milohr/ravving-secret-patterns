@@ -111,5 +111,9 @@ PIANO = {"I": ("x", [7, 9, 11]), "IV": ("x", [7, 10, 12]), "V": ("x", [6, 8, 11]
 pack.chords("Piano Bash", "Grand piano", " | ".join(
     " ".join([C("@" + c, 1, 1)] * 8) for c in ["I", "IV", "I", "V"]), PIANO)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(170, "A", "Major", heavy=0.5,
+              about="Fast punk at 170 in A major: no echo, everything slammed.")
+
 if __name__ == "__main__":
     pack.done()

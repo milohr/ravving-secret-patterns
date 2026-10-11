@@ -33,7 +33,7 @@ from itertools import combinations
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from patternkit import source_mods  # noqa: E402  (where a source's MODS go, its knobs)
+from patternkit import SCALES, source_mods  # noqa: E402  (where a source's MODS go, its knobs; the scales)
 DATA = os.path.dirname(HERE)
 STEPS, MAX_BARS, MAX_LENGTH = 16, 8, 64
 ROLES = {"KICK", "SNARE", "CLAP", "TOM", "HAT", "OPEN", "CYMBAL", "PERC"}
@@ -390,6 +390,23 @@ def main():
                 signature, length = CHECKS[group](where, chart)
                 sound = check_sound(where, group, preset.get("sound"), required)
                 presets[(group, name)] = (signature, length, sound)
+        # one template, the pack's tempo, swing, key and LIVE FX (patternkit.write_template)
+        templates = sorted(glob.glob(os.path.join(pack, "ravving", "presets", "templates", "*.json")))
+        if len(templates) != 1:
+            errors.append(f"{pack_name}: {len(templates)} templates, not 1")
+        for path in templates:
+            where = f"{pack_name}/templates/{os.path.basename(path)}"
+            document = json.load(open(path))
+            template = document.get("template", {})
+            if document.get("ravving") != "preset" or document.get("type") != "template":
+                errors.append(f"{where}: not a ravving template")
+            if template.get("scale") not in SCALES or not 0 <= template.get("root", -1) <= 11:
+                errors.append(f"{where}: key {template.get('root')} {template.get('scale')!r}")
+            if not 30 <= template.get("bpm", 0) <= 300 or not 50 <= template.get("swing", 50) <= 75:
+                errors.append(f"{where}: {template.get('bpm')} BPM, SWING {template.get('swing')}")
+            genres = {preset_genre for (_, n) in presets for preset_genre in [n.split(" · ")[0]]}
+            if genres and template.get("genre") not in genres:
+                errors.append(f"{where}: genre {template.get('genre')!r} is not the presets' {sorted(genres)}")
         # five of each instrument, or three in the smaller packs (piig), the same for all four
         if len(set(counts.values())) != 1 or set(counts.values()) - {3, 5}:
             errors.append(f"{pack_name}: {dict(counts)} presets, not 5 (or 3) of each instrument")

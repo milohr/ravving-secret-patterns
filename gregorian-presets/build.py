@@ -190,5 +190,9 @@ pack.chords("Harp Psalter", "Harp", bars12(
     C("@i", 5, 1), C("@i", 5, 1), C("@VII", 5, 1), C("@i", 5, 1),
     C("@i", 5, 1), C("@IV", 5, 1), C("@VII", 5, 1), C("@i", 5, 1)), G)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(70, "D", "Dorian", echo=0.5,
+              about="Chant in D Dorian, the first mode, slow and straight, in a cathedral's echo.")
+
 if __name__ == "__main__":
     pack.done()

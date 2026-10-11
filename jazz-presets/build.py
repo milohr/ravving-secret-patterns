@@ -17,6 +17,7 @@
 
 import json
 import os
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "ravving", "presets")
@@ -204,6 +205,12 @@ chords("Jazz · Quartal Vamp", 4, [(0, "Q1", [(0, 6), (10, 4)]), (1, "Q2", [(2, 
 # a ballad's changes held a bar each, the tritone substitution (D♭7) before the last V
 chords("Jazz · Ballad Changes", 8, [(bar, chord, WHOLE) for bar, chord in
                                     enumerate(["Cm9", "Abmaj7#11", "Dm7b5", "G7b9", "Ebmaj7", "Db7", "Cm6", "G7b9"])])
+
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+sys.path.insert(0, os.path.dirname(HERE))
+from patternkit import write_template  # noqa: E402
+write_template(OUT, "Jazz", 120, "C", "Natural Minor", swing=62, echo=0.1,
+               about="Jazz in C minor (the charts' C = 0) at a medium 120, swung eighths-feel sixteenths, a little room.")
 
 if __name__ == "__main__":
     count = sum(len(files) for _, _, files in os.walk(OUT))

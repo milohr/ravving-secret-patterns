@@ -175,5 +175,9 @@ pack.chords("Chromatic Fall", "Guitar · Heavy rhythm", " | ".join([
     " ".join([C("@E", 2), C("@E2", 2), C("@Ds", 2), C("@Ds2", 2), C("@D", 2), C("@D2", 2), C("@Cs", 2), C("@Cs2", 2)]),
     " ".join([C("@E", 6), C("@F", 2), C("@E", 6), R(2)])]), P)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(150, "E", "Natural Minor", echo=0.05, heavy=0.6,
+              about="Heavy metal in E minor (the guitar's low string) at 150, compressed hard.")
+
 if __name__ == "__main__":
     pack.done()

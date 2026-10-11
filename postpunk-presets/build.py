@@ -153,5 +153,9 @@ pack.chords("Lucretia Gloom", "Organ · Vox humana", " | ".join([
     C("@i", 16), " ".join([C("@III", 8), C("@iv", 8)]), C("@i", 16), " ".join([C("@iv", 8), C("@III", 7, 1)])]), PP,
     mods={"ENVELOPE/RELEASE": 1800})
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(142, "A", "Natural Minor", phaser=0.3, echo=0.3, heavy=0.3,
+              about="Post-punk in A minor at 142: the chorus-drenched guitars as phaser, the echo of a cold room.")
+
 if __name__ == "__main__":
     pack.done()

@@ -107,5 +107,9 @@ pack.chords("Drill Pizzicato", "Pizzicato strings", " | ".join(
 pack.chords("Glassy Stabs", "Alien · Glassy", " ".join(
     " ".join([C(d, 2, 1), C(d, 2, 1), C(d, 1, 1)]) for d in "1567"))
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(140, "F", "Natural Minor", echo=0.15, heavy=0.45,
+              about="Trap at 140 (a half-time 70) in F minor, straight hats, hard-squashed 808s.")
+
 if __name__ == "__main__":
     pack.done()

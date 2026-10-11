@@ -146,5 +146,9 @@ pack.chords("Vallenato Guitar", "Nylon guitar", " | ".join(
 pack.chords("Champeta Stabs", "TAL NoiseMaker", " | ".join(
     " ".join([R(1), C(d, 2, 1)] * 4) for d in "1454"))
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(130, "C", "Major", echo=0.1, heavy=0.2,
+              about="Música tropical at 130 in C major (salsa and bachata on A minor, its relative), straight.")
+
 if __name__ == "__main__":
     pack.done()

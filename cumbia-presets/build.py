@@ -133,5 +133,9 @@ pack.chords("Chicha Surf", "Guitar · Clean", " | ".join(
 pack.chords("Orquesta Hits", "Brass section", " | ".join(
     " ".join([R(6), C("@" + c, 2, 2), C("@" + c, 4, 2)]) for c in ["I", "IV", "V", "I"]), TRIADS)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(95, "G", "Major", phaser=0.15, echo=0.3, heavy=0.2,
+              about="Cumbia at 95 in G major, straight; the sonidero's echo and a little phaser.")
+
 if __name__ == "__main__":
     pack.done()

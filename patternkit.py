@@ -51,6 +51,12 @@ import re
 STEPS = 16
 MAJOR = [0, 2, 4, 5, 7, 9, 11]
 MINOR = [0, 2, 3, 5, 7, 8, 10]  # the "Natural Minor" of Rave.qml's scales
+# Rave.qml's scales by name (a template names its scale; Templates::scaleNames())
+SCALES = {"Natural Minor": MINOR, "Major": MAJOR, "Dorian": [0, 2, 3, 5, 7, 9, 10],
+          "Phrygian": [0, 1, 3, 5, 7, 8, 10], "Lydian": [0, 2, 4, 6, 7, 9, 11],
+          "Mixolydian": [0, 2, 4, 5, 7, 9, 10], "Harmonic Minor": [0, 2, 3, 5, 7, 8, 11]}
+ROOTS = {"C": 0, "C#": 1, "Db": 1, "D": 2, "D#": 3, "Eb": 3, "E": 4, "F": 5, "F#": 6, "Gb": 6,
+         "G": 7, "G#": 8, "Ab": 8, "A": 9, "A#": 10, "Bb": 10, "B": 11}
 ROLES = ["KICK", "SNARE", "CLAP", "TOM", "HAT", "OPEN", "CYMBAL", "PERC"]
 
 # the sounds, by their names in data/kits.json (the drum kits by their paths, as kitPath()
@@ -336,9 +342,43 @@ class Pack:
             chart["VOICINGS"] = chart_voicings
         self._write("chords", name, chart, self._sound("chords", source, mods))
 
+    def template(self, bpm, root, scale, **settings):
+        """The pack's template (write_template()); its scale must be the pack's own."""
+        if SCALES.get(scale) != self.scale:
+            raise ValueError(f"{self.genre}: the template's {scale} is not the scale the pack is written in")
+        write_template(self.out, self.genre, bpm, root, scale, **settings)
+        self.has_template = True
+
     def done(self):
+        if not getattr(self, "has_template", False):
+            raise ValueError(f"{self.genre}: no template (pack.template(…) before pack.done())")
         count = sum(len(files) for _, _, files in os.walk(self.out))
         print(f"{count} presets under {self.out}")
+
+
+def write_template(out, genre, bpm, root, scale, swing=50, phaser=0.0, echo=0.0, heavy=0.0,
+                   about="", swing_eighths=False):
+    """The pack's project template (src/backend/templates.h): the tempo, swing, key and LIVE
+    FX its presets are best played with, at <out>/templates/<genre>.json (`out` the pack's
+    ravving/presets). `root` a note name ("E", "F#"), `scale` a name of SCALES, `swing` as
+    the header shows it (50–75 %), the LIVE FX knobs 0..1."""
+    if scale not in SCALES:
+        raise ValueError(f"{genre}: no scale {scale!r} (one of {', '.join(SCALES)})")
+    if root not in ROOTS:
+        raise ValueError(f"{genre}: no root {root!r}")
+    if not 30 <= bpm <= 300 or not 50 <= swing <= 75:
+        raise ValueError(f"{genre}: {bpm} BPM, SWING {swing} out of range")
+    for knob, value in (("phaser", phaser), ("echo", echo), ("heavy", heavy)):
+        if not 0 <= value <= 1:
+            raise ValueError(f"{genre}: {knob} {value} is not 0..1")
+    folder = os.path.join(out, "templates")
+    os.makedirs(folder, exist_ok=True)
+    template = {"name": genre, "genre": genre, "about": about, "bpm": bpm, "swing": swing,
+                "swingEighths": swing_eighths, "root": ROOTS[root], "scale": scale,
+                "phaser": phaser, "echo": echo, "heavy": heavy}
+    with open(os.path.join(folder, genre + ".json"), "w") as f:
+        json.dump({"ravving": "preset", "type": "template", "template": template}, f, indent=4, ensure_ascii=False)
+        f.write("\n")
 
 
 def N(token, length=1, gap=0):

@@ -116,5 +116,9 @@ pack.chords("Organ Vamp", "Jazz organ", " | ".join([
     " ".join([C("@i", 2, 4), C("@i", 2, 2), C("@IV", 3, 3)]),
     " ".join([C("@i", 2, 4), C("@i", 2, 2), C("@IV", 2, 1), C("@i", 2, 1)])]), ORGAN)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(90, "C", "Natural Minor", swing=56, echo=0.15, heavy=0.35,
+              about="Boom bap at 90 in C minor with a light MPC swing; HEAVY squashes the drums as a sampler's compressor would.")
+
 if __name__ == "__main__":
     pack.done()

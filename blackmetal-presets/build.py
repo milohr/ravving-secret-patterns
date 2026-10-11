@@ -154,5 +154,9 @@ pack.chords("Cathedral Organ", "Organ · Plein jeu", " | ".join([
     C("@iorg", 16), C("@ivorg", 16), C("@iorg", 8) + " " + C("@Vorg", 8), C("@iorg", 15, 1)]), BM,
     mods={"ENVELOPE/RELEASE": 2400})
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(170, "E", "Natural Minor", echo=0.25, heavy=0.55,
+              about="Black metal in E minor at blast-beat speed, washed in echo, squashed like a cassette demo.")
+
 if __name__ == "__main__":
     pack.done()

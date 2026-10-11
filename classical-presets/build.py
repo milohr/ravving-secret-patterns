@@ -162,5 +162,9 @@ CIRCLE = {"I": ("x", [0, 7, 9, 11]), "IV": ("x", [-4, 7, 10, 12]), "vii": ("x", 
 pack.chords("Circle of Fifths", "Harpsichord", " ".join(
     C("@" + c, 8) for c in ["I", "IV", "vii", "iii", "vi", "ii", "V", "I"]), CIRCLE)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(100, "C", "Major", echo=0.2,
+              about="A concert hall: C major (the timpani are tuned to C and G), moderato, straight; a little echo for the room, nothing squashed.")
+
 if __name__ == "__main__":
     pack.done()

@@ -112,5 +112,9 @@ BALLAD = {"I": ("x", [0, 4, 7, 9]), "V6": ("x", [-1, 1, 4, 8]), "vi": ("x", [-2,
 pack.chords("Ballad Strings", "Strings · Ensemble", " ".join(
     [C("@I", 16), C("@V6", 16), C("@vi", 16), C("@IV", 8), C("@V", 7, 1)]), BALLAD)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(116, "C", "Major", echo=0.15, heavy=0.25,
+              about="Radio pop in C major at the pack's middle tempo, straight, a touch of echo and glue.")
+
 if __name__ == "__main__":
     pack.done()

@@ -107,5 +107,9 @@ pack.chords("Pad VI–VII–i", "Strings · Digital", " ".join([C("6", 16), C("7
 pack.chords("Organ Offbeats", "Organ · House", " | ".join(
     " ".join([R(2), C(d, 1, 1)] * 4) for d in "1615"))
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(93, "A", "Natural Minor", echo=0.1, heavy=0.4,
+              about="The dembow at 93 in A minor, straight, the kick pumped by HEAVY.")
+
 if __name__ == "__main__":
     pack.done()

@@ -116,5 +116,9 @@ pack.chords("Clean Strum", "Guitar · Clean", " | ".join(
     " ".join([C("@" + c, 2, 1), C("@" + c, 1, 2), C("@" + c, 2, 1), C("@" + c, 1, 1), C("@" + c, 3, 1), R(1)])
     for c in ["I", "V", "IV", "V"]), STRUM)
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(122, "E", "Major", echo=0.05, heavy=0.35,
+              about="Guitar rock in E major (the guitar's own key), straight eighths, compressed like a live room.")
+
 if __name__ == "__main__":
     pack.done()

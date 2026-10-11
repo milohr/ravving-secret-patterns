@@ -45,6 +45,31 @@ quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) exc
 
 Set the same swing on every machine playing along.
 
+**Each pack ships a template** (`pack.template(…)`, `patternkit.write_template()`; the
+projects dialog's TEMPLATES, `ravving/presets/templates/<genre>.json` on the stick): the tempo,
+swing, key and LIVE FX its presets are best played with. Choosing one starts a new project with
+them. The tempo is the middle of the pack's preset tempos; the key is the one a pack was made for
+where it says so, else a usual key of the style.
+
+| Pack | Tempo | Key | Swing | PHASER · ECHO · HEAVY |
+|---|---|---|---|---|
+| Classical | 100 | C major | 50 | 0 · 0.2 · 0 |
+| Hip-Hop | 90 | C minor | 56 | 0 · 0.15 · 0.35 |
+| Pop | 116 | C major | 50 | 0 · 0.15 · 0.25 |
+| Rock | 122 | E major | 50 | 0 · 0.05 · 0.35 |
+| Trap | 140 | F minor | 50 | 0 · 0.15 · 0.45 |
+| Reggaeton | 93 | A minor | 50 | 0 · 0.1 · 0.4 |
+| Punk | 170 | A major | 50 | 0 · 0 · 0.5 |
+| Tropical | 130 | C major | 50 | 0 · 0.1 · 0.2 |
+| Cumbia | 95 | G major | 50 | 0.15 · 0.3 · 0.2 |
+| Piig | 79 | D minor | 58 | 0.15 · 0.25 · 0.3 |
+| Folk | 110 | G major | 50 | 0 · 0.1 · 0 |
+| Metal | 150 | E minor | 50 | 0 · 0.05 · 0.6 |
+| Black Metal | 170 | E minor | 50 | 0 · 0.25 · 0.55 |
+| Post-Punk | 142 | A minor | 50 | 0.3 · 0.3 · 0.3 |
+| Gregorian | 70 | D Dorian | 50 | 0 · 0.5 · 0 |
+| Jazz | 120 | C minor | 62 | 0 · 0.1 · 0 |
+
 **The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
 `VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
 `<10` / `>10` (10 % of a step early / late). The packs made since use them: palm-muted chugs,

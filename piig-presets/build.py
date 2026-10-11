@@ -135,5 +135,9 @@ pack.chords("Daffodil Keys", "Upright piano", " | ".join(
     # a felted piano: the hammer softened, the notes left to ring
     mods={"FILTER/CUTOFF": -4800, "ENVELOPE/ATTACK": 4800, "ENVELOPE/RELEASE": 1200})
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(79, "D", "Natural Minor", swing=58, phaser=0.15, echo=0.25, heavy=0.3,
+              about="Biig Piig's 24K: D minor at 79 BPM with the lazy MPC swing, a lo-fi wobble and echo.")
+
 if __name__ == "__main__":
     pack.done()

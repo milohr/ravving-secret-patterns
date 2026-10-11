@@ -208,5 +208,9 @@ pack.chords("Scarborough Harp", "Harp", " | ".join([
     " ".join([C("@ii", 8), C("@IV", 8)]), " ".join([C("@V2", 8), C("@iiD", 7, 1)])]), FOLK,
     mods={"ENVELOPE/RELEASE": 1800})
 
+# the template: how a project plays these best (the projects dialog's TEMPLATES)
+pack.template(110, "G", "Major", echo=0.1,
+              about="Folk in G major (the songs' key), straight, dry but for a little room.")
+
 if __name__ == "__main__":
     pack.done()
