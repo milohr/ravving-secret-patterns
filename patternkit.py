@@ -342,11 +342,12 @@ class Pack:
             chart["VOICINGS"] = chart_voicings
         self._write("chords", name, chart, self._sound("chords", source, mods))
 
-    def template(self, bpm, root, scale, **settings):
-        """The pack's template (write_template()); its scale must be the pack's own."""
+    def template(self, bpm, root, scale, name=None, **settings):
+        """A template of the pack (write_template()); its scale must be the pack's own. A pack
+        has one at least, named after it; more take a `name` of their own ("Vuelo · Crave")."""
         if SCALES.get(scale) != self.scale:
             raise ValueError(f"{self.genre}: the template's {scale} is not the scale the pack is written in")
-        write_template(self.out, self.genre, bpm, root, scale, **settings)
+        write_template(self.out, name or self.genre, bpm, root, scale, genre=self.genre, **settings)
         self.has_template = True
 
     def done(self):
@@ -356,27 +357,29 @@ class Pack:
         print(f"{count} presets under {self.out}")
 
 
-def write_template(out, genre, bpm, root, scale, swing=50, phaser=0.0, echo=0.0, heavy=0.0,
-                   about="", swing_eighths=False):
-    """The pack's project template (src/backend/templates.h): the tempo, swing, key and LIVE
-    FX its presets are best played with, at <out>/templates/<genre>.json (`out` the pack's
-    ravving/presets). `root` a note name ("E", "F#"), `scale` a name of SCALES, `swing` as
-    the header shows it (50–75 %), the LIVE FX knobs 0..1."""
+def write_template(out, name, bpm, root, scale, swing=50, phaser=0.0, echo=0.0, heavy=0.0,
+                   about="", swing_eighths=False, genre=None):
+    """A pack's project template (src/backend/templates.h): the tempo, swing, key and LIVE
+    FX its presets are best played with, at <out>/templates/<name>.json (`out` the pack's
+    ravving/presets; `name` the pack's, or a template's own, with `genre` the pack's). `root`
+    a note name ("E", "F#"), `scale` a name of SCALES, `swing` as the header shows it
+    (50–75 %), the LIVE FX knobs 0..1."""
+    genre = genre or name
     if scale not in SCALES:
-        raise ValueError(f"{genre}: no scale {scale!r} (one of {', '.join(SCALES)})")
+        raise ValueError(f"{name}: no scale {scale!r} (one of {', '.join(SCALES)})")
     if root not in ROOTS:
-        raise ValueError(f"{genre}: no root {root!r}")
+        raise ValueError(f"{name}: no root {root!r}")
     if not 30 <= bpm <= 300 or not 50 <= swing <= 75:
-        raise ValueError(f"{genre}: {bpm} BPM, SWING {swing} out of range")
+        raise ValueError(f"{name}: {bpm} BPM, SWING {swing} out of range")
     for knob, value in (("phaser", phaser), ("echo", echo), ("heavy", heavy)):
         if not 0 <= value <= 1:
-            raise ValueError(f"{genre}: {knob} {value} is not 0..1")
+            raise ValueError(f"{name}: {knob} {value} is not 0..1")
     folder = os.path.join(out, "templates")
     os.makedirs(folder, exist_ok=True)
-    template = {"name": genre, "genre": genre, "about": about, "bpm": bpm, "swing": swing,
+    template = {"name": name, "genre": genre, "about": about, "bpm": bpm, "swing": swing,
                 "swingEighths": swing_eighths, "root": ROOTS[root], "scale": scale,
                 "phaser": phaser, "echo": echo, "heavy": heavy}
-    with open(os.path.join(folder, genre + ".json"), "w") as f:
+    with open(os.path.join(folder, name + ".json"), "w") as f:
         json.dump({"ravving": "preset", "type": "template", "template": template}, f, indent=4, ensure_ascii=False)
         f.write("\n")
 

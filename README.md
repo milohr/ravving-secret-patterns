@@ -1,7 +1,8 @@
 # Secret pattern packs
 
-Fourteen genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
-tropical, cumbia, folk, heavy metal, black metal, post-punk and Gregorian (old gothic). Each has
+Fifteen genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
+tropical, cumbia, folk, heavy metal, black metal, post-punk, Gregorian (old gothic) and vuelo
+(Flight Facilities' nu-disco). Each has
 five pattern presets for each of the drums, the bass, the lead and the chords. A smaller style
 pack, piig, has three of each. They are not installed with ravving. To play one, copy a
 pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
@@ -23,7 +24,7 @@ chords, `{"kit": …}` for the drums (a subset of `Machine::soundState()`).
 **The notes are scale degrees.** They follow the session's root and scale. Each genre is
 written for one scale, so its four instruments play together:
 
-- Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk.
+- Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk, vuelo.
 - Major: classical, pop, rock, punk, tropical, cumbia, folk.
 - Dorian: Gregorian.
 - Tropical's minor styles (salsa, bachata) and cumbia's (villera, chicha) sit on degree 6,
@@ -45,11 +46,11 @@ quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) exc
 
 Set the same swing on every machine playing along.
 
-**Each pack ships a template** (`pack.template(…)`, `patternkit.write_template()`; the
-projects dialog's TEMPLATES, `ravving/presets/templates/<genre>.json` on the stick): the tempo,
-swing, key and LIVE FX its presets are best played with. Choosing one starts a new project with
-them. The tempo is the middle of the pack's preset tempos; the key is the one a pack was made for
-where it says so, else a usual key of the style.
+**Each pack ships a template, or more** (`pack.template(…)`, `patternkit.write_template()`; the
+projects dialog's TEMPLATES, `ravving/presets/templates/<genre>.json` on the stick, a second one
+under its own `name=`): the tempo, swing, key and LIVE FX its presets are best played with.
+Choosing one starts a new project with them. The tempo is the middle of the pack's preset
+tempos; the key is the one a pack was made for where it says so, else a usual key of the style.
 
 | Pack | Tempo | Key | Swing | PHASER · ECHO · HEAVY |
 |---|---|---|---|---|
@@ -69,6 +70,8 @@ where it says so, else a usual key of the style.
 | Post-Punk | 142 | A minor | 50 | 0.3 · 0.3 · 0.3 |
 | Gregorian | 70 | D Dorian | 50 | 0 · 0.5 · 0 |
 | Jazz | 120 | C minor | 62 | 0 · 0.1 · 0 |
+| Vuelo | 120 | A minor | 50 | 0.1 · 0.15 · 0.3 |
+| Vuelo · Crave | 120 | C# minor | 52 | 0 · 0.25 · 0.25 |
 
 **The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
 `VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
@@ -712,3 +715,48 @@ References for the five packs:
 ## Jazz
 
 The original pack. It has no `sound` field. See `jazz-presets/build.py`.
+
+## Vuelo (Flight Facilities)
+
+Natural Minor; A minor is Arty Boy's key, C# minor Crave You's (the two templates, both at
+120: Crave You is 120 on every listing, Arty Boy's groove sits there too). The band's own
+progressions from their chord sheets (Ultimate Guitar, 2026-10-11): Arty Boy's verse F Am Em C
+(VI i v III) in its timing (the first chord a bar and a half, the second the last two beats:
+| F F F F | F F Am Am |), its pre-chorus F Am Dm E (VI i iv V, the major V chromatic), its
+chorus F Em (VI v); Crave You's C#m7 Gdim7 F#m7 B7sus4 (i7, a chromatic ♯iv°7, iv7, a chromatic
+VII7sus4), one bar each; Need You's Am G F G (i VII VI VII); Two Bodies' F C Am G (VI III i
+VII); Stranded's Gmaj7 A Em7 A Bm (VI VII iv VII i). The lines are original: nu-disco drums
+(a 909 four on the floor with claps and open hats on the off-beats, an 808 for Crave You's
+laid-back pulse, a Linn disco shuffle with 16th hats, a build with a snare roll into a
+crash), octave disco basses riding between the kicks, a slap riff, a sub with slides, the
+funk guitar riff with muted 16ths (@42), a Rhodes hook, a string rise written as a velocity
+swell, an 80s synth lead on slides, a lazy sax behind the beat (>8).
+
+| Preset | Bars | BPM | Sound |
+|---|---|---|---|
+| Vuelo · Four On The Floor | 2 | 118–124 | TR909 (MODS: the kit's TONE down a little) |
+| Vuelo · Crave Groove | 2 | 116–122 | TR808 |
+| Vuelo · Disco Shuffle | 2 | 118–124 | LINN9000 |
+| Vuelo · Arty Funk | 2 | 116–122 | TR909 (MODS: the kit's LENGTH shorter) |
+| Vuelo · Build And Crash | 2 | 118–124 | TR909 |
+| Vuelo · Crave Walk | 4 | 116–122 | Finger bass |
+| Vuelo · Arty Pulse | 4 | 116–122 | Synth bass |
+| Vuelo · Octave Disco | 4 | 118–124 | Picked bass |
+| Vuelo · Sub Pulse | 4 | 116–122 | Sine sub |
+| Vuelo · Slap Riff | 2 | 116–122 | Slap bass |
+| Vuelo · Guitar Riff | 2 | 116–122 | Guitar · Clean |
+| Vuelo · Rhodes Hook | 2 | 116–122 | Rhodes |
+| Vuelo · String Rise | 2 | 116–124 | Violin |
+| Vuelo · Synth Slide | 2 | 116–122 | Calf Monosynth |
+| Vuelo · Sax Line | 2 | 116–122 | Alto sax |
+| Vuelo · Arty Verse | 4 | 116–122 | Guitar · Chorus |
+| Vuelo · Arty Pre | 4 | 116–122 | Rhodes |
+| Vuelo · Crave Loop | 4 | 116–122 | Jazz guitar |
+| Vuelo · Chorus Stabs | 2 | 118–124 | Organ · House |
+| Vuelo · String Pads | 4 | 116–122 | Strings · Ensemble |
+
+References: the chord sheets (ug-chords.py: Arty Boy 2137129, Crave You 1132236, Need You
+5587641, Stranded 3235883, Two Bodies 1931097), the user's charts of Arty Boy's strumming
+timing and Crave You's groove (minimal struck chords in the verse, a down-up rhythm in the
+chorus), SongBPM's 120 for Crave You, the band on their own sound (70s disco grooves, 909
+rhythms, slinky basslines: Boss Hunting and Mixmag interviews, 2017–2024).

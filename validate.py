@@ -390,10 +390,11 @@ def main():
                 signature, length = CHECKS[group](where, chart)
                 sound = check_sound(where, group, preset.get("sound"), required)
                 presets[(group, name)] = (signature, length, sound)
-        # one template, the pack's tempo, swing, key and LIVE FX (patternkit.write_template)
+        # a template at least (more for a pack with several grooves), the pack's tempo, swing,
+        # key and LIVE FX (patternkit.write_template)
         templates = sorted(glob.glob(os.path.join(pack, "ravving", "presets", "templates", "*.json")))
-        if len(templates) != 1:
-            errors.append(f"{pack_name}: {len(templates)} templates, not 1")
+        if not templates:
+            errors.append(f"{pack_name}: no template")
         for path in templates:
             where = f"{pack_name}/templates/{os.path.basename(path)}"
             document = json.load(open(path))
