@@ -4,14 +4,14 @@
     "template": {
         "name": "Solos",
         "genre": "Solos",
-        "about": "Horn solos in Bb major: bebop at 160 with swung eighths, a little room.",
-        "bpm": 160,
-        "swing": 62,
+        "about": "Ballads in Eb major after Coltrane's Ballads: slow, long tones, brushes, a warm room.",
+        "bpm": 64,
+        "swing": 56,
         "swingEighths": true,
-        "root": 10,
+        "root": 3,
         "scale": "Major",
         "phaser": 0.0,
-        "echo": 0.15,
+        "echo": 0.35,
         "heavy": 0.0
     }
 }

@@ -2,21 +2,24 @@
 # SPDX-FileCopyrightText: 2026 Camilo Higuita <milo.h@aol.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-# The secret "Solos" pack: six horn solos for the LEAD machine in the styles of Charlie Parker
-# (alto), John Coltrane (tenor, soprano) and Chet Baker (trumpet), each with the chords, the
-# bass and the drums it is heard over (six of each, see ../patternkit.py). Written in scale
-# degrees for a MAJOR key, made for Bb major (the horn key): the lead's degree 1 is Bb4, "-"
-# the octave under it, so the alto plays "1-".."7", the tenor "5-".."4", the soprano "1".."4+",
-# the trumpet "6-".."7".
+# The secret "Solos" pack: six ballad solos for the LEAD machine, moody, prolonged and
+# passionate, after the John Coltrane Quartet's *Ballads* (Impulse!, 1962/63: Coltrane, McCoy
+# Tyner, Jimmy Garrison, Elvin Jones) and Chet Baker's slow ballad trumpet. Four for the
+# saxophone in Coltrane's ballad voice (three tenor, one soprano), two for the trumpet in
+# Baker's; each with the drums (brushes), the bass and the chords (Tyner-style voicings) it is
+# heard over (six of each, see ../patternkit.py). Written in scale degrees for a MAJOR key, made
+# for Eb major (a ballad key of the tenor; the minor moods sit on degree 6, C minor): the lead's
+# degree 1 is Eb4, so the tenor sings "5-".."1+" (Bb3–Eb5) and cries up to "2+" (F5), the
+# soprano floats "5".."3+", the trumpet stays "7-".."6" (D4–C5).
 #
-# Nothing is quoted (their recorded solos and compositions are copyrighted): the vocabulary was
-# studied (tools/genre-research/solos.md) and every line, progression and rhythm here is
-# original. Parker: eighth-note lines on the chord tones with chromatic approach notes and
-# enclosures, the off-beats leaned on (@ +8), the approach notes snapped in early (<8), the
-# blue 3rd scooped (~), a breath between phrases. Coltrane: the Countdown reharm of a ii–V–I
-# run through in sixteenth 1-2-3-5 cells (sheets of sound), and a modal vamp with pentatonic
-# cells, stacked fourths and repeated cries. Baker: few notes, long, soft (@62–84), all behind
-# the beat (>8–14), a scoop, air.
+# Nothing is quoted (the album's standards and the recorded solos are copyrighted): the style
+# was studied (tools/genre-research/solos.md) and every line, progression and rhythm here is
+# original. The playing: slow (56–70), long held notes (_), each phrase swelling and fading by
+# its velocities (@60–110), every long note behind the beat (>8–16, the rubato lean), the short
+# flurries only as ornaments (three or four sixteenths, pushed early <2–6, climbing in
+# velocity) into a long note, space between the phrases, a scoop (~) into a long tone. The
+# sounds' MODS soften the attack (a swell into each note), lengthen the release (the room) and
+# add a little vibrato on the sax, none on the trumpet.
 #   python3 build.py
 
 import os
@@ -25,23 +28,19 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
+import patternkit  # noqa: E402
 from patternkit import MAJOR, Pack, N, C, R  # noqa: E402
+
+# kits.json presetKits "Brush · crash": the brush kit with its crash (key 49) on CYMBAL, for the
+# rolled cymbal swells (patternkit.KITS has the ride one, BRUSH_RIDE)
+patternkit.KITS.setdefault("BRUSH_CRASH", patternkit.GM + "#128:40")
 
 pack = Pack("Solos", HERE, MAJOR)
 
 
-def bar(text):
-    """One bar's tokens, checked to be sixteen (a miscount is the usual slip)."""
-    tokens = text.split()
-    if len(tokens) != 16:
-        raise ValueError(f"{len(tokens)} tokens in bar: {text!r}")
-    return text
-
-
-def ph(text, bars, base=None, lean=0):
-    """A phrase: tokens `note[/steps]` or `.[/steps]`, an eighth (2 steps) unless `/steps`
-    says; a note without its own @velocity gets `base`, plus `lean` when it starts on an
-    off-beat eighth (bebop's upbeat accent). Checked to fill `bars` bars."""
+def ph(text, bars):
+    """A phrase: tokens `note[@velocity][<|>nudge][/steps]` or `.[/steps]`, two steps unless
+    `/steps` says; checked to fill `bars` bars."""
     out, at = [], 0
     for token in text.split():
         head, _, steps = token.partition("/")
@@ -49,268 +48,308 @@ def ph(text, bars, base=None, lean=0):
         if head == ".":
             out.append(R(steps))
         else:
-            m = re.fullmatch(r"([^@<>]+)(@\d+)?([<>]\d+)?", head)
-            if not m:
+            if not re.fullmatch(r"[#b]?[1-7][+-]?[!~]*(@\d+)?([<>]\d+)?", head):
                 raise ValueError(f"bad token {token!r}")
-            note, velocity, nudge = m.groups()
-            if velocity is None and base is not None:
-                velocity = f"@{base + (lean if at % 4 == 2 else 0)}"
-            out.append(N(note + (velocity or "") + (nudge or ""), steps))
+            out.append(N(head, steps))
         at += steps
     if at != bars * 16:
-        raise ValueError(f"{at} steps, not {bars} bars: {text[:40]!r}")
+        raise ValueError(f"{at} steps, not {bars} bars: {text[:50]!r}")
     return " ".join(out)
 
 
-def walk(*beats):
-    """A walking bar: four quarters (a token each, `note@velocity`), each held three steps."""
-    if len(beats) != 4:
-        raise ValueError(f"{len(beats)} beats in a walking bar")
-    return " ".join(N(b, 3, 1) for b in beats)
+# --- voicings: note names, kept as semitones from the chord base (degree I at octave 0: Eb3
+# in Eb), the ("c", […]) form of patternkit -----------------------------------------------------
+NAMES = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
+BASE = 51  # Eb3: ChordMachine's base C3 (48) plus the root Eb (3)
 
 
-# --- drums --------------------------------------------------------------------------------------
-# Bird's tempo: the ride's "ding, ding-a ding, ding-a" (2 and 4 leaned on), the hi-hat foot on
-# 2 and 4, the snare chattering between, the kick dropping bombs on the off-beats
-pack.drums("Bird Bop", "JAZZ", {
-    "CYMBAL": "x...X.x.x...X.x. | x...X.x.x...X.x.",
+def v(notes):
+    """("c", semitones from Eb3) for a voicing written "G3 Bb3 D4 F4"."""
+    out = []
+    for note in notes.split():
+        m = re.fullmatch(r"([A-G])([b#]?)(\d)", note)
+        letter, accidental, octave = m.groups()
+        midi = 12 * (int(octave) + 1) + NAMES[letter] + {"b": -1, "#": 1, "": 0}[accidental]
+        out.append(midi - BASE)
+    return ("c", out)
+
+
+V = {
+    # Eb major's own chords, rootless (the bass has the root) or in fourths (Tyner)
+    "Ebmaj9": v("G3 Bb3 D4 F4"), "Eb69": v("G3 C4 F4 Bb4"), "Ebmaj9q": v("D4 G4 C5 F5"),
+    "Cm9": v("Eb3 G3 Bb3 D4"), "Cm11": v("F3 Bb3 Eb4 G4"),
+    "Fm9": v("Ab3 C4 Eb4 G4"), "Fm11": v("Bb3 Eb4 Ab4 C5"),                 # Fm11: the So What shape
+    "Gm7": v("F3 Bb3 D4 G4"), "Gm11": v("F3 Bb3 C4 D4"),
+    "Abmaj9": v("C4 Eb4 G4 Bb4"), "Abmaj7#11": v("G3 C4 D4 Eb4"), "Abmaj9#11": v("C4 D4 G4 Bb4"),
+    "Bb13sus": v("Ab3 Eb4 G4 C5"), "Bb13": v("Ab3 C4 D4 G4"), "Bb7b9": v("Ab3 B3 D4 G4"),
+    # from outside the key: the minor iv (Abm6), the backdoor Db9, the secondary dominants
+    "Abm6": v("F3 B3 Eb4 Ab4"), "Db9": v("B3 Eb4 F4 Ab4"),
+    "C7b9": v("Bb3 Db4 E4 A4"), "C7alt": v("Bb3 E4 Ab4 Db5"), "C7#9": v("E3 Bb3 Eb4 Ab4"),
+    "Eo7": v("G3 Bb3 Db4 E4"),
+    # C minor (degree 6): the line cliché C B Bb A under a held D, the ii–V
+    "Cm": v("C4 Eb4 G4 D5"), "CmMaj": v("B3 Eb4 G4 D5"), "Cm7": v("Bb3 Eb4 G4 D5"),
+    "Cm6": v("A3 Eb4 G4 D5"), "CmMaj9": v("Eb3 G3 B3 D4"),
+    "Dø": v("C4 F4 Ab4 D5"), "G7alt": v("B3 F4 Ab4 Eb5"), "G7b9": v("B3 F4 Ab4 D5"),
+    # fourths planed over the F pedal (F Dorian, degree 2): Tyner's vamp
+    "QF": v("Bb3 Eb4 Ab4 C5"), "QG": v("C4 F4 Bb4 D5"), "QEb": v("G3 C4 F4 Bb4"),
+    "QAb": v("D4 G4 C5 F5"),
+}
+
+
+def comp(*bars):
+    """Chord bars, each a list of (voicing, steps) with "." a rest; checked to sixteen steps."""
+    out = []
+    for chords in bars:
+        if sum(steps for _, steps in chords) != 16:
+            raise ValueError(f"a chord bar of {sum(s for _, s in chords)} steps: {chords}")
+        out.append(" ".join(R(steps) if name == "." else C("@" + name, steps) for name, steps in chords))
+    return " | ".join(out)
+
+
+# the brushes: the kit's darker for the ballads (engines.json kitSound TONE/CUTOFF, in cents)
+SOFT = {"TONE/CUTOFF": -1800}
+# the tenor (Coltrane's Ballads tone): each note swells in (ATTACK, timecents: +2400 is four
+# times the font's own attack), rings into the room (RELEASE), a little vibrato, the top
+# darkened; the trumpet (Baker): breathier and slower in, darker, no vibrato
+TENOR = {"FILTER/CUTOFF": -600, "ENVELOPE/ATTACK": 2400, "ENVELOPE/RELEASE": 1200, "MOTION/VIBRATO": 14}
+SOPRANO = {"FILTER/CUTOFF": -900, "ENVELOPE/ATTACK": 2400, "ENVELOPE/RELEASE": 1800, "MOTION/VIBRATO": 18}
+TRUMPET = {"FILTER/CUTOFF": -1800, "ENVELOPE/ATTACK": 3600, "ENVELOPE/RELEASE": 1200}
+PIANO = {"ENVELOPE/RELEASE": 1200}  # the sustain pedal's ring
+
+# =========================================================================================
+# 1. VOW (66): a warm major ballad (I vi ii V | iii VI7 ii iv | I VI7alt ii V), the theme
+# paraphrased in long tones, a chromatic flurry climbing into the high Eb; the minor iv's Cb
+# --- drums: brushes swept in eighths, the slap and the foot on 2 and 4, the kick feathered on
+# one, the ride coming in at the end of the second bar
+pack.drums("Vow Brushes", "BRUSH_RIDE", {
+    "SNARE":  "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x.",
+    "CLAP":   "....x.......x... | ....x.......x...",
     "HAT":    "....x.......x... | ....x.......x...",
-    "SNARE":  "..x.......x..... | ......x....x..x.",
-    "KICK":   "..............x. | ......x.......x.",
-})
-# a medium bop blues: the ride even, the foot, the snare taking 2 and 4 with a ghost, the kick
-# on 1 and 3, a tom turning the second bar
-pack.drums("Bird Blues Swing", "JAZZ", {
+    "KICK":   "x............... | ................",
+    "CYMBAL": "................ | ..........x.x.x.",
+}, mods=SOFT)
+# --- bass (degree 1 is Eb2): Garrison's two-feel, half notes behind the beat, a chromatic
+# eighth into the next chord
+pack.bass("Vow Two", "Upright", ph(
+    "1@92>8/8 5-@84>8/6 #5-@74>6/2 "      # Eb, Bb, B into C
+    "6-@92>8/8 3@84>8/8 "                 # Cm: C, G
+    "2@92>8/8 6-@84>8/6 #4-@74>6/2 "      # Fm: F, C, A into Bb
+    "5-@94>8/12 4-@78>6/4 "               # Bb: held, Ab into G
+    "3-@92>8/8 6-@88>8/8 "                # Gm C7
+    "2@90>8/8 4-@86>8/8 "                 # Fm Abm6
+    "1@90>8/8 6-@86>8/8 "                 # Eb C7alt
+    "2@90>8/8 5-@88>8/6 7-@74>6/2", 8))   # Fm Bb7, D into Eb
+# --- lead: the tenor
+pack.lead("Trane Vow", "Tenor sax", ph(
+    "./2 5-@62>14 3@72>10/10 2~@70>8 "                 # Ebmaj9: Bb, the G held, slurred from F
+    "3@78>8/4 5@84>6/8 4@74>8 3@70>10 "                # Cm11: G, Bb swelling, Ab G
+    "4@76>12/12 ./4 "                                  # Fm9: the Ab held, air
+    "6-@66<4/1 7-@72<4/1 1@78<2/1 2@84/1 6@92>6/8 b6@80>8 5@72>8 "  # Bb7: a flurry up to the C, its b9
+    "./2 3@72>12/6 #4@78>6 3@74>8/6 "                  # Gm7 C7: G, C7's A, G
+    "4@80>8/8 b6~@84>6/8 "                             # Fm9 Abm6: Ab, the minor iv's Cb, sliding down
+    "5@74>10/10 ./2 5@68<6/1 6@72<6/1 b7@78<4/1 7@84<2/1 "  # Ebmaj9 C7alt: Bb, a chromatic climb
+    "1+@100>6/10 7@80>8 6@74>10 ./2", 8),              # Fm11 Bb7: the high Eb cried, falling
+    mods=TENOR)
+# --- chords: Tyner's ballad comp, lush and held, re-voiced on three
+pack.chords("Vow Voicings", "Grand piano", comp(
+    [("Ebmaj9", 9), (".", 1), ("Eb69", 6)], [("Cm11", 7), (".", 1), ("Cm9", 8)],
+    [("Fm9", 7), (".", 1), ("Fm11", 8)], [("Bb13sus", 8), ("Bb7b9", 7), (".", 1)],
+    [("Gm7", 8), ("C7b9", 7), (".", 1)], [("Fm9", 8), ("Abm6", 7), (".", 1)],
+    [("Ebmaj9", 8), ("C7alt", 7), (".", 1)], [("Fm11", 8), ("Bb7b9", 6), (".", 2)]), V, mods=PIANO)
+
+# =========================================================================================
+# 2. LAMENT (56): C minor (degree 6), the darkest: the line cliché C B Bb A under a held D, the
+# minor ii–V; the tenor waits a beat, sighs, a flurry up G7's b9 arpeggio into a long Eb cry
+# --- drums: slow brushes, the slap on 2 and 4, a crash rolled up through the last two beats
+# into the downbeat (the cymbal swell)
+pack.drums("Lament Swells", "BRUSH_CRASH", {
+    "SNARE":  "x.....x.x.....x. | x.....x.x.....x.",
+    "CLAP":   "....x.......x... | ....x.......x...",
+    "HAT":    "....x.......x... | ....x.......x...",
+    "KICK":   "X............... | ................",
+    "CYMBAL": "X............... | ........xxxxxxxx",
+}, mods={"TONE/CUTOFF": -2400})
+# --- bass: whole and half notes, the C held under the cliché, a pickup G back into it
+pack.bass("Lament Pedal", "Upright", ph(
+    "6-@94>8/16 "                         # Cm: C, the bar
+    "6-@86>8/8 3-@82>8/8 "                # Cm7 Cm6: C, G
+    "7-@90>8/8 3-@88>8/8 "                # Dø G7alt
+    "6-@92>8/8 4-@88>8/8 "                # Cm9 Abmaj7#11
+    "2@90>8/8 5-@86>8/8 "                 # Fm9 Bb13
+    "1@88>8/8 4-@84>8/8 "                 # Ebmaj9 Abmaj9
+    "7-@88>8/8 3-@90>8/8 "                # Dø G7alt
+    "6-@92>8/12 3-@74>8/4", 8))           # Cm(maj9), G into the C
+pack.lead("Trane Lament", "Tenor sax", ph(
+    "./4 3@66>14/12 "                                  # Cm: a beat of air, the G held
+    "2@70>10/6 1@74>8 7-~@70>10/8 "                    # Cm7 Cm6: F Eb, D sliding
+    "2@76>10/8 #5-@70<6/1 7-@76<4/1 2@82<2/1 4@88/1 "  # Dø G7alt: F, a flurry up the b9 arpeggio
+    "1+@98>4/12 7@84>8/4 6@74>10/4 "                   # Cm9 Abmaj7#11: the Eb cried, D, C
+    "./2 4@72>12/6 3@76>10 2~@72>8/6 "                 # Fm9 Bb13: Ab, G, F sliding
+    "3@78>8/8 6@82>6/8 "                               # Ebmaj9 Abmaj9: G, C
+    "4@80>8/6 2@74>10 4@78<4/1 2@74<4/1 7-@70<2/1 #5-@66>8/5 "  # Dø G7alt: Ab F, down to the B
+    "7-~@70>12 6-@66>14/10 ./4", 8),                   # Cm(maj9): D sighing to the C, air
+    mods=TENOR)
+pack.chords("Lament Line", "Grand piano", comp(
+    [("Cm", 8), ("CmMaj", 8)], [("Cm7", 8), ("Cm6", 7), (".", 1)],
+    [("Dø", 8), ("G7alt", 7), (".", 1)], [("Cm9", 8), ("Abmaj7#11", 7), (".", 1)],
+    [("Fm9", 8), ("Bb13", 7), (".", 1)], [("Ebmaj9", 8), ("Abmaj9", 7), (".", 1)],
+    [("Dø", 8), ("G7alt", 8)], [("CmMaj9", 15), (".", 1)]), V, mods=PIANO)
+
+# =========================================================================================
+# 3. DEVOTION (70): the passionate one, on an F pedal (F Dorian, degree 2) with Tyner's fourths
+# planed over it, then the Lydian IV, Gm and C7alt home: the tenor starts low and quiet and
+# climbs for eight bars to F5, cried three times
+# --- drums: Elvin with soft sticks, the ride skipping, the toms rolling around the pedal, a
+# brush slap closing the loop
+pack.drums("Devotion Mallets", "BRUSH_RIDE", {
     "CYMBAL": "x...x.x.x...x.x. | x...x.x.x...x.x.",
     "HAT":    "....x.......x... | ....x.......x...",
-    "SNARE":  "....x.....x.x... | ....x.......x...",
+    "TOM":    "......x.......x. | ....x.....x.x.xx",
+    "KICK":   "x.........x..... | x.....x.........",
+    "SNARE":  "...x.......x.... | ...x.......x....",
+    "CLAP":   "................ | ............x...",
+}, mods=SOFT)
+# --- bass: the F pedal with its fifth and a push; the IV, the iii, the V7 alt held
+def pedal():
+    return "2-@96>6/6 ./2 6-@84>6/6 2-@78>6/2 "
+pack.bass("Devotion Pedal", "Upright", ph(
+    pedal() + pedal() + pedal() + pedal() +
+    "4-@92>6/8 1@84>6/8 "                 # Abmaj9#11: Ab, Eb
+    "3-@92>6/8 7-@84>6/8 "                # Gm11: G, D
+    "2-@94>6/8 6-@84>6/8 "                # Fm11: F, C
+    "6-@96>6/12 #1-@80>6/4", 8))          # C7alt: C held, E into the F
+pack.lead("Trane Devotion", "Tenor sax · Bright", ph(
+    "./6 2-@60>14/10 "                                 # the low F, soft, late
+    "4-@64>10/4 5-@68>8/4 6-@72>8/8 "                  # Ab Bb, the C held
+    "./2 1@74>8 2@78>6/12 "                            # Eb into the F, held
+    "3@74<6/1 4@78<4/1 5@82<4/1 6@86<2/1 1+@92>6/8 6@80>8/4 "  # a flurry up to the high Eb, C
+    "7@88>6/8 6@82>8/4 3@76>10/4 "                     # Abmaj9#11: D (the #11), C, G
+    "5@80>8/6 6@84<4/1 1+@90<2/1 2+@104>4/8 "          # Gm11: Bb, then up to the F, cried
+    "2+@108>2/4 1+@96>4/2 2+@110>2/4 1+@94>6/2 6@86>8/4 "  # Fm11: the cry again, twice, falling
+    "b7@84>6/6 4@78>8 #1@74>10/6 ./2", 8),             # C7alt: Db, Ab, E, a breath
+    mods={**TENOR, "ENVELOPE/ATTACK": 1200, "MOTION/VIBRATO": 22})
+pack.chords("Devotion Fourths", "Grand piano", comp(
+    [("QF", 6), ("QG", 2), ("QF", 8)], [("QEb", 6), ("QF", 2), ("QG", 8)],
+    [("QF", 6), ("QG", 2), ("QF", 8)], [("QG", 6), ("QAb", 2), ("QG", 7), (".", 1)],
+    [("Abmaj7#11", 8), ("Abmaj9#11", 7), (".", 1)], [("Gm11", 8), ("Gm7", 7), (".", 1)],
+    [("QF", 8), ("QEb", 7), (".", 1)], [("C7alt", 8), ("C7#9", 8)]), V, mods=PIANO)
+
+# =========================================================================================
+# 4. NOCTURNE (60): the soprano floating high over IV iii ii I (the Lydian IV first), the minor
+# iv and a ii–V to close: one chord a bar, the line held across them
+# --- drums: hardly there: the ride on one and three, the foot, two brush taps, one click
+pack.drums("Nocturne Whisper", "BRUSH_RIDE", {
+    "CYMBAL": "x.......x....... | x.......x.....x.",
+    "HAT":    "....x.......x... | ....x.......x...",
+    "SNARE":  "......x.......x. | ......x.....x.x.",
+    "KICK":   "x............... | ................",
+    "PERC":   "................ | ..........x.....",
+}, mods={"TONE/CUTOFF": -2400})
+# --- bass: a note a bar, the roots under the floating line
+pack.bass("Nocturne Roots", "Upright", ph(
+    "4-@86>8/16 "                         # Abmaj9#11
+    "3-@84>8/16 "                         # Gm11
+    "2@84>8/16 "                          # Fm11
+    "1@86>8/12 5-@74>8/4 "                # Eb6/9, Bb
+    "4-@86>8/16 "                         # Abmaj9#11 Abm6
+    "3-@84>8/8 6-@82>8/8 "                # Gm7 C7b9
+    "2@84>8/16 "                          # Fm11
+    "5-@88>8/12 #4-@72>8/4", 8))          # Bb7sus, A into the Ab
+pack.lead("Soprano Nocturne", "Soprano sax", ph(
+    "./2 6@66>12 1+@74>10/12 "                         # Abmaj9#11: C, the Eb held
+    "7@76>8/6 6@72>8 5@70>10/8 "                       # Gm11: D C Bb
+    "./4 4@68>12/4 6@74>10/8 "                         # Fm11: Ab, C
+    "5@76>8/4 6@72<4/1 7@76<4/1 1+@80<2/1 2+@84/1 3+@90>6/8 "  # Eb6/9: Bb, a turn up to the G
+    "7@80>8/8 b6@78>6/8 "                              # Abmaj9#11 Abm6: D (the #11), the Cb
+    "5@72>10/8 ./2 #4@70>8 3@68>10/4 "                 # Gm7 C7b9: Bb, A, G
+    "4@72>10/12 5@70<4/1 6@74<4/1 1+@80<2/1 2+@86/1 "  # Fm11: Ab held, climbing
+    "1+@88>6/8 7@76>8/4 ./4", 8),                      # Bb7sus: the Eb, its D, air
+    mods=SOPRANO)
+pack.chords("Nocturne Floating", "Grand piano", comp(
+    [("Abmaj9#11", 15), (".", 1)], [("Gm11", 15), (".", 1)], [("QF", 15), (".", 1)],
+    [("Eb69", 15), (".", 1)], [("Abmaj9#11", 8), ("Abm6", 7), (".", 1)],
+    [("Gm7", 8), ("C7b9", 7), (".", 1)], [("QF", 7), (".", 1), ("Fm9", 8)],
+    [("Bb13sus", 8), ("Bb7b9", 7), (".", 1)]), V, mods=PIANO)
+
+# =========================================================================================
+# 5. TWILIGHT (62): Baker's ballad, the major: I #i°7 ii V | iii VI7 ii V | I vi ii V; few
+# notes, low and soft, every one behind the beat, a scoop into the G
+# --- drums: the brushes swirled (soft sixteenth taps), the slap on 2 and 4, the two-feel kick
+pack.drums("Twilight Swirl", "BRUSH_RIDE", {
+    "SNARE":  "xxxxxxxxxxxxxxxx | xxxxxxxxxxxxxxxx",
+    "CLAP":   "....x.......x... | ....x.......x...",
+    "HAT":    "....x.......x... | ....x.......x...",
     "KICK":   "x.......x....... | x.......x.......",
-    "TOM":    "................ | ..........x...x.",
-})
-# the drive under the sheets (Philly Joe's): the ride in eighths, the foot, the snare's
-# off-beat accents, a snare roll into the loop
-pack.drums("Trane Drive", "JAZZ", {
-    "CYMBAL": "X.x.x.x.X.x.x.x. | X.x.x.x.X.x.x.x.",
-    "HAT":    "....x.......x... | ....x.......x...",
-    "SNARE":  "...x...x...x..x. | ...x...x....xxxx",
-    "KICK":   "x.......x....... | x...............",
-})
-# Elvin's polyrhythm under the modal vamp: the ride, the toms rolling every three steps and
-# the kick every six against the four, the snare cracking
-pack.drums("Elvin Fourths", "JAZZ", {
-    "CYMBAL": "x...X.x.x...X.x. | x...X.x.x...X.x.",
-    "HAT":    "....x.......x... | ....x.......x...",
-    "TOM":    "...x..x..x..x..x | ..x..x..x..x..x.",
-    "KICK":   "x.....x.....x... | ..x.....x.....x.",
-    "SNARE":  "....X.......x..x | ....x..X....x...",
-})
-# a ballad with brushes: the snare swept in eighths, the foot on 2 and 4, the kick once a
-# bar, the ride touched on 3 of the second bar
-pack.drums("Baker Brushes", "BRUSH_RIDE", {
-    "SNARE":  "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x.",
+    "CYMBAL": "................ | ...............x",
+}, mods={"TONE/CUTOFF": -2400})
+# --- bass: the two-feel, root and fifth or third, a step into the turnaround
+pack.bass("Twilight Two", "Acoustic bass", ph(
+    "1@90>8/8 5-@82>8/8 "                 # Ebmaj7
+    "#1@88>8/8 3@80>8/8 "                 # E°7: E, G
+    "2@90>8/8 6-@82>8/8 "                 # Fm9
+    "5-@90>8/8 4-@80>8/8 "                # Bb13, Ab into G
+    "3-@88>8/8 6-@86>8/8 "                # Gm7 C7b9
+    "2@88>8/8 5-@84>8/8 "                 # Fm9 Bb13
+    "1@88>8/8 6-@84>8/8 "                 # Ebmaj7 Cm9
+    "2@88>8/8 5-@86>8/6 7-@72>8/2", 8))   # Fm9 Bb7b9, D into the Eb
+pack.lead("Baker Twilight", "Trumpet · Cool", ph(
+    "./6 3@64>14/6 2@60>12/4 "                         # Ebmaj7: G, F
+    "3@66>14/12 ./4 "                                  # E°7: the G held
+    "4@68>12/8 6@72>10/4 5@66>12/4 "                   # Fm9: Ab, C, Bb
+    "b3~@60>12/1 3@70>10/11 ./4 "                      # Bb13: a scoop into the G
+    "./2 5@68>12/6 #4@64>12/6 ./2 "                    # Gm7 C7b9: Bb, C7's A
+    "4@70>12/4 3@64>10/4 2@62>12/8 "                   # Fm9 Bb13: Ab G F
+    "./4 7-@64>14/4 1@68>12/4 3@72>10/4 "              # Ebmaj7 Cm9: D Eb G
+    "6@76>10/6 5@68>12 4@62>14/4 ./4", 8),             # Fm9 Bb7b9: C Bb, the Ab, air
+    mods=TRUMPET)
+pack.chords("Twilight Piano", "Upright piano", comp(
+    [("Ebmaj9", 8), ("Ebmaj9q", 7), (".", 1)], [("Eo7", 15), (".", 1)],
+    [("Fm9", 8), ("Fm11", 7), (".", 1)], [("Bb13", 15), (".", 1)],
+    [("Gm7", 8), ("C7b9", 7), (".", 1)], [("Fm9", 8), ("Bb13", 7), (".", 1)],
+    [("Ebmaj9", 8), ("Cm9", 7), (".", 1)], [("Fm9", 8), ("Bb7b9", 7), (".", 1)]), V, mods=PIANO)
+
+# =========================================================================================
+# 6. RAIN (58): Baker in the minor: i VI ii V | I, the backdoor iv–bVII7, I vi, the minor
+# ii–V back to the C; half a bar of silence before the first note, the Cb, a scoop
+# --- drums: brushes in 3 + 3 + 2, the slap only on four, a soft crash touching the loop's top
+pack.drums("Rain Brushes", "BRUSH_CRASH", {
+    "SNARE":  "x..x..x.x..x..x. | x..x..x.x..x..x.",
+    "CLAP":   "............x... | ............x...",
     "HAT":    "....x.......x... | ....x.......x...",
     "KICK":   "x............... | x...............",
-    "CYMBAL": "................ | ........x.......",
-})
-# the cool two-feel: brushes on the ride, the foot, the kick on 1 and 3, a snare touch
-# closing the second bar
-pack.drums("Cool Two-Feel", "BRUSH_RIDE", {
-    "CYMBAL": "x...x.x.x...x.x. | x...x.x.x...x.x.",
-    "HAT":    "....x.......x... | ....x.......x...",
-    "KICK":   "x.......x....... | x.......x.......",
-    "SNARE":  "................ | ............x...",
-})
+    "CYMBAL": "x............... | ................",
+}, mods={"TONE/CUTOFF": -3000})
+pack.bass("Rain Long Tones", "Acoustic bass", ph(
+    "6-@90>10/16 "                        # Cm9
+    "4-@86>10/16 "                        # Abmaj9
+    "2@88>10/12 #4-@70>10/4 "             # Fm9, A into Bb
+    "5-@88>10/16 "                        # Bb7sus Bb13
+    "1@88>10/12 5-@74>10/4 "              # Ebmaj9
+    "4-@86>10/8 b7-@84>10/8 "             # Abm6 Db9
+    "1@86>10/8 6-@84>10/8 "               # Ebmaj9 Cm7
+    "7-@86>10/8 3-@84>10/8", 8))          # Dø G7b9
+pack.lead("Baker Rain", "Trumpet · Cool", ph(
+    "./8 1@62>16/8 "                                   # Cm9: half a bar of air, the Eb
+    "3@66>14/10 2@60>12/6 "                            # Abmaj9: G, F
+    "4@68>12/12 ./4 "                                  # Fm9: the Ab held
+    "6@70>10/6 5@66>12 7-@62>14/8 "                    # Bb7sus Bb13: C Bb, the D
+    "./2 2@64>14/6 3@70>12/8 "                         # Ebmaj9: F, G
+    "b6-@64>14/8 4@66>12/4 2@60>14/4 "                 # Abm6 Db9: the Cb, Ab, F
+    "b3~@58>12/1 3@68>10/7 1@62>12/8 "                 # Ebmaj9 Cm7: a scoop into the G, Eb
+    "2@66>12/6 4@62>12 #5-@60>14/6 ./2", 8),           # Dø G7b9: F, Ab, the B
+    mods=TRUMPET)
+pack.chords("Rain Rhodes", "Rhodes", comp(
+    [("Cm9", 15), (".", 1)], [("Abmaj9", 15), (".", 1)],
+    [("Fm9", 8), ("Fm11", 7), (".", 1)], [("Bb13sus", 8), ("Bb13", 7), (".", 1)],
+    [("Ebmaj9", 15), (".", 1)], [("Abm6", 8), ("Db9", 7), (".", 1)],
+    [("Ebmaj9", 8), ("Cm7", 7), (".", 1)], [("Dø", 8), ("G7b9", 7), (".", 1)]), V)
 
-# --- bass (degree 1 is Bb2; "-" the octave under) ----------------------------------------------
-# walking the rhythm changes (I VI7 | ii7 V7 | I VI7 | ii7 V7 | I I7 | IV7 #iv°7 | iii7 VI7 |
-# ii7 V7): chord tones on the beats, a chromatic step into each change, 2 and 4 leaned on
-def w(a, b, c, d):
-    return walk(f"{a}@100", f"{b}@106", f"{c}@100", f"{d}@106")
-pack.bass("Bird Walk", "Upright", " | ".join([
-    w("1", "3", "6-", "b2"), w("2", "3", "4", "5-"), w("1", "2", "3", "b3"), w("2", "1", "7-", "5-"),
-    w("1", "3", "5", "b7"), w("4", "b3", "#4-", "6-"), w("3", "7-", "6-", "5-"), w("2", "4-", "5-", "7-")]))
-# walking the bop blues (I7 | IV7 | I7 | v7 I7 | IV7 | #iv°7 | I7 vi7 | ii7 V7), a ghosted skip
-# on the last beat of bars 4 and 8
-def skip(a, b, c, d):
-    return " ".join([N(f"{a}@100", 3, 1), N(f"{b}@106", 3, 1), N(f"{c}@100", 3, 1), N(f"{d}@106", 3), N(f"{d}@66", 1)])
-pack.bass("Bird Blues Walk", "Upright", " | ".join([
-    w("1", "3", "5", "#4"), w("4", "6-", "b7-", "7-"), w("1", "7-", "6-", "#4-"), skip("5-", "4-", "1", "3"),
-    w("4", "6-", "b7-", "5-"), w("#4-", "6-", "1", "7-"), w("1", "b7-", "6-", "b2"), skip("2", "6-", "5-", "7-")]))
-# walking the Countdown reharm (ii7 bII7 | bVImaj7 VII7 | IIImaj7 V7 | Imaj7): a root a half
-# bar, the fifth or a chromatic step into the next
-pack.bass("Countdown Walk", "Upright", " | ".join([
-    w("2", "4", "b3", "b7-"), w("b6-", "b3", "7-", "#4-"), w("3", "7-", "5-", "2"), w("1", "5-", "3", "b3")]))
-# the pedal under the modal vamp (Garrison's): the ii's root held on 1, its fifth on 3, a push
-# on the "and" of 4; the V7sus bars on the F; the last bar walks back through A and B
-pedal = lambda root, fifth: " ".join([N(f"{root}!@104", 6), R(2), N(f"{fifth}@96", 4), N(f"{root}@92", 2), R(2)])  # noqa: E731
-pack.bass("Garrison Pedal", "Upright", " | ".join([
-    pedal("2-", "6-"), pedal("2-", "6-"), pedal("2-", "6-"), pedal("2-", "6-"),
-    pedal("5-", "2-"), pedal("5-", "2-"), pedal("2-", "6-"),
-    " ".join([N("2-!@104", 4), R(4), N("6-@96", 4), N("7-@92", 2), N("b2-@96", 2)])]))
-# a ballad in half notes (I vi ii V | iii VI ii V): the root, then the fifth or the third, each
-# a little late, the last bar stepping up into the I
-def half(a, b, c=None):
-    return " ".join([N(f"{a}@92>6", 8), N(f"{b}@84>6", 8 if c is None else 4)] + ([N(f"{c}@88>6", 4)] if c else []))
-pack.bass("Ballad Two", "Acoustic bass", " | ".join([
-    half("1!", "5-"), half("6-", "3"), half("2", "6-"), half("5-", "7-"),
-    half("3", "7-"), half("6-", "b2"), half("2", "4"), half("5-", "6-", "7-")]))
-# the cool two-feel (I | ii V | iii vi | ii V | IV | iv bVII | iii VI | ii V): half notes with
-# an eighth pickup into each change, the last bar walking
-def two(a, b, pick=None):
-    return " ".join([N(f"{a}@100", 8), N(f"{b}@92", 8 if pick is None else 6)] + ([N(f"{pick}@80", 2)] if pick else []))
-pack.bass("Cool Two-Beat", "Acoustic bass", " | ".join([
-    two("1!", "5-", "b2"), two("2", "5-"), two("3", "6-", "5-"), two("2", "5-", "3"),
-    two("4!", "1", "b7-"), two("4", "b7-", "b3"), two("3", "6-", "5-"), w("2", "3", "5-", "7-")]))
-
-# --- lead: the six solos (degree 1 is Bb4; "-" the octave under, "+" the one over) ------------
-# Parker over the rhythm changes, fast: eighth-note lines on the chord tones, the off-beats
-# louder, the chromatic approaches (B into C, Db into D, E into Eb) snapped in early, a breath
-# before each phrase; the alto between Bb3 and A5
-pack.lead("Bird Changes", "Alto sax", " ".join([
-    ph(". 3 5 6 1+! 7 6 #1<8", 1, 100, 8),            # I VI7: up the Bb6, G7's third
-    ph("2 4 6 1+ 7 5 #4<8 4", 1, 100, 8),             # ii7 V7: Cm7 up, F7's bebop scale down
-    ph("3!/3 ./1 . 1 2 b3<8 2 #1<8", 1, 100, 8),      # I VI7: a jab, the blue Db, B into C
-    ph("2 4 b6<8 6 5 4 3 b3<8", 1, 100, 8),           # ii7 V7: an enclosure of G, down to Db
-    ph("3!/3 ./1 . 1+ 7 b7 6 5", 1, 100, 8),          # I I7: Bb7's bebop scale down
-    ph("4 6 b7 1+ . #4<8 6 b3", 1, 100, 8),           # IV7 #iv°7: Eb7, then E°7's tones
-    ph("3 5 7! 6 5 3 #1<8 2", 1, 100, 8),             # iii7 VI7: Dm7 up, G7's third into C
-    ph("2 4 6 5 #4<8 4 . .", 1, 100, 8)]),            # ii7 V7: the turnaround, a breath
-    mods={"MOTION/VIBRATO": 24})
-# Parker on a bop blues, medium-up: the blue 3rd scooped into the 3rd, the b7 and the b5 as
-# passing tones, a motif stated then displaced a beat later, the turnaround falling F E Eb (D)
-pack.lead("Bird Blues", "Alto sax", " ".join([
-    ph(". b3~ 3!/4 . 1 2 b3", 1, 98, 8),              # I7: the scoop into the 3rd
-    ph("4! . 6 b7 6 4 3 b3<8", 1, 98, 8),             # IV7: Eb7's tones, Db leading down
-    ph("2 1 . 1+! b7 6 5 #4<8", 1, 98, 8),            # I7: the b5 into F
-    ph("5 b7 1+ b7 5 3 . .", 1, 98, 8),               # v7 I7: Fm7's shape, a breath
-    ph(". . 4 6 b7 6 4 b3", 1, 98, 8),                # IV7: the bar-2 motif a beat later
-    ph(". #4<8 6 1+! 6 #4 3 b3<8", 1, 98, 8),         # #iv°7: E G Bb, falling to Db
-    ph("3!/3 ./1 1 3 5 b7 6 5", 1, 98, 8),            # I7 vi7: D held, Bb7 up, Gm7 down
-    ph("4 2 7- 1 . 5-@92 #4-<8 4-", 1, 98, 8)]),      # ii7 V7: F E Eb into the scoop
-    mods={"MOTION/VIBRATO": 24})
-# Coltrane's sheets of sound through the Countdown reharm (ii7 bII7 | bVImaj7 VII7 | IIImaj7
-# V7 | Imaj7): the 1-2-3-5 cell up and its mirror down on every chord, in sixteenths, each run
-# swelling to its top; the tenor between F3 and Eb5; the last bar lands and breathes
-def cell(up, down, top=108, low=92):
-    """Eight sixteenths: four up (swelling to `top`) and four down."""
-    v = [low, 96, 102, top, 104, 98, 94, low]
-    return " ".join(f"{n}@{v[k]}/1" for k, n in enumerate(up + down))
-pack.lead("Trane Countdown", "Tenor sax · Bright", " ".join([
-    ph(cell(["2-", "3-", "4-", "6-"], ["1", "6-", "4-", "3-"]) + " " +
-       cell(["b3-", "4-", "5-", "b7-"], ["b2", "b7-", "5-", "4-"]), 1),       # Cm7, Db7
-    ph(cell(["b6-", "b7-", "1", "b3"], ["1", "b7-", "b6-", "5-"]) + " " +
-       cell(["#4", "#2", "b2", "7-"], ["6-", "#4-", "7-", "b2"], 110), 1),     # Gbmaj7, A7 (down first)
-    ph(cell(["3-", "#4-", "#5-", "7-"], ["3", "7-", "#5-", "#4-"]) + " " +
-       cell(["5-", "6-", "7-", "2"], ["4", "2", "7-", "5-"], 110), 1),         # Dmaj7, F7
-    ph("3-!@110/4 1-@100/4 6-~@96 5-@94/4 ./2", 1)]),                          # Bbmaj7: lands, slides, breathes
-    mods={"MOTION/VIBRATO": 12})
-# Coltrane modal, the soprano: a vamp on the ii7 (C Dorian) with two bars of V7sus; pentatonic
-# cells up and down, fourths stacked up to the Eb6, the cell transposed, the high note cried
-# four times, the phrase settling on the C
-pack.lead("Trane Fourths", "Soprano sax", " ".join([
-    ph("2 4 5 6 1+! 6 5 4", 1, 100, 6),               # the pentatonic cell up and down
-    ph("2!/4 ./4 5 1+ 4+!@112/4", 1, 100),            # a fourths climb to the Eb6
-    ph("4+ 1+ 5 2 4+! 1+ 5 2", 1, 104),               # falling fourths, twice
-    ph("2+!/3 ./1 1+ 6 5 4 2/4", 1, 100, 6),          # down the pentatonic to the C
-    ph(". 5 6 1+ 2+! 1+ 6 5", 1, 100, 6),             # V7sus: the cell from the F
-    ph("4+!@112 4+@100 4+@112 4+@96 . 2+ 1+ 6", 1, 100),  # the cry, four times
-    ph("2 4 5 . 4 5 6 .", 1, 100, 6),                 # ii7: the cell, then a step up
-    ph("1+ 6 5 4 2!/4 ./4", 1, 100, 6)]),             # home on the C, a breath
-    mods={"MOTION/VIBRATO": 10})
-# Baker's ballad (I | vi | ii | V | iii | VI | ii | V): long tones, soft, every one behind the
-# beat, the trumpet between G3 and G5, a scoop up to the G, half a bar of air before the loop
-pack.lead("Baker Ballad", "Trumpet · Cool", " ".join([
-    ph("./4 3@72>12/8 2@68>10/4", 1),                 # Imaj7: the D, the C
-    ph("1@70>12/6 ./2 7-@66>10/4 6-@64>10/4", 1),     # vi7: Bb, A, G
-    ph("./2 5-~@68>8 6-@76>10/8 ./4", 1),             # ii7: a scoop F into G, held
-    ph("4@72>10/6 3@68>8 2@66>10/4 7-@62>12/4", 1),   # V7: Eb D C A
-    ph("./4 3@70>14/4 5@78>10/8", 1),                 # iii7: D, the F swelling
-    ph("6@80>8/4 5@74>8 #1@70>6/6 . .", 1),           # VI7: G F, G7's third, air
-    ph("2@72>12/6 4@70>8 3@68>10/4 2@66>10/4", 1),    # ii7: C Eb D C
-    ph("7-@68>10/6 1-@64>12 ./8", 1)]),               # V7: A, Bb, half a bar of air
-    mods={"FILTER/CUTOFF": -1200, "ENVELOPE/RELEASE": 600})
-# Baker's cool medium swing (I | ii V | iii vi | ii V | IV | iv bVII | iii VI | ii V): a narrow
-# sung line, few notes, each phrase behind the beat, the fourth bar's long F, the iv's Gb
-pack.lead("Baker Cool", "Trumpet · Cool", " ".join([
-    ph("./4 3@78>8 5@82>8 6@86>8/6 5@80>8", 1),       # Imaj7: D F G, F
-    ph("4@80>8/6 3@76>8 2@74>8/4 . .", 1),            # ii7 V7: Eb D C, air
-    ph("./2 3@78>8 5@82>8 6@84>8/4 7@88>8/4 6@80>8", 1),  # iii7 vi7: up to the A
-    ph("5@82>8/8 4@76>8 3@74>8 2@72>8/4", 1),         # ii7 V7: the long F, down
-    ph("./4 4@78>8 6@84>8 5@82>8/4 4@78>8/4", 1),     # IVmaj7: Eb G F Eb
-    ph("b6@80>8/4 4@78>8 b3@76>8/6 ./4", 1),          # iv7 bVII7: Gb Eb Db
-    ph("./2 3@78>8 5@82>8 6@84>8/4 #1@80>8/6", 1),    # iii7 VI7: D F G, G7's B held
-    ph("2@78>8/6 7-@74>8 1-@72>8/4 ./4", 1)]),        # ii7 V7: C A Bb, air
-    mods={"FILTER/CUTOFF": -1200, "ENVELOPE/RELEASE": 600})
-
-# --- chords: rootless jazz voicings, semitones from the key's root (Bb); A and B forms of a
-# chord so a re-hit is struck, not merged ------------------------------------------------------
-V = {
-    "Imaj7": ("c", [4, 7, 11, 14]), "Imaj7B": ("c", [-1, 2, 4, 7]), "I6": ("c", [4, 7, 9, 14]),
-    "I7": ("c", [4, 7, 10, 14]), "I7B": ("c", [-2, 2, 4, 7]),
-    "VI7": ("c", [1, 4, 7, 10]), "VI7B": ("c", [-5, -2, 1, 4]),               # G7b9: B D F Ab
-    "ii7": ("c", [5, 9, 12, 16]), "ii7B": ("c", [0, 4, 5, 9]),                 # Cm7: Eb G Bb D
-    "V7": ("c", [-1, 2, 5, 9]), "V7b9": ("c", [-1, 2, 5, 8]), "V7B": ("c", [5, 9, 11, 14]),  # F7
-    "IV7": ("c", [-3, 0, 3, 7]), "IVmaj7": ("c", [-3, 0, 4, 7]), "IVmaj7B": ("c", [4, 7, 9, 12]),
-    "#iv°7": ("c", [-6, -3, 0, 3]),                                            # E G Bb Db
-    "iii7": ("c", [2, 6, 7, 11]), "vi7": ("c", [0, 4, 7, 11]), "vi7B": ("c", [-5, -1, 0, 4]),
-    "v7": ("c", [-2, 2, 5, 9]), "iv7": ("c", [-4, 0, 3, 7]), "bVII7": ("c", [2, 5, 8, 12]),
-    "bII7": ("c", [-5, -2, 1, 5]), "bVImaj7": ("c", [0, 3, 7, 10]),            # Db7, Gbmaj7
-    "VII7": ("c", [3, 6, 9, 13]), "IIImaj7": ("c", [-4, -1, 3, 6]),            # A7, Dmaj7
-    "Q1": ("c", [2, 7, 12, 17]), "Q2": ("c", [4, 9, 14, 19]), "Q3": ("c", [-3, 2, 7, 12]),  # fourths on C Dorian
-    "QS": ("c", [-5, 0, 5, 9]),                                                # F Bb Eb G: the V7sus
-}
-RHYTHM = [("Imaj7", "VI7"), ("ii7", "V7"), ("Imaj7B", "VI7B"), ("ii7B", "V7b9"),
-          ("I6", "I7"), ("IV7", "#iv°7"), ("iii7", "VI7"), ("ii7", "V7")]
-# comping the rhythm changes: each chord on its beat and the "and" after it, the even bars
-# pushed to the "and" of 1 (Red Garland's way)
-def charleston(a, b, pushed):
-    if pushed:
-        return bar(" ".join([R(2), C("@" + a, 2, 2), C("@" + a, 2), C("@" + b, 2, 4), C("@" + b, 2)]))
-    return bar(" ".join([C("@" + a, 2, 4), C("@" + a, 2), C("@" + b, 2, 4), C("@" + b, 2)]))
-pack.chords("Bird Changes Comp", "Grand piano", " | ".join(
-    charleston(a, b, k % 2 == 1) for k, (a, b) in enumerate(RHYTHM)), V)
-# comping the bop blues on the "and"s, the forms alternating
-BLUES = [("I7", "I7B"), ("IV7", "IV7"), ("I7", "I7B"), ("v7", "I7"), ("IV7", "IV7"), ("#iv°7", "#iv°7"),
-         ("I7", "vi7"), ("ii7", "V7b9")]
-pack.chords("Bird Blues Comp", "Grand piano", " | ".join(
-    bar(" ".join([R(2), C("@" + a, 2, 2), C("@" + a, 2, 2), C("@" + b, 2, 2), C("@" + b, 2)])) for a, b in BLUES), V)
-# the Countdown reharm, a chord a half bar: struck on the beat, held, and again on the "and"
-# of 2; the Imaj7 bar held, then its sixth
-pack.chords("Countdown Comp", "Grand piano", " | ".join([
-    bar(" ".join([C("@ii7", 3, 3), C("@ii7", 2), C("@bII7", 3, 3), C("@bII7", 2)])),
-    bar(" ".join([C("@bVImaj7", 3, 3), C("@bVImaj7", 2), C("@VII7", 3, 3), C("@VII7", 2)])),
-    bar(" ".join([C("@IIImaj7", 3, 3), C("@IIImaj7", 2), C("@V7", 3, 3), C("@V7b9", 2)])),
-    bar(" ".join([C("@Imaj7", 6, 2), C("@I6", 4, 4)]))]), V)
-# the quartal vamp (McCoy's): the fourths stabs on 1 (held), on the "and" of 2 and on 4, and a
-# sixteenth push before the next bar (in another form than its downbeat, so it is struck, not
-# merged); the voicings climbing, the V7sus bars on the F
-def stabs(a, b, c, push):
-    return bar(" ".join([C("@" + a, 4, 2), C("@" + b, 2, 4), C("@" + c, 2, 1), C("@" + push, 1)]))
-pack.chords("Fourths Vamp", "Grand piano", " | ".join([
-    stabs("Q1", "Q2", "Q1", "Q2"), stabs("Q3", "Q1", "Q2", "Q3"), stabs("Q1", "Q2", "Q3", "Q1"), stabs("Q2", "Q3", "Q1", "Q3"),
-    stabs("QS", "Q1", "QS", "Q1"), stabs("QS", "Q3", "Q1", "Q3"), stabs("Q1", "Q2", "Q1", "Q2"), stabs("Q3", "Q1", "Q2", "Q3")]), V)
-# the ballad's pads (I vi ii V | iii VI ii V): each chord held the bar, touched again on 3 in
-# its other form where it has one
-def pad(a, b=None):
-    return bar(" ".join([C("@" + a, 8), C("@" + b, 7, 1)]) if b else C("@" + a, 15, 1))
-pack.chords("Ballad Pads", "Upright piano", " | ".join([
-    pad("Imaj7", "Imaj7B"), pad("vi7", "vi7B"), pad("ii7", "ii7B"), pad("V7", "V7b9"),
-    pad("iii7"), pad("VI7", "VI7B"), pad("ii7B", "ii7"), pad("V7B", "V7")]), V)
-# the cool comp on the guitar: short chords on 2 and 4, a push on the "and" of 4 into each
-# change
-def cool(a, b=None):
-    b = b or a
-    return bar(" ".join([R(4), C("@" + a, 1, 7), C("@" + b, 1, 1), C("@" + b, 2)]))
-pack.chords("Cool Comp", "Jazz guitar", " | ".join([
-    cool("Imaj7", "Imaj7B"), cool("ii7", "V7"), cool("iii7", "vi7"), cool("ii7B", "V7b9"),
-    cool("IVmaj7", "IVmaj7B"), cool("iv7", "bVII7"), cool("iii7", "VI7"), cool("ii7", "V7")]), V)
-
-# the templates: how a project plays these best (the projects dialog's TEMPLATES): the bop
-# tempo with swung eighths, and the ballad
-pack.template(160, "Bb", "Major", swing=62, swing_eighths=True, echo=0.15,
-              about="Horn solos in Bb major: bebop at 160 with swung eighths, a little room.")
-pack.template(64, "Bb", "Major", name="Solos · Ballad", swing=58, swing_eighths=True, echo=0.3,
-              about="The Baker-style ballad: slow, swung eighths, a trumpet in a warm room.")
+# the templates: how a project plays these best (the projects dialog's TEMPLATES): the ballad
+# tempo with the eighths barely swung and a warm room, and a slower late-night one
+pack.template(64, "Eb", "Major", swing=56, swing_eighths=True, echo=0.35,
+              about="Ballads in Eb major after Coltrane's Ballads: slow, long tones, brushes, a warm room.")
+pack.template(58, "Eb", "Major", name="Solos · Late Night", swing=54, swing_eighths=True, echo=0.45,
+              about="The slowest ballads (Lament, Rain): rubato, nearly straight eighths, a deeper room.")
 
 if __name__ == "__main__":
     pack.done()
