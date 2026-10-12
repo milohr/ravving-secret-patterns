@@ -1,11 +1,12 @@
 # Secret pattern packs
 
-Twenty-one secret pattern packs in all, none of them installed with ravving: nineteen genre
+Twenty-two secret pattern packs in all, none of them installed with ravving: twenty genre
 packs (classical, hip-hop, pop, rock, trap, reggaeton, punk, tropical, cumbia, folk, heavy metal,
 black metal, post-punk, Gregorian (old gothic), vuelo (Flight Facilities' nu-disco), solos (six
 ballad solos after Coltrane's *Ballads* and Chet Baker), bebop (six fast horn solos after
-Parker, Coltrane and Baker), R&B (after Jorja Smith and Snoh Aalegra) and droon (after
-Sonder)), the jazz pack, and piig, a smaller style pack. Each genre pack has
+Parker, Coltrane and Baker), R&B (after Jorja Smith and Snoh Aalegra), droon (after Sonder) and
+Hollywood (Lana Del Rey's beats under old-Hollywood strings)), the jazz pack, and piig, a smaller
+style pack. Each genre pack has
 five pattern presets for each of the drums, the bass, the lead and the chords (solos and bebop
 six, piig three). To play one, copy a
 pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
@@ -28,7 +29,7 @@ chords, `{"kit": …}` for the drums (a subset of `Machine::soundState()`).
 written for one scale, so its four instruments play together:
 
 - Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk, vuelo,
-  R&B, droon.
+  R&B, droon, Hollywood.
 - Major: classical, pop, rock, punk, tropical, cumbia, folk, solos, bebop.
 - Dorian: Gregorian.
 - Tropical's minor styles (salsa, bachata) and cumbia's (villera, chicha) sit on degree 6,
@@ -51,6 +52,7 @@ quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) exc
 | Bebop · every preset | 58–64 with SWING on the EIGHTHS (the templates set it); Trane Countdown and Trane Drive straight to 54, their sixteenths are the swing |
 | R&B · every preset | 54–58 on the sixteenths, the lazy pocket (the templates set it) |
 | Droon · every preset | 56–60 on the sixteenths; the Care set 60–64 on the EIGHTHS (Droon · Care) |
+| Hollywood · every preset | 52, a hair of lazy hip-hop swing under the strings (the template sets it); straight works |
 
 Set the same swing on every machine playing along.
 
@@ -88,6 +90,8 @@ tempos; the key is the one a pack was made for where it says so, else a usual ke
 | R&B · Slow Jam | 75 | E minor | 58 | 0 · 0.35 · 0.15 |
 | Droon | 74 | E minor | 58 | 0.1 · 0.35 · 0.2 |
 | Droon · Care | 64 | Bb minor | 62 (eighths) | 0 · 0.4 · 0.15 |
+| Hollywood | 72 | F minor | 52 | 0 · 0.4 · 0.15 |
+| Hollywood · Video Games | 62 | F# minor | 50 | 0 · 0.45 · 0.1 |
 
 **The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
 `VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
@@ -214,6 +218,26 @@ Kits (`presetKits`, and the kit folder's machines the packs name):
   (HAT, key 45), a D tonic and dominant.
 - From the kit folder: Boss DR55 (the Sisters of Mercy's Doktor Avalanche), Roland CR78.
   `validate.py` knows the folder's files as listed on the device.
+
+### For the Hollywood pack
+
+Sources and a kit for the orchestra, found with `tools/soundfont.py presets` on the device and
+rendered there (`render --velocity 90`, peak over 3 s; the chords as an F minor triad from F3, the lead
+and bass on one note), see `tools/genre-research/hollywood.md`:
+
+| Machine | Source | Soundfont, bank:program | Peak |
+|---|---|---|---|
+| chords | Strings · Tremolo | Roland SC-88 0:44 | 0.18 (FluidR3's Tremolo 0.11) |
+| chords | Strings · Mood | Hip Hop Combo 0:54 | 0.17 |
+| chords | Piano + strings | Roland SC-88 0:2 | 0.24, the piano decaying over the strings |
+| lead | Violin · Warm | Roland SC-88 0:40 | 0.15 (FluidR3's Violin 0.05) |
+| lead | Cello | Roland SC-88 0:42 | 0.10 at C4 |
+| lead | Celesta | Roland SC-88 0:8 | 0.11, ringing 2 s (FluidR3's 0.05, gone in 0.5 s) |
+| lead | Harp · Concert | Roland SC-88 0:46 | 0.11 (FluidR3's Harp 0.05) |
+
+- **Orchestra · F** (`presetKits`): the orchestra kit with its timpani on F (TOM, key 53) and
+  the C below (HAT, key 48), an F-minor tonic and dominant; rendered: F 0.09, C 0.10.
+- The glockenspiel was left out: both fonts' are short and quiet (FluidR3 0.03, SC-88 0.05).
 
 ### For the Solos pack
 
@@ -1045,3 +1069,74 @@ tab 5376447); the tempos and keys from SongBPM and AcousticBrainz
 [Hypebeast](https://hypebeast.com/2017/2/sonder-into-ep-release-354);
 [highclouds](https://highclouds.org/rb-trio-sonder-release-their-90s-and-groovy-debut-ep-into/);
 [Okayplayer](https://www.okayplayer.com/sonder-brings-soulful-sultry-rb-with-new-into-ep/427549).
+
+## Hollywood: Natural Minor (Lana Del Rey under old-Hollywood strings)
+
+Made for **F minor**, the key of Blue Jeans and Honeymoon: the contrabass's and the cello's low
+F and C sit under the strings, and the orchestra kit's timpani reach F. Lana Del Rey's beats and
+progressions, from *Born to Die* to *Norman Fucking Rockwell!*, with an old-Hollywood orchestra
+(violins, cellos, string sections, harp, celesta, timpani): vintage, cinematic, melancholic.
+Her progressions come from the chord sheets, set on the scale's degrees:
+
+- Video Games' i III v VI (F#m A C#m D).
+- Born to Die's VI i VII VI (C Em D C).
+- Blue Jeans' i VII IV (Fm Eb Bb, the major IV a chromatic chord here).
+- Summertime Sadness' VI i VII iv (A C#m B F#m).
+- Honeymoon's i VI iv6 V7, in three.
+- Venice Bitch's minor plagal C C7 F Fm6, in the relative major (III III7 VI vi6).
+
+The old-Hollywood scoring adds the minor line cliché (Fm, Fm(maj7), Fm7, Fm6, the Bond theme's
+"suspense motif") with the lament bass walking down under it, the half-step sigh, tremolo
+strings swelling, and harp sweeps. Nothing is quoted: her songs are copyrighted, so the style
+was studied (`tools/genre-research/hollywood.md`) and every line, melody and rhythm is new.
+
+The playing:
+
+- Slow: 56–88, the half-time beats written at their felt tempo.
+- Velocity swells across each bowed phrase, and long holds.
+- The strings and the cellos 6–10 % of a step late.
+- A written tremolo: sixteenths of one note swelling from @40 to @104 and back.
+- Harp sweeps rising in velocity to a held top note.
+- The celesta's grace notes snapped in early (<12), and slides on the 808 sub.
+
+The MODS slow the strings' ATTACK (2400–4800), lengthen the RELEASE (the hall), pull the
+FILTER down for the vintage tone, add a little VIBRATO to the solo strings, darken the drum kits
+(TONE) and tune the SP1200 down two semitones.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Born To Die Beat | drums | 2 | slow heavy hip-hop: the kick on one, the "a" of two and the "and" of three, a fat snare on two and four, lazy hats, a crash at the top | 80–88 | SP1200 1 (MODS: TONE down, tuned −2) |
+| Summertime Halftime | drums | 2 | the half-time beat at its felt tempo: a long 808 kick, the snare's stutter before four, hats breaking into sixteenths | 56–64 | TR808 (MODS: TONE down, LENGTH longer) |
+| Honeymoon Waltz | drums | 3 (3/4) | brushes in three: the feathered kick on one, the slap on two and three, the ride, a drag into the loop | 72–78 | Brush · ride |
+| Ultraviolence Room | drums | 2 | the slow live band in a big room: snare on two and four with a ghost, eighth hats, the crash, a tom fill | 70–80 | Black Pearl 5 |
+| Timpani Swell | drums | 2 | timpani F and C, a roll on the C up into the bass drum and the clash cymbals, a triangle | 60–72 | Orchestra · F |
+| Video Games Bows | bass | 4 | i III v VI: long bowed roots, each louder, late, a two-step walk into each change | 58–66 | Cello |
+| Born To Die Sub | bass | 4 | VI i VII VI under the beat: the root on one and the "a" of two, a slide into the next root | 80–88 | 808 · Monosynth |
+| Lament Line | bass | 4 | the lament bass under the line cliché: F E Eb D Db, Bb, the C held, E back to F | 60–72 | Contrabass |
+| Blue Jeans Pizz | bass | 4 | i VII IV plucked: root and fifth behind the beat, the major IV's D natural, a walk down into the loop | 80–88 | Upright |
+| Honeymoon Sway | bass | 3 (3/4) | i VI iv6 V7: a dotted half on each root, a quarter leading on, the V7's E natural into the F | 72–78 | Cello |
+| Video Games Violin | lead | 4 | a sigh down from the 6th, a high Ab stepping down, the 9th over the minor v, the octave swelling over the VI | 58–66 | Violin · Warm |
+| Cello Lament | lead | 4 | up from the low C, the chromatic fall F E Eb D Db, the iv's Bb, the dominant's E held and swelling | 60–72 | Cello |
+| Celesta Box | lead | 4 | a music box over VI i VII VI: broken chords in eighths, a grace note before each bar's top | 72–88 | Celesta |
+| Harp Sweeps | lead | 4 | i VI III VII swept up two octaves in sixteenths (@50→@98), the top left ringing | 58–66 | Harp · Concert |
+| Tremolo Violins | lead | 4 | the suspense tremolo: the C swelling, the half-step sigh to Db fading, the E natural rising into the F | 60–72 | Violin |
+| Video Games Strings | chords | 4 | i III v VI a bar each on long bows: Fm(add9), Abmaj7, Cm7, Dbmaj7 | 58–66 | Strings (MODS: slow ATTACK, long RELEASE, FILTER down) |
+| Born To Die Stabs | chords | 4 | VI i VII VI as the sampled strings whip it: a stab on one and on the "and" of two, held from the "and" of three | 80–88 | Strings · Mood |
+| Line Cliché | chords | 4 | Fm, Fm(maj7), Fm7, Fm6, Dbmaj7, Bbm6, the harmonic C7 into its b9 | 60–72 | Strings · Tremolo |
+| Honeymoon Piano | chords | 3 (3/4) | i VI iv6 V7 struck on one, touched again on three | 72–78 | Grand piano |
+| Venice Plagal | chords | 4 | Ab Ab7 Db Dbm6 (the major chord turning minor), then VI i VII iv, struck and touched again | 72–80 | Piano + strings |
+
+References: the chord sheets ([Ultimate Guitar](https://www.ultimate-guitar.com), with
+`tools/genre-research/ug-chords.py`);
+[Video Games](https://en.wikipedia.org/wiki/Video_Games_(Lana_Del_Rey_song)),
+[Summertime Sadness](https://en.wikipedia.org/wiki/Summertime_Sadness),
+[Blue Jeans](https://en.wikipedia.org/wiki/Blue_Jeans_(Lana_Del_Rey_song)),
+[Born to Die (song)](https://en.wikipedia.org/wiki/Born_to_Die_(Lana_Del_Rey_song)),
+[Born to Die (album)](https://en.wikipedia.org/wiki/Born_to_Die_(album)),
+[Ultraviolence](https://en.wikipedia.org/wiki/Ultraviolence_(album)),
+[Honeymoon](https://en.wikipedia.org/wiki/Honeymoon_(Lana_Del_Rey_album)),
+[Norman Fucking Rockwell!](https://en.wikipedia.org/wiki/Norman_Fucking_Rockwell!) (Wikipedia);
+the tempos and keys on [SongBPM](https://songbpm.com/@lana-del-rey);
+[The Singles Jukebox on Born to Die](https://thesinglesjukebox.com/?p=2305);
+[The James Bond chord (Sciencebase)](https://www.sciencebase.com/science-blog/?p=58635);
+[The thrilling scores of Bernard Herrmann (Cleveland Orchestra)](https://www.clevelandorchestra.com/posts/the-thrilling-scores-of-bernard-herrmann).
