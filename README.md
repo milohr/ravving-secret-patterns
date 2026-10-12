@@ -1,10 +1,11 @@
 # Secret pattern packs
 
-Nineteen secret pattern packs in all, none of them installed with ravving: seventeen genre
+Twenty-one secret pattern packs in all, none of them installed with ravving: nineteen genre
 packs (classical, hip-hop, pop, rock, trap, reggaeton, punk, tropical, cumbia, folk, heavy metal,
 black metal, post-punk, Gregorian (old gothic), vuelo (Flight Facilities' nu-disco), solos (six
-ballad solos after Coltrane's *Ballads* and Chet Baker) and bebop (six fast horn solos after
-Parker, Coltrane and Baker)), the jazz pack, and piig, a smaller style pack. Each genre pack has
+ballad solos after Coltrane's *Ballads* and Chet Baker), bebop (six fast horn solos after
+Parker, Coltrane and Baker), R&B (after Jorja Smith and Snoh Aalegra) and droon (after
+Sonder)), the jazz pack, and piig, a smaller style pack. Each genre pack has
 five pattern presets for each of the drums, the bass, the lead and the chords (solos and bebop
 six, piig three). To play one, copy a
 pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
@@ -26,7 +27,8 @@ chords, `{"kit": …}` for the drums (a subset of `Machine::soundState()`).
 **The notes are scale degrees.** They follow the session's root and scale. Each genre is
 written for one scale, so its four instruments play together:
 
-- Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk, vuelo.
+- Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk, vuelo,
+  R&B, droon.
 - Major: classical, pop, rock, punk, tropical, cumbia, folk, solos, bebop.
 - Dorian: Gregorian.
 - Tropical's minor styles (salsa, bachata) and cumbia's (villera, chicha) sit on degree 6,
@@ -47,6 +49,8 @@ quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) exc
 | Piig · every preset | 56–60, the lazy MPC swing |
 | Solos · every preset | 54–58 with SWING on the EIGHTHS (the templates set it), a ballad's lilt; straight works |
 | Bebop · every preset | 58–64 with SWING on the EIGHTHS (the templates set it); Trane Countdown and Trane Drive straight to 54, their sixteenths are the swing |
+| R&B · every preset | 54–58 on the sixteenths, the lazy pocket (the templates set it) |
+| Droon · every preset | 56–60 on the sixteenths; the Care set 60–64 on the EIGHTHS (Droon · Care) |
 
 Set the same swing on every machine playing along.
 
@@ -80,6 +84,10 @@ tempos; the key is the one a pack was made for where it says so, else a usual ke
 | Solos · Late Night | 58 | Eb major | 54 (eighths) | 0 · 0.45 · 0 |
 | Bebop | 160 | Bb major | 62 (eighths) | 0 · 0.15 · 0 |
 | Bebop · Ballad | 64 | Bb major | 58 (eighths) | 0 · 0.3 · 0 |
+| R&B | 86 | E minor | 56 | 0 · 0.25 · 0.25 |
+| R&B · Slow Jam | 75 | E minor | 58 | 0 · 0.35 · 0.15 |
+| Droon | 74 | E minor | 58 | 0.1 · 0.35 · 0.2 |
+| Droon · Care | 64 | Bb minor | 62 (eighths) | 0 · 0.4 · 0.15 |
 
 **The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
 `VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
@@ -220,6 +228,21 @@ Lead sources, found with `tools/soundfont.py presets` on the device and rendered
 
 The existing Alto sax and Tenor sax (FluidR3 0:65, 0:66) rendered at 0.07, the SC-88's alto
 0.07, soprano 0.09, baritone 0.08 (FluidR3's baritone 0.05).
+
+### For the R&B and Droon packs
+
+Sources from soundfonts already on the device, found with `tools/soundfont.py presets` and
+rendered there (a chord E3 G3 B3 D4 at velocity 90, single notes at 80; peak over 2 s), see
+`tools/genre-research/rnb.md`:
+
+| Machine | Source | Soundfont, bank:program | Peak |
+|---|---|---|---|
+| chords, lead | Rhodes · Suitcase | jRhodes4 0:0 | chord 0.18, a note 0.09 |
+| chords | Wurlitzer | DX7 Wurlitzer 0:0 | 0.38 (loud: lower the chords' VOL) |
+| chords | Grand · Warm | Full Grands 0:58 (Warm Grand Rev) | 0.26 |
+| chords | Pad · Warm | FluidR3Mono_GM 0:89 | 0.18, after a half-second swell |
+| chords | Pad · Vocal | SFZ Synths/Vocal Padds 0:0 | 0.12 |
+| lead | Strings | FluidR3Mono_GM 0:48 | 0.05 (quiet: raise the lead's VOL) |
 
 ## Classical: Major
 
@@ -920,3 +943,105 @@ References: [Use bebop scales like a pro (Learn Jazz Standards)](https://www.lea
 [Coltrane in the Rutgers Journal of Jazz Studies](https://jjs.libraries.rutgers.edu/index.php/jjs/article/download/317/310/2430);
 [Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye);
 the USFQ theses on Baker's *But Not for Me* and *Autumn Leaves* solos (`tools/genre-research/bebop.md`).
+
+## R&B: Natural Minor (after Jorja Smith and Snoh Aalegra)
+
+Made for **E minor**, the key of Be Honest, Teenage Fantasy and Fool For You on their chord
+sheets (Ultimate Guitar). The songs, set on its degrees: Be Honest's VImaj7 V7 i i, Teenage
+Fantasy's iv V7 i VII, Blue Lights' VI VII i VII (its major key's relative minor), Don't Watch
+Me Cry's VII i VI III, Fool For You's i9 IV13 VIImaj7 v7 V7 (the F#m(b9) shape over A is the
+Dorian IV13), Situationship's i9 ii11 (the Dorian ii), Whoa's VImaj7 V7 ♭vii9 i7. The major V,
+the Dorian IV and ii and the ♭vii are chromatic voicings; every chord is extended (maj7, maj9,
+min9, 11, 13, 7#9, 7b9). The tempos are the songs' (84–94; Fool For You 75), the template the
+middle at 86 with a lazy 16th swing; **R&B · Slow Jam** is Fool For You's 75. The lines are
+original.
+
+The playing: the drums lay back by placement (a drum chart has no per-hit velocity or nudge:
+the backbeats are its accented steps, the ghost notes its plain hits, a kick on the "a" of two,
+a ghost a 16th after the snare to drag it) and by the swing; the bass and the lead sit
+6–14 % of a step late (>6–14), grace notes snap in early (<4–12), the vocal lines run
+pentatonic melismas into long notes, scoop (~) and swell by velocity. MODS: dark kits (TONE),
+the 808's tail longer, soft-attack strings and voices, Rhodes and pad releases, chorus on the
+Rhodes.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Honest Pocket | drums | 2 | soft acoustic pocket: the kick pushed to the "a" of two, ghost snares around each backbeat, a 16th hat lift | 80–90 | Black Pearl 5 (MODS: TONE down) |
+| Lazy 808 | drums | 2 | the 808 with a long tail, snare and clap stacked on two and four, a 16th hat roll, rim clicks off the beat | 84–94 | TR808 (MODS: LENGTH up) |
+| Teenage Swing | drums | 2 | the neo-soul lean: a late kick, the snare dragged by a ghost a 16th after it, a clap on the four | 84–92 | SP1200 |
+| Rimshot Ballad | drums | 2 | half time: the rimshot on three, soft 16th hats, a ghost snare | 68–78 | Room (MODS: TONE down) |
+| Nineties Clap | drums | 2 | the Linn's clap over its snare, a pickup clap, skipping 16th hats, an open hat | 88–96 | LINN9000 |
+| Honest Sub | bass | 4 | Be Honest's VI V i: 808 roots behind the beat, the V's D# and an octave sliding into the tonic | 80–90 | 808 · Monosynth |
+| Fantasy Walk | bass | 2 | Teenage Fantasy's iv V7 i VII: a muted 16th after each root, fills, a chromatic G# home | 84–92 | Finger bass (MODS: CUTOFF down) |
+| Fool Fretless | bass | 4 | Fool For You's changes: long roots, the Dorian C#, melodic walks between the chords | 70–80 | Fretless |
+| Cry Synth | bass | 2 | Don't Watch Me Cry's VII i VI III: root, ghost, octave pop, the downbeats late | 80–90 | Synth bass (MODS: CUTOFF down, RESO up) |
+| Situation Sub | bass | 2 | Situationship's i9 ii11: a sub a bar, each sliding into the next | 84–94 | Sine sub |
+| Honest Hum | lead | 4 | a sung line over VI V i: a sigh from the 5th, a scoop to the D#, a melisma up to the 7th and home | 80–90 | Voice oohs (MODS: soft attack, vibrato) |
+| Aalegra Strings | lead | 4 | a string line swelling over Fool For You's changes, the Dorian C#, the V7's D# | 70–80 | Strings (MODS: slow attack, long release) |
+| Fantasy Glide | lead | 2 | a synth line bending between notes like a voice over iv V7 i VII | 84–92 | Calf Monosynth |
+| Blue Light Flute | lead | 2 | short breathy calls over VI VII i VII, a repeated note, a scoop to the tonic | 88–96 | Flute (MODS: vibrato) |
+| Cry Answer | lead | 4 | a Rhodes answering in the vocal's gaps, each fill flicked in by grace notes | 80–90 | Rhodes · Suitcase |
+| Honest Rhodes | chords | 4 | VImaj9, V7#9 to V7b9, i9 and i11: long chords re-struck on the "a" of two, a push into the top | 80–90 | Rhodes · Suitcase (MODS: chorus) |
+| Fool Strings | chords | 4 | i9 IV13 VIImaj9 v7 V7b9 held a bar each, bowed in slowly | 70–80 | Strings · Ensemble |
+| Fantasy Keys | chords | 2 | iv9 V7#9 i9 VII6/9 on the piano, each next chord anticipated on the "a" of two | 84–92 | Grand · Warm |
+| Situation Wurli | chords | 2 | i9 and the quartal ii11 comped long-short-short | 84–94 | Wurlitzer (MODS: CUTOFF down; lower its VOL) |
+| Whoa Pads | chords | 4 | VImaj7 V7 ♭vii9 i7 a bar each on a pad that breathes in | 84–94 | Pad · Warm |
+
+References: the chord sheets (ug-chords.py: Be Honest 2800520, Teenage Fantasy 2065615, Blue
+Lights 2723457, Don't Watch Me Cry 2239329, Fool For You 2452745, Situationship 4027984, Whoa
+3085499, Lost You 3762680, I Want You Around 2622450, Find Someone Like You 2832151); the
+tempos from SongBPM and AcousticBrainz (`tools/genre-research/rnb.md`);
+[drum programming tips (soundbridge)](https://www.soundbridge.io/drum-programming-tips-for-producers-of-all-levels);
+[How to make neo-soul drums (UJAM)](https://www.ujam.com/tutorials/how-to-make-neo-soul-drums/);
+[How to add groove and swing (Violet Recording)](https://violetrecording.com/how-to-add-groove-to-a-beat/).
+
+## Droon: Natural Minor (after Sonder)
+
+Sonder is the R&B trio of Brent Faiyaz, Dpat and Atu; the model is their EP *Into* (Feel,
+Lovely, Sirens, Too Fast, Baldwin Park, Searchin', Care) and the single What You Heard. Every
+Into song is in a minor key. Made for **E minor at 74**, Too Fast's key and tempo (SongBPM's
+99 in three is the triplet reading of AcousticBrainz's 75); the EP's other songs pulse at
+62–82 felt in half time. **Droon · Care** is Care's and Searchin's Bb minor at 64, the
+eighths swung toward the triplet lilt that SongBPM's three-beat reading of Care hints at. The
+progressions on E minor's degrees: Too Fast's refrain i VII i v | i VII i VI, its intro
+iv i VI ii i v i (the Dorian ii chromatic) and interlude i VI iv VI III iv III i; Care's chorus
+iv(add9) v i7 (its tab's three arpeggiated shapes); What You Heard's VImaj7 IIImaj7 iv V7.
+The lines, riffs and rhythms are original.
+
+The feel: slow, spacious and moody: sparse kicks, quarter-note and dotted-8th hats, a rimshot
+alone in the room, the 808's tail long, every kit darkened (TONE), the template's ECHO for the
+reverb; subs that slide, a finger bass in Care's 3-3-2, a fretless walking; clean chorused
+guitar with hammer-on grace notes (<12), a Rhodes, a falsetto laid 10–14 % late, ghostly
+vocal pads (the reviews' "spotless guitars and ghostly backing vocals").
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Too Fast Drift | drums | 2 | the 808 with a long tail, snare on two and four, a clap once, quarter hats with pickups | 70–78 | TR808 (MODS: LENGTH up, TONE down) |
+| Care Lilt | drums | 2 | hats in dotted 8ths (3 + 3 + 2) leaning to a triplet feel, a rim before the turn | 60–68 | SP1200 (MODS: TONE down) |
+| Sirens Space | drums | 2 | minimal: a kick, a rimshot on three, off-beat hats, a low tom answering | 70–82 | Black Pearl 5 (MODS: TONE down, LENGTH up) |
+| Searchin Knock | drums | 2 | snare and clap together, a skipping kick, off-beat 16th hats like a shaker | 70–78 | Room (MODS: TONE down) |
+| Lovely Halftime | drums | 2 | the snare once a bar on three, 8th hats doubling the pace, a ghost into the loop | 70–76 | Red Zeppelin 5 (MODS: TONE down) |
+| Too Fast Sub | bass | 4 | i VII i v i VII i VI: each root held, its octave slid down into the next | 70–78 | 808 · Monosynth |
+| Care Line | bass | 4 | iv v i i in the 3-3-2 lilt: a soft second stroke, the octave, a hammered grace note | 60–68 | Finger bass (MODS: CUTOFF down) |
+| Heard Walk | bass | 4 | What You Heard's VImaj7 IIImaj7 VImaj7 iv V7: late roots, passing tones, the D# | 70–78 | Fretless |
+| Searchin Pulse | bass | 2 | i VI in late 8ths, the octave flicked, a pickup into each bar | 70–78 | Synth bass (MODS: CUTOFF down) |
+| Sirens Drone | bass | 4 | two bars on the tonic, two on the VI, sliding between them | 70–82 | Sine sub |
+| Too Fast Guitar | lead | 2 | a clean chorused phrase over i VII i v, each flicked in by a hammered grace note | 70–78 | Guitar · Chorus (MODS: chorus) |
+| Care Lick | lead | 2 | minor-pentatonic hammer-ons, a slide into the 3rd, a held note with vibrato | 60–68 | Guitar · Clean (MODS: vibrato, chorus) |
+| Feel Falsetto | lead | 4 | long high notes laid well behind the beat, a slide down, half a bar of air | 66–76 | Voice oohs (MODS: slow attack, long release) |
+| Into Keys | lead | 2 | a Rhodes line up the i9's tones and down over the VI | 70–78 | Rhodes · Suitcase (MODS: chorus) |
+| Lovely Glide | lead | 2 | slow glides between long notes | 70–76 | Calf Monosynth |
+| Too Fast Strum | chords | 4 | the refrain a chord a half bar, struck, held and caught again on the "a" of two | 70–78 | Guitar · Chorus (MODS: chorus) |
+| Care Chorus | chords | 4 | iv(add9) v i7 i9 strummed in the 3-3-2 | 60–68 | Guitar · Clean |
+| Heard Rhodes | chords | 4 | VImaj9 IIImaj7 VImaj9 iv9 V7b9, each pushed in a 16th early and held over the bar line | 70–78 | Rhodes · Suitcase |
+| Intro Ghosts | chords | 4 | Too Fast's intro iv i VI ii i v i as ghostly backing vocals, slow in and out | 66–78 | Pad · Vocal (MODS: slow attack, long release) |
+| Interlude Keys | chords | 4 | Too Fast's interlude i VI iv VI III iv III i, struck on one and the "and" of two | 70–78 | Grand · Warm |
+
+References: the chord sheets (ug-chords.py: Too Fast 2155579, What You Heard 5197296, Care's
+tab 5376447); the tempos and keys from SongBPM and AcousticBrainz
+(`tools/genre-research/droon.md`);
+[Sonder on Into, track by track (The Line of Best Fit)](https://www.thelineofbestfit.com/features/track-by-track/sonder-into);
+[Into (Album of the Year)](https://www.albumoftheyear.org/album/70743-sonder-into.php);
+[Hypebeast](https://hypebeast.com/2017/2/sonder-into-ep-release-354);
+[highclouds](https://highclouds.org/rb-trio-sonder-release-their-90s-and-groovy-debut-ep-into/);
+[Okayplayer](https://www.okayplayer.com/sonder-brings-soulful-sultry-rb-with-new-into-ep/427549).
