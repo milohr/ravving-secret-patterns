@@ -1,18 +1,19 @@
 # The genre packs
 
-Twenty-two packs of pattern presets, ready to load from a USB stick. They don't come installed
+Twenty-three packs of pattern presets, ready to load from a USB stick. They don't come installed
 with ravving. Each one is written in a style, often after the bands and records that define it.
 
 | Group | Packs |
 |---|---|
 | Genres | Classical, Hip-Hop, Pop, Rock, Trap, Reggaeton, Punk, Tropical, Cumbia, Folk, Heavy Metal, Black Metal, Post-Punk |
 | Moods and eras | Gregorian (old gothic), Vuelo (nu-disco after Flight Facilities), Hollywood (Lana Del Rey's beats under old-Hollywood strings) |
+| One song | Body (after Grimes' Be a Body, its intro above all) |
 | Soul | R&B (after Jorja Smith and Snoh Aalegra), Droon (after Sonder) |
 | Solos | Solos (ballads after Coltrane's *Ballads* and Chet Baker), Bebop (fast horn lines after Parker, Coltrane and Baker) |
 | Others | Jazz, and Piig, a smaller style pack |
 
-Most packs have five presets each for the drums, the bass, the lead and the chords. Solos and
-Bebop have six, and Piig has three.
+Most packs have five presets each for the drums, the bass, the lead and the chords. Solos,
+Bebop and Body have six, and Piig has three.
 
 ## Play a pack
 
@@ -30,7 +31,7 @@ pack sticks to one scale, so its four instruments play together:
 - **Natural Minor:** Hip-Hop, Trap, Reggaeton, Piig, Heavy Metal, Black Metal, Post-Punk, Vuelo,
   R&B, Droon, Hollywood.
 - **Major:** Classical, Pop, Rock, Punk, Tropical, Cumbia, Folk, Solos, Bebop.
-- **Dorian:** Gregorian.
+- **Dorian:** Gregorian, Body.
 
 Tropical's minor styles (salsa, bachata) and Cumbia's (villera, chicha) sit on degree 6, the
 relative minor. That keeps each pack in one key: in C major, they play in A minor.
@@ -97,6 +98,8 @@ usual key for the style.
 | Droon · Care | 64 | Bb minor | 62 (eighths) | 0 · 0.4 · 0.15 |
 | Hollywood | 72 | F minor | 52 | 0 · 0.4 · 0.15 |
 | Hollywood · Video Games | 62 | F# minor | 50 | 0 · 0.45 · 0.1 |
+| Body | 140 | F Dorian | 50 | 0.1 · 0.35 · 0.25 |
+| Body · Intro | 140 | F Dorian | 50 | 0.2 · 0.5 · 0.1 |
 
 ## Feel: velocity, nudge and length
 
@@ -1155,3 +1158,88 @@ The MODS shape the sound:
 - [The Singles Jukebox on Born to Die](https://thesinglesjukebox.com/?p=2305)
 - [The James Bond chord (Sciencebase)](https://www.sciencebase.com/science-blog/?p=58635)
 - [The thrilling scores of Bernard Herrmann (Cleveland Orchestra)](https://www.clevelandorchestra.com/posts/the-thrilling-scores-of-bernard-herrmann)
+
+## Body: Dorian (after Grimes' Be a Body)
+
+One song this time: Be a Body, from Grimes' *Visions*. Its intro is the heart of the pack, and
+seven presets and a template play the intro alone.
+
+- **Body:** F Dorian at 140, the song's key and tempo, with the bouncing echo of the album.
+- **Body · Intro:** the same key and tempo, with more echo and a slow phaser for the haze.
+
+### The songs
+
+Set on F Dorian's degrees, part by part:
+
+| Part | Chords |
+|---|---|
+| Intro, the opening | i IV VII VII (Fm Bb Eb Eb) |
+| Intro, the loop | i IV v v (Fm Bb Cm Cm) |
+| Intro, the turnaround | III IV (Ab Bb) |
+| Verse | i IV v v, then ii IV v v |
+| Middle | IV and v rocking two bars each, then III IV V |
+| Chorus | i7 IV7 v7 (Fm7 Bb7 Cm7) |
+| Outro | I IV V, in F major |
+
+The major V and the outro's major I are chromatic voicings. The song's lines leave the 3rd out,
+so the key floats between F minor and F major, and the pack's lines do the same.
+
+Nothing is quoted. The song is copyrighted, so the presets take its chords, key, tempo and
+shape, and every line, melody and rhythm is new.
+
+### The playing
+
+- **The opening:** a synth riff fit for 80s rock radio, so Intro Stabs plays sus chords on
+  synth brass, swapping the top voice.
+- **The echo:** a 1/8 delay bounces through the whole album. The templates' ECHO does it, and
+  Intro Harp and Verse Bounce write it in: each note again two steps later, softer.
+- **The voice:** chopped, high syllables in the intro, and a hook of long notes with a scoop.
+- **The drums:** cheap drum machines. A ticking 606 for the intro, a 909 four on the floor for
+  the drop, and a syncopated 808.
+- **The bass:** a low synth bass leaping the octave in 3-3-2, an off-beat rave bass, and an 808
+  sliding through the middle.
+- **The MODS:** chorus on the pads, short releases on the stabs and the chops, and the bass's
+  CUTOFF down with a little RESO.
+
+### Build the intro
+
+Play the intro in layers. Start with Intro Tick, Intro Sub and Intro Stabs, then add Intro Harp,
+Intro Chops and Intro Haze. Intro Bells is the turnaround. Then Drop Build leads into Rave Pulse
+with Mini Pulse and Juno Offbeats.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Intro Tick | drums | 2 | the intro's drum machine: the kick on one and three, a ticking hat with gaps, the snare bouncing a dotted 8th apart, the open hat breathing in | 130–145 | TR606 (MODS: TONE down) |
+| Rave Pulse | drums | 2 | the drop: four on the floor, the clap on two and four, the open hat on every off-beat, 16th hats around it | 135–145 | TR909 |
+| Visions Break | drums | 2 | syncopated electro: the kick on one and the "and"s of two and three, the clap and its echoes, a rim on the "a" of one | 130–145 | TR808 (MODS: LENGTH up) |
+| Half-Time | drums | 2 | the snare once a bar on three, skipping 16th hats, a late kick and a tom roll into the loop | 135–145 | LINN9000 (MODS: TONE down) |
+| Drop Build | drums | 2 | out of the intro: quarter kicks, the snare in 8ths then accented 16ths, a crash where the drop lands | 135–145 | SP1200 |
+| Gnarly Toms | drums | 2 | tough percussion: the kick in 3-3-2, toms answering off the beat, a clap on four, a cowbell tick | 130–145 | HR16 (MODS: TONE down, tuned −2) |
+| Intro Sub | bass | 4 | the intro's i IV VII VII entering low: a dotted quarter, a dotted quarter and a quarter on each root, the Dorian D walking up into the loop | 130–145 | Synth bass 2 (MODS: CUTOFF down) |
+| Mini Pulse | bass | 4 | the loop i IV v v in 16ths, 3-3-2-3-3-2, the root and its octave trading, a walk down into the top | 135–145 | Synth bass 2 (MODS: CUTOFF down, RESO up) |
+| Rave Offbeat | bass | 4 | the off-beat rave bass, accented, the octave flicked on the "a" of four | 135–145 | Nekobi |
+| Verse Bounce | bass | 4 | the verse's ii IV v v plucked, each note's 1/8 echo written in, the octaves bouncing | 135–145 | Synth bass (MODS: CUTOFF down) |
+| Bridge Sub | bass | 8 | the middle's IV IV v v IV IV, III and IV, then the major V: long roots sliding into each other | 135–145 | 808 · Monosynth |
+| Outro Drive | bass | 4 | the outro's I IV V V in straight 8ths, the octave on the off-beats, a run up into the loop | 135–145 | Synth bass 2 (MODS: CUTOFF down) |
+| Intro Harp | lead | 4 | the intro's plucked figure: the 5th, root and 9th in dotted 8ths, each echoed an 8th later, softer | 130–145 | Harp · Concert (MODS: longer release) |
+| Intro Chops | lead | 4 | the voice chopped into syllables: stuttered 16ths, short high notes without the 3rd, gaps | 130–145 | Synth voice (MODS: short release) |
+| Intro Bells | lead | 4 | the turnaround's sparkle over III IV i IV: short high flicks, a grace note snapped in early | 130–145 | Celesta (MODS: longer release) |
+| Voice Hook | lead | 4 | a sung hook over i IV v v: long high notes, a scoop into the 7th, a sigh down to the 5th, a touch late | 135–145 | Voice oohs (MODS: soft attack, vibrato) |
+| Square Riff | lead | 4 | a bass-lead riff in sequenced 16ths: root, 5th and octave, an accent on the "and" of two, a run each bar | 135–145 | Lead · Square (MODS: CUTOFF down, RESO up) |
+| Theremin Glide | lead | 4 | long notes gliding into each other over i IV v v | 130–145 | Calf Monosynth |
+| Intro Stabs | chords | 4 | the opening riff: i IV VII VII as syncopated sus stabs over the F, the top voice rocking | 130–145 | Synth brass (MODS: short release, CUTOFF down) |
+| Intro Haze | chords | 8 | the whole intro, i9 IV9 VIImaj7 then i9 IV9 v9, a chord a bar, slow in and chorused | 130–145 | Pad · Polysynth (MODS: chorus, slow attack) |
+| Juno Offbeats | chords | 4 | the loop i7 IV7 v7 v9 stabbed on every off-beat 8th | 135–145 | TAL NoiseMaker |
+| Verse Choir | chords | 8 | i7 IV7 v7, then ii7 IV7 v9, as a cloud of voices breathing in | 135–145 | Pad · Choir (MODS: slow attack, long release) |
+| Bridge Lift | chords | 8 | the middle in 3-3-2: IV7 and v7, then III and IV, the C major V lifting into the chorus | 135–145 | Strings · Digital |
+| Major Ending | chords | 4 | the outro's I IV V V in F major, long-short-long | 135–145 | Pad · Polysynth (MODS: chorus) |
+
+### References
+
+- The chorus on [Hooktheory](https://www.hooktheory.com/theorytab/view/grimes/be-a-body): Eb
+  major (F Dorian's notes), ii7 V7 vi7, 140 BPM
+- The chord timelines on Chordu, from the [album audio](https://chordu.com/chords-tabs-grimes-be-a-body-%E4%BE%98%E5%AF%82-video--id_Q713eHNFvuU) and the [instrumental](https://chordu.com/chords-tabs-grimes-be-a-body-%E4%BE%98%E5%AF%82-official-instrumental--id_P7GvNMYC1o4)
+- The tempo on [SongBPM](https://songbpm.com/@grimes/be-a-body) and AcousticBrainz (`tools/genre-research/be-a-body.md`)
+- [Grimes Synth Sounds (Reverb Machine)](https://reverbmachine.com/blog/grimes-synth-sounds/)
+- The reviews: [The Arts Desk](https://theartsdesk.com/new-music/cd-grimes-visions), [RA](https://ra.co/reviews/10473), [The Line of Best Fit](https://www.thelineofbestfit.com/reviews/albums/grimes-visions-85691)
+- [Visions (Wikipedia)](https://en.wikipedia.org/wiki/Visions_(Grimes_album))
