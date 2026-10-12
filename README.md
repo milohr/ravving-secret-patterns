@@ -2,7 +2,7 @@
 
 Sixteen genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
 tropical, cumbia, folk, heavy metal, black metal, post-punk, Gregorian (old gothic), vuelo
-(Flight Facilities' nu-disco) and solos (six horn solos after Parker, Coltrane and Baker). Each
+(Flight Facilities' nu-disco) and solos (six ballad solos after Coltrane's *Ballads* and Chet Baker). Each
 has five pattern presets for each of the drums, the bass, the lead and the chords (solos six).
 A smaller style pack, piig, has three of each. They are not installed with ravving. To play one, copy a
 pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
@@ -43,7 +43,7 @@ quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) exc
 | Hip-Hop · Jazz Rap, Jazz Rap Walk | 60–66 |
 | Rock · Half-Time Shuffle | about 66, the triplet shuffle |
 | Piig · every preset | 56–60, the lazy MPC swing |
-| Solos · every preset | 58–64 with SWING on the EIGHTHS (the templates set it); Trane Countdown and Trane Drive straight to 54, their sixteenths are the swing |
+| Solos · every preset | 54–58 with SWING on the EIGHTHS (the templates set it), a ballad's lilt; straight works |
 
 Set the same swing on every machine playing along.
 
@@ -73,8 +73,8 @@ tempos; the key is the one a pack was made for where it says so, else a usual ke
 | Jazz | 120 | C minor | 62 | 0 · 0.1 · 0 |
 | Vuelo | 120 | A minor | 50 | 0.1 · 0.15 · 0.3 |
 | Vuelo · Crave | 120 | C# minor | 52 | 0 · 0.25 · 0.25 |
-| Solos | 160 | Bb major | 62 (eighths) | 0 · 0.15 · 0 |
-| Solos · Ballad | 64 | Bb major | 58 (eighths) | 0 · 0.3 · 0 |
+| Solos | 64 | Eb major | 56 (eighths) | 0 · 0.35 · 0 |
+| Solos · Late Night | 58 | Eb major | 54 (eighths) | 0 · 0.45 · 0 |
 
 **The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
 `VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
@@ -729,71 +729,78 @@ References for the five packs:
 [A Matter of Life and Drums (Invisible Oranges)](https://www.invisibleoranges.com/?p=44567)
 (Clive Burr's sixteenth hats).
 
-## Solos: Major (horn solos after Parker, Coltrane and Baker)
+## Solos: Major (ballads after Coltrane's *Ballads* and Chet Baker)
 
-Made for **Bb major** (the horn key; the lead's degree 1 is Bb4, so the alto plays "1-".."7",
-the tenor "5-".."4", the soprano "1".."4+", the trumpet "6-".."7"). Six original solos for the
-LEAD, each with the chords, the bass and the drums it is heard over: nothing is quoted (the
-players' recorded solos and tunes are copyrighted), the vocabulary was studied
-(`tools/genre-research/solos.md`) and every line, progression and rhythm is new. The
-progressions are generic schemes: a rhythm-changes-type A section (I VI7 | ii7 V7 | I VI7 |
-ii7 V7 | I I7 | IV7 ♯iv°7 | iii7 VI7 | ii7 V7), an 8-bar bop blues (I7 | IV7 | I7 | v7 I7 |
-IV7 | ♯iv°7 | I7 vi7 | ii7 V7), the Countdown reharm of a ii–V–I (ii7 ♭II7 | ♭VImaj7 VII7 |
-IIImaj7 V7 | Imaj7, chromatic voicings), a modal vamp on the ii7 with two bars of V7sus
-(quartal "So What"-type voicings), a ballad's I vi ii V | iii VI ii V, and a cool medium's
-I | ii V | iii vi | ii V | IV | iv ♭VII | iii VI | ii V. The chords are rootless A and B forms.
-SWING swings the EIGHTHS here (the templates set it): the ride's "ding ding-a" and the bebop
-eighths sit on the 16-step grid two steps apart.
+Made for **Eb major** (a tenor's ballad key; the lead's degree 1 is Eb4, so the tenor sings
+"5-".."1+" and cries up to "2+", the soprano floats "5".."3+", the trumpet stays "7-".."6").
+The minor moods sit on degree 6 (C minor), and Devotion vamps on degree 2 (F Dorian). Six
+original ballad solos for the LEAD, each with the brushes, the bass and the chords it is heard
+over. They are moody, prolonged and passionate, with no fast passages. The model is the John
+Coltrane Quartet's *Ballads* (Impulse!, 1962/63: Tyner, Garrison, Jones), plus Baker's slow
+trumpet. Nothing is quoted: the album's standards and the recorded solos are copyrighted. The
+style was studied (`tools/genre-research/solos.md`), and every line, progression and rhythm is
+new.
 
-The playing: Parker's lines run in eighths on the chord tones with chromatic approach notes
-and enclosures, the off-beats a touch louder (@ +8), the approach notes snapped in early
-(<8), the blue ♭3 scooped into the 3 (~), a breath between phrases, a motif stated then
-displaced a beat. Coltrane's sheets of sound are sixteenth 1-2-3-5 cells up and their mirror
-down on every chord, each run swelling to its top; the modal solo is pentatonic cells, stacked
-fourths up to the Eb6 and a high note cried four times, on the soprano. Baker's lines are few
-notes, long and soft (@62–88), every one behind the beat (>8–14), a scoop, and air: the
-trumpet with its cutoff down a little and a longer release.
+The playing:
+
+- Tempo 56–70.
+- Long held notes, 6–12 steps, with a beat or half a bar of air between phrases.
+- A swell written across each phrase in velocities: @60 rising to @100–110 and falling back.
+  The MODS soften each note's attack (ATTACK +2400 timecents on the sax, +3600 on the
+  trumpet) and lengthen the release.
+- Every long note sits 8–16 % of a step late, the rubato lean.
+- Flurries only as ornaments: three or four sixteenths pushed early and climbing into a long
+  note.
+- A scoop or slur (~) into a long tone.
+
+The chords are Tyner-style: rootless 9ths and 13ths, the So What fourths, fourths planed over
+a pedal, Lydian clusters, the minor iv (Abm6) and the backdoor Db9, each held a bar or half a
+bar and then re-voiced. The bass is Garrison's two-feel, whole notes and pedal. The drums are
+brushes only, darkened with TONE/CUTOFF, with a crash rolled up into the downbeat for the
+cymbal swell.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
-| Bird Bop | drums | 2 | the ride's "ding, ding-a" with 2 and 4 leaned on, the foot, snare chatter, kick bombs on the off-beats | 190–200 | Jazz · ride |
-| Bird Blues Swing | drums | 2 | medium bop: the ride, the foot, the snare touching 2 and 4 with a ghost, the kick on 1 and 3, a tom turn | 150–170 | Jazz · ride |
-| Trane Drive | drums | 2 | the ride in eighths, off-beat snare accents, a snare roll into the loop | 130–150 | Jazz · ride |
-| Elvin Fourths | drums | 2 | the ride, toms every three steps and the kick every six against the four, the snare cracking | 150–170 | Jazz · ride |
-| Baker Brushes | drums | 2 | brushes sweeping the snare in eighths, the foot, the kick once a bar, a ride touch | 60–70 | Brush · ride |
-| Cool Two-Feel | drums | 2 | brushes on the ride, the foot, the kick on 1 and 3, a snare touch | 110–130 | Brush · ride |
-| Bird Walk | bass | 8 | walking the rhythm changes, chord tones on the beats, a chromatic step into each change, 2 and 4 leaned on | 190–200 | Upright |
-| Bird Blues Walk | bass | 8 | walking the bop blues, a ghosted skip on the last beat of bars 4 and 8 | 150–170 | Upright |
-| Countdown Walk | bass | 4 | the Countdown reharm, a root a half bar, the fifth or a chromatic step into the next | 130–150 | Upright |
-| Garrison Pedal | bass | 8 | the pedal under the vamp: the C on 1, its G on 3, a push on the "and" of 4; the F under the V7sus; A, B back home | 150–170 | Upright |
-| Ballad Two | bass | 8 | half notes, root then fifth or third, each a little late, the last bar stepping up | 60–70 | Acoustic bass |
-| Cool Two-Beat | bass | 8 | the two-feel with an eighth pickup into each change, the last bar walking | 110–130 | Acoustic bass |
-| Bird Changes | lead | 8 | the Parker-style solo over the rhythm changes: Bb6 up, F7's bebop scale down, a jab and the blue Db, an enclosure of G, E°7's tones, the turnaround and a breath | 190–200 | Alto sax |
-| Bird Blues | lead | 8 | the Parker-style blues: the scoop into the 3rd, the ♭7 and ♭5 passing, the motif displaced a beat, F E Eb into the scoop | 150–170 | Alto sax |
-| Trane Countdown | lead | 4 | the sheets of sound through the Countdown reharm, sixteenth 1-2-3-5 cells swelling, a landing that slides and breathes | 130–150 (straight) | Tenor sax · Bright |
-| Trane Fourths | lead | 8 | the modal solo: the pentatonic cell, a fourths climb to the Eb6, falling fourths, the cry four times, home on the C | 150–170 | Soprano sax |
-| Baker Ballad | lead | 8 | long tones at @62–80, all behind the beat, a scoop up to the G, half a bar of air | 60–70 | Trumpet · Cool |
-| Baker Cool | lead | 8 | a narrow sung line, phrases >8 late, the long F, the iv's Gb, G7's B held | 110–130 | Trumpet · Cool |
-| Bird Changes Comp | chords | 8 | the rhythm changes comped on the beat and the "and", the even bars pushed to the "and" of 1 | 190–200 | Grand piano |
-| Bird Blues Comp | chords | 8 | the bop blues comped on the "and"s, the forms alternating | 150–170 | Grand piano |
-| Countdown Comp | chords | 4 | the reharm a chord a half bar, struck and re-struck, the Imaj7 then its sixth | 130–150 | Grand piano |
-| Fourths Vamp | chords | 8 | quartal stabs on 1, the "and" of 2 and 4, a sixteenth push, climbing; the V7sus bars on the F | 150–170 | Grand piano |
-| Ballad Pads | chords | 8 | I vi ii V iii VI ii V held, touched again on 3 in the other form | 60–70 | Upright piano |
-| Cool Comp | chords | 8 | short guitar chords on 2 and 4, a push on the "and" of 4 into each change | 110–130 | Jazz guitar |
+| Vow Brushes | drums | 2 | brushes swept in eighths, the slap and the foot on 2 and 4, a feathered kick, the ride entering at the end | 62–70 | Brush · ride |
+| Lament Swells | drums | 2 | slow brushes, the slap on 2 and 4, a crash rolled up over two beats into the accented downbeat | 54–60 | Brush · crash |
+| Devotion Mallets | drums | 2 | the ride skipping, toms rolling around the pedal, a brush slap closing the loop | 66–72 | Brush · ride |
+| Nocturne Whisper | drums | 2 | the ride on 1 and 3, the foot, two brush taps, one click | 56–64 | Brush · ride |
+| Twilight Swirl | drums | 2 | the swirl as soft sixteenth taps, the slap on 2 and 4, the two-feel kick | 58–66 | Brush · ride |
+| Rain Brushes | drums | 2 | brushes in 3 + 3 + 2, the slap only on 4, a soft crash on the loop's top | 54–62 | Brush · crash |
+| Vow Two | bass | 8 | half notes behind the beat, a chromatic eighth into each change | 62–70 | Upright |
+| Lament Pedal | bass | 8 | the C held under the line cliché, half notes, a G back into it | 54–60 | Upright |
+| Devotion Pedal | bass | 8 | the F pedal with its fifth and a push for four bars; Ab, G, F; C7 held, E into the F | 66–72 | Upright |
+| Nocturne Roots | bass | 8 | a note a bar under the floating line | 56–64 | Upright |
+| Twilight Two | bass | 8 | the two-feel, root and fifth or third, D into the Eb | 58–66 | Acoustic bass |
+| Rain Long Tones | bass | 8 | whole notes, an A into the Bb, the backdoor Db | 54–62 | Acoustic bass |
+| Trane Vow | lead | 8 | a warm major ballad (I vi ii V, iii VI7 ii iv, I VI7alt ii V) paraphrased in long tones: the minor iv's Cb sliding down, a chromatic climb into the high Eb cried | 62–70 | Tenor sax |
+| Trane Lament | lead | 8 | C minor over the line cliché and the minor ii–V: a beat of silence, the G held, a flurry up G7's b9 arpeggio into a long Eb5 cry, the D sighing to C | 54–60 | Tenor sax |
+| Trane Devotion | lead | 8 | the passionate one: from a soft low F over the F pedal, climbing for eight bars to F5, cried three times (@104–110), C7alt home | 66–72 | Tenor sax · Bright |
+| Soprano Nocturne | lead | 8 | the soprano floating over IV iii ii I (the Lydian #11), the Cb of the minor iv, a turn up to the G5 | 56–64 | Soprano sax |
+| Baker Twilight | lead | 8 | Baker's major ballad (I #i°7 ii V, iii VI7 ii V, I vi ii V): few notes, low and soft (@60–76), all late, a scoop into the G | 58–66 | Trumpet · Cool |
+| Baker Rain | lead | 8 | Baker in the minor: half a bar of silence, the Eb, the backdoor iv–bVII7 with its Cb, a scoop, the B of G7 | 54–62 | Trumpet · Cool |
+| Vow Voicings | chords | 8 | lush rootless voicings held, re-voiced on 3 (Ebmaj9 to 6/9, Cm11 to Cm9, Bb13sus to b9) | 62–70 | Grand piano |
+| Lament Line | chords | 8 | Cm with C B Bb A under a held D, Dø G7alt, Abmaj7#11 clusters, Cm(maj9) | 54–60 | Grand piano |
+| Devotion Fourths | chords | 8 | fourths planed over the F pedal, the Lydian IV, Gm11, C7alt to C7#9 | 66–72 | Grand piano |
+| Nocturne Floating | chords | 8 | one chord a bar, Abmaj9#11 Gm11 Fm11 Eb6/9, then the minor iv and a ii–V | 56–64 | Grand piano |
+| Twilight Piano | chords | 8 | I #i°7 ii V iii VI7 ii V I vi ii V, each held and re-voiced | 58–66 | Upright piano |
+| Rain Rhodes | chords | 8 | Cm9 Abmaj9 Fm9 Bb13, Ebmaj9, Abm6 Db9, Ebmaj9 Cm7, Dø G7b9 | 54–62 | Rhodes |
 
-Smoke-tested on milo (2026-10-12, from the stick with WITH ITS SOUND and MODS, metered on the
-lanes): the Bird set at 200 gives drums 0.14, bass 0.10, chords 0.13, the alto 0.10 RMS; the
-bright tenor 0.10, the soprano 0.07, the trumpet ballad at 64 0.03 (soft by design: raise the
-lead's VOL or keep the room small).
+No sounds were added; the MODS (ATTACK, RELEASE, vibrato, TONE/CUTOFF) need a render check on
+milo (see the research notes). The first version (bebop: Bird Changes, Bird Blues, Trane
+Countdown, Trane Fourths, Baker Ballad, Baker Cool, and their drums, bass and chords, in Bb
+major) is in commit 3d3f71f.
 
-References: [Use bebop scales like a pro (Learn Jazz Standards)](https://www.learnjazzstandards.com/blog/learning-jazz/jazz-theory/use-bebop-scales-like-pro/);
-[The truth about bebop scales (keyboardimprov)](https://keyboardimprov.com/the-truth-about-bebop-scales/);
-[Charlie Parker for guitar (Premier Guitar)](https://www.premierguitar.com/lessons/jazz/charlie-parker-for-guitar);
-[Billie's Bounce lesson (jazzguitar.be)](https://www.jazzguitar.be/blog/billies-bounce);
-[Coltrane changes (Wikipedia)](https://en.wikipedia.org/wiki/Coltrane_changes);
-[Coltrane in the Rutgers Journal of Jazz Studies](https://jjs.libraries.rutgers.edu/index.php/jjs/article/download/317/310/2430);
-[Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye);
-the USFQ theses on Baker's *But Not for Me* and *Autumn Leaves* solos (`tools/genre-research/solos.md`).
+References: [Ballads (Wikipedia)](https://en.wikipedia.org/wiki/Ballads_(John_Coltrane_album));
+[Ballads review (Positive Feedback)](https://positive-feedback.com/reviews/music-reviews/john-coltrane-quartet-ballads/);
+[Ballads review (MusicWeb International)](https://musicweb-international.com/jazz/2002/Apr02/Coltrane_ballads.htm);
+[Balladen, die zweite Seele des John Coltrane (SRF)](https://www.srf.ch/kultur/musik/musik-balladen-die-zweite-seele-des-john-coltrane);
+[Ballads, editorial notes (Apple Music)](https://music.apple.com/album/1440747672);
+[You Don't Know What Love Is (Michael's jazz blog)](https://michaelsjazzblog.com/?p=32);
+[Quartal voicings (Piano with Willie)](https://pianowithwillie.com/quartal-fourth-voicings/);
+[McCoy Tyner (jazz.com)](https://jazz.com/encyclopedia/tyner-mccoy);
+[Chet Baker: My Funny Valentine (jazz.com)](https://jazz.com/music/chet-baker-my-funny-valentine-1952);
+[Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye).
 
 ## Jazz
 
