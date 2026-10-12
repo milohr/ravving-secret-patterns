@@ -1,66 +1,71 @@
-# Secret pattern packs
+# The genre packs
 
-Twenty-two secret pattern packs in all, none of them installed with ravving: twenty genre
-packs (classical, hip-hop, pop, rock, trap, reggaeton, punk, tropical, cumbia, folk, heavy metal,
-black metal, post-punk, Gregorian (old gothic), vuelo (Flight Facilities' nu-disco), solos (six
-ballad solos after Coltrane's *Ballads* and Chet Baker), bebop (six fast horn solos after
-Parker, Coltrane and Baker), R&B (after Jorja Smith and Snoh Aalegra), droon (after Sonder) and
-Hollywood (Lana Del Rey's beats under old-Hollywood strings)), the jazz pack, and piig, a smaller
-style pack. Each genre pack has
-five pattern presets for each of the drums, the bass, the lead and the chords (solos and bebop
-six, piig three). To play one, copy a
-pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
-plays them straight from there (`PresetExchange::stickPatterns` / `loadStickPattern`), and
-the USB page can import them.
+Twenty-two packs of pattern presets, ready to load from a USB stick. They don't come installed
+with ravving. Each one is written in a style, often after the bands and records that define it.
 
-```
-data/secret/<genre>-presets/build.py                     the generator (python3 build.py)
-data/secret/<genre>-presets/ravving/presets/<drums|bass|lead|chords>/patterns/<Genre> · <Name>.json
-data/secret/patternkit.py                                shared by the genre build.py files (not the jazz one)
-data/secret/validate.py                                  checks every pack against ravving's parsers
-```
+| Group | Packs |
+|---|---|
+| Genres | Classical, Hip-Hop, Pop, Rock, Trap, Reggaeton, Punk, Tropical, Cumbia, Folk, Heavy Metal, Black Metal, Post-Punk |
+| Moods and eras | Gregorian (old gothic), Vuelo (nu-disco after Flight Facilities), Hollywood (Lana Del Rey's beats under old-Hollywood strings) |
+| Soul | R&B (after Jorja Smith and Snoh Aalegra), Droon (after Sonder) |
+| Solos | Solos (ballads after Coltrane's *Ballads* and Chet Baker), Bebop (fast horn lines after Parker, Coltrane and Baker) |
+| Others | Jazz, and Piig, a smaller style pack |
 
-Each file is `{"ravving": "preset", "type": "pattern", "library": "<x>-presets.json",
-"preset": {"name", "genre", "chart", "sound"}}`. The chart is the shipped libraries' format.
-`sound` is the sound the pattern was written for: `{"soundSource": …}` for the bass, lead and
-chords, `{"kit": …}` for the drums (a subset of `Machine::soundState()`).
+Most packs have five presets each for the drums, the bass, the lead and the chords. Solos and
+Bebop have six, and Piig has three.
 
-**The notes are scale degrees.** They follow the session's root and scale. Each genre is
-written for one scale, so its four instruments play together:
+## Play a pack
 
-- Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk, vuelo,
-  R&B, droon, Hollywood.
-- Major: classical, pop, rock, punk, tropical, cumbia, folk, solos, bebop.
-- Dorian: Gregorian.
-- Tropical's minor styles (salsa, bachata) and cumbia's (villera, chicha) sit on degree 6,
-  the relative minor, so each pack stays in one key. In C major they play in A minor.
+1. Copy the pack's `ravving` folder to the root of a USB stick.
+2. Plug the stick into your MIKO.
+3. Open a preset dialog and pick **SOURCE · USB**. The presets play straight from the stick.
 
-Notes from outside the scale use ALTER (for example rock's ♭3/♭7, trap's ♭2 and raised 7th).
-Chords from outside the key use chromatic `c` voicings.
+The USB page can also import them, so they stay on the device.
 
-**Tempo and swing are not stored** in a pattern. The tables give each preset's tempo, in
-quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) except these:
+## The notes follow your key
+
+The notes are written as scale degrees, so a pack plays in whatever key and scale you set. Each
+pack sticks to one scale, so its four instruments play together:
+
+- **Natural Minor:** Hip-Hop, Trap, Reggaeton, Piig, Heavy Metal, Black Metal, Post-Punk, Vuelo,
+  R&B, Droon, Hollywood.
+- **Major:** Classical, Pop, Rock, Punk, Tropical, Cumbia, Folk, Solos, Bebop.
+- **Dorian:** Gregorian.
+
+Tropical's minor styles (salsa, bachata) and Cumbia's (villera, chicha) sit on degree 6, the
+relative minor. That keeps each pack in one key: in C major, they play in A minor.
+
+Notes from outside the scale use ALTER, like rock's ♭3 and ♭7 or trap's ♭2. Chords from outside
+the key use chromatic voicings.
+
+## Tempo and swing
+
+A pattern doesn't store its tempo or swing. The tables give each preset's tempo in quarter-note
+BPM on the 16-step grid. Every preset plays straight (SWING 50), except these:
 
 | Preset | SWING |
 |---|---|
 | Hip-Hop · Golden Era Swing | 58–62 |
-| Hip-Hop · Boom Bap, Lo-Fi Lazy and their bass, lead and chords | 54–60 if wanted; straight works |
+| Hip-Hop · Boom Bap, Lo-Fi Lazy and their bass, lead and chords | 54–60 if you like; straight works |
 | Hip-Hop · Jazz Rap, Jazz Rap Walk | 60–66 |
 | Rock · Half-Time Shuffle | about 66, the triplet shuffle |
 | Piig · every preset | 56–60, the lazy MPC swing |
-| Solos · every preset | 54–58 with SWING on the EIGHTHS (the templates set it), a ballad's lilt; straight works |
-| Bebop · every preset | 58–64 with SWING on the EIGHTHS (the templates set it); Trane Countdown and Trane Drive straight to 54, their sixteenths are the swing |
-| R&B · every preset | 54–58 on the sixteenths, the lazy pocket (the templates set it) |
-| Droon · every preset | 56–60 on the sixteenths; the Care set 60–64 on the EIGHTHS (Droon · Care) |
-| Hollywood · every preset | 52, a hair of lazy hip-hop swing under the strings (the template sets it); straight works |
+| Solos · every preset | 54–58 on the EIGHTHS, a ballad's lilt; straight works |
+| Bebop · every preset | 58–64 on the EIGHTHS; Trane Countdown and Trane Drive straight to 54 |
+| R&B · every preset | 54–58 on the sixteenths, the lazy pocket |
+| Droon · every preset | 56–60 on the sixteenths; the Care set 60–64 on the EIGHTHS |
+| Hollywood · every preset | 52, a hair of lazy swing under the strings; straight works |
 
-Set the same swing on every machine playing along.
+Set the same swing on every machine that plays along.
 
-**Each pack ships a template, or more** (`pack.template(…)`, `patternkit.write_template()`; the
-projects dialog's TEMPLATES, `ravving/presets/templates/<genre>.json` on the stick, a second one
-under its own `name=`): the tempo, swing, key and LIVE FX its presets are best played with.
-Choosing one starts a new project with them. The tempo is the middle of the pack's preset
-tempos; the key is the one a pack was made for where it says so, else a usual key of the style.
+## Templates
+
+Each pack comes with a template, and some with two. A template starts a new project at the
+tempo, swing, key and LIVE FX its presets sound best with. Find them under TEMPLATES in the
+projects dialog.
+
+The tempo is the middle of the pack's tempos. The key is the one the pack was written for, or a
+usual key for the style.
 
 | Pack | Tempo | Key | Swing | PHASER · ECHO · HEAVY |
 |---|---|---|---|---|
@@ -93,180 +98,64 @@ tempos; the key is the one a pack was made for where it says so, else a usual ke
 | Hollywood | 72 | F minor | 52 | 0 · 0.4 · 0.15 |
 | Hollywood · Video Games | 62 | F# minor | 50 | 0 · 0.45 · 0.1 |
 
-**The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
-`VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
-`<10` / `>10` (10 % of a step early / late). The packs made since use them: palm-muted chugs,
-tremolo down- and up-strokes, a fiddle's bow, grace notes snapped in early, a dub bass behind the
-beat, a chant's swell. A note's LENGTH is its `_` steps (HOLD), as before.
+## Feel: velocity, nudge and length
 
-**6/8 and 3/4 in the new packs** work as the waltz trio does (below): three 16-step bars hold
-four 12-step bars, and the tempo counts a quarter of four steps (a jig at a dotted quarter of
-110 is "165").
+Notes can carry their own velocity and nudge, like SELECT's knobs 2 and 3 set them. The packs
+use that for feel:
 
-**The waltz trio is in 3/4.** Classical · Waltz, Waltz Oom and Waltz Pah-Pah are three
-16-step bars long, which hold four 12-step waltz bars, so the three loop together.
+- palm-muted chugs and tremolo strokes,
+- a fiddle's bow and a chant's swell,
+- grace notes snapped in early,
+- a dub bass sitting behind the beat.
+
+## 3/4 and 6/8
+
+Some presets are in 3/4 or 6/8, like Classical's waltz trio (Waltz, Waltz Oom and Waltz
+Pah-Pah). Three 16-step bars hold four 12-step bars, so they loop together. The tempo counts a
+quarter as four steps, so a jig at a dotted quarter of 110 reads 165.
+
+## Making a pack
+
+Each pack is built by a script, and a checker tests every pack against ravving's own readers.
+
+```
+data/secret/<genre>-presets/build.py                     the generator (python3 build.py)
+data/secret/<genre>-presets/ravving/presets/<drums|bass|lead|chords>/patterns/<Genre> · <Name>.json
+data/secret/patternkit.py                                shared by the genre build.py files (not the jazz one)
+data/secret/validate.py                                  checks every pack against ravving's parsers
+```
+
+Each preset file is
+`{"ravving": "preset", "type": "pattern", "library": "<x>-presets.json", "preset": {"name", "genre", "chart", "sound"}}`.
+
+- **`chart`:** the pattern, in the shipped libraries' format.
+- **`sound`:** the sound it was written for. That's `{"soundSource": …}` for the bass, lead and
+  chords, and `{"kit": …}` for the drums.
+- **Velocity and nudge:** patternkit writes them from a note's `@64` and `<10` / `>10` tokens
+  (10 % of a step early or late). They land in the chart's `VELOCITY` and `NUDGE` lanes.
+- **Length:** a note's `_` steps, in the chart's HOLD lane.
+- **Templates:** `pack.template(…)` writes `ravving/presets/templates/<genre>.json`, and a second
+  one under its own `name=`.
+
+The stick's presets reach the dialog through `PresetExchange::stickPatterns` and
+`loadStickPattern`.
 
 ## Sounds
 
-Every sound named is a source in `data/kits.json` (or a kit path), and `validate.py` checks
-this. I added two kinds of entries to `kits.json`, all from the FluidR3Mono_GM.sf3 already on
-the device (`/zynthian/zynthian-data/soundfonts/SF2 Instruments/`):
+Every preset says which sound it was written for, and loads it when WITH ITS SOUND is on. All
+of them are already on your MIKO: nothing needs installing.
 
-- **Chords sources:** Harpsichord 0:6, Guitar · Clean 0:27, Guitar · Overdrive 0:29,
-  Guitar · Distortion 0:30, Marimba 0:12, Steel drums 0:114, Accordion 0:21,
-  Brass section 0:61, Pizzicato strings 0:45.
-- **Bass sources:** Picked bass 0:34, Slap bass 0:36, Sine sub 8:80, Contrabass 0:43,
-  Cello 0:42.
-- **Lead sources:** Violin 0:40, Harpsichord 0:6, Trumpet 0:56, Guitar · Overdrive 0:29,
-  Marimba 0:12, Steel drums 0:114, Pan flute 0:75, Accordion 0:21, Music box 0:10,
-  Guitar · Clean 0:27 (champeta's soukous lead).
-- **Bass source "808 · Monosynth":** a `jalv` source on Calf Monosynth, the lead machine's
-  own engine (a second instance on the bass track). Its controls are real port values,
-  checked against the plugin's lv2info dump in
-  `engine-mods/calf_monosynth_mod/docs/engine-symbols.txt`:
-  - Sound: osc 1 Sine (`o1_wave` 3), plus 15 % of a triangle an octave up (`o2_wave` 4,
-    `o2_xpose` 12, `o12_mix` 0.15) for the harmonics an 808's saturation gives.
-  - Filter: 12 dB low-pass at 400 Hz that follows the key, opened by a 60 ms filter envelope
-    (`env2cutoff` 2400 cents): the click of the attack.
-  - Amp envelope: 1 ms attack, 1.8 s decay to 0.3, 250 ms release.
-  - Glide: `legato` 3 (Fingered Legato) with `portamento` 80 ms, so only overlapping notes
-    (a SLIDE) glide.
-  - Off: LFO-to-pitch, LFO-to-filter, the mod wheel; `master` 0.5.
-  - What it cannot do:
-    - **No pitch drop.** The Monosynth's modulation matrix is LV2 state, not ports (the mod's
-      RESEARCH.md), so kits.json can't set a pitch envelope.
-    - **No drive port.** Turn on the bass machine's DRIVE for the saturation.
-    - The bass page's knobs (Nekobi's) don't apply to it.
-- **presetKits:**
-  - Power `#128:16`
-  - Orchestra `#128:48?TOM=48&HAT=43&OPEN=81&CYMBAL=57&PERC=54`. The rows land on:
+- **Drums:** the drum machine kits, plus acoustic kits picked from a General MIDI soundfont.
+  Some, like the orchestra, cumbia and Latin kits, map their rows to other instruments: the
+  orchestra kit's TOM and HAT are timpani, and the Latin kits swap in congas, bongos, güiro and
+  cowbell.
+- **Bass, lead and chords:** soundfont instruments, and "808 · Monosynth", a sub bass on Calf
+  Monosynth that glides between notes.
 
-    | Row | Sound |
-    |---|---|
-    | KICK | concert bass drum |
-    | SNARE | concert (field) snare |
-    | CLAP | castanets |
-    | TOM | timpani on C (key 48) |
-    | HAT | timpani on G below (key 43) |
-    | OPEN | triangle |
-    | CYMBAL | concert crash (clash cymbals) |
-    | PERC | tambourine |
+Drum kits don't follow the key, so the orchestra kit's timpani sound best in C.
 
-    The timpani suit a key of C: drum kits don't follow the session's key.
-  - Cumbia · timbal `#128:0?PERC=73&TOM=65&CYMBAL=56&CLAP=63`: PERC the güiro, TOM the high
-    timbale, CYMBAL the cowbell (campana), CLAP the high conga (llamador).
-  - Cumbia · room `#128:8?PERC=74&TOM=66&CYMBAL=56&CLAP=63`: the room kit, with the long güiro
-    and the low timbale.
-  - Latin · congas `#128:0?SNARE=63&CLAP=62&TOM=64&HAT=75&OPEN=70&CYMBAL=56&PERC=73`, for
-    salsa: SNARE open conga, CLAP conga slap, TOM tumba, HAT claves, OPEN maracas, CYMBAL
-    cowbell (campana), PERC güiro; KICK stays the kick.
-  - Latin · güira `#128:0?SNARE=60&TOM=61&CLAP=62&OPEN=64&HAT=70&CYMBAL=56&PERC=69`, for
-    merengue and bachata: SNARE high bongo, TOM low bongo, CLAP conga slap, OPEN tumba (the
-    tambora's low stroke), HAT maracas, CYMBAL cowbell, PERC cabasa (the metal güira).
-  - All the Latin keys were named from the font and rendered; every one sounds.
-
-**Nothing needs installing on the device.** The device's font is MuseScore 2.3.2's
-FluidR3Mono_GM.sf3. It matches by sha256
-`cfcd66d89e8386823400eca64934b14fbea7bf48ba1f00d21189af1262794ec2`, the hash in zynthbox-qml's
-`config/soundfonts.json`, entry SF_00022. A byte-identical copy is in
-`~/Downloads/ravving-soundfonts/fluidr3mono/`, from
-<https://github.com/musescore/MuseScore/raw/v2.3.2/share/sound/FluidR3Mono_GM.sf3>. Its
-licence is MIT (Frank Wen 2000–2002, mono version Michael Cowgill 2014–16; see
-`LICENSE-FluidR3Mono.md` there).
-
-**How the new sounds were checked.** Every new preset was rendered offline from that copy
-with `tools/soundfont.py render`. All of them sound, with peak levels from 0.02 to 0.20 and
-none silent. The kit rows were also worked out with a port of `DrumKit::fromSoundfont`.
-`validate.py` checks that every FluidR3Mono bank:program in kits.json exists, whenever the
-copy is present.
-
-**Limits of these sounds:** FluidSynth sources don't glide; a SLIDE only overlaps the notes.
-The 808 lines therefore use "808 · Monosynth", which does glide. "Sine sub" (8:80) stays
-registered, but no preset uses it.
-
-### For the folk, metal, black metal, post-punk and Gregorian packs
-
-Sources from soundfonts already on the device (`SF2 Instruments/`; each preset found with
-`tools/soundfont.py presets` and rendered there: peaks 0.02–0.31 like the others, except
-**Organ · Plein jeu**, 0.66: lower its machine's VOL):
-
-| Machine | Source | Soundfont, bank:program |
-|---|---|---|
-| chords | Guitar · Heavy rhythm | Heavy Guitars 0:0 |
-| chords, lead | Guitar · Chorus | Stratocaster 0:3 (STRAT VS chorus) |
-| chords | Guitar · 12-string, Guitar · Acoustic | Acoustic Guitars 0:8, 0:0 |
-| chords | Organ · Vox humana, Organ · Plein jeu | Pipe Organ 0:45, 0:114 |
-| chords, lead | Harp | FluidR3Mono_GM 0:46 |
-| bass | Squier bass | Squierbass 0:0 |
-| bass | Organ · Bourdon 16 | Pipe Organ 0:59 |
-| bass, lead | Guitar · Heavy muted | Heavy Guitars 0:4 (palm-muted) |
-| lead | Guitar · Heavy lead, Guitar · Valve OD | Heavy Guitars 0:2, Valve OD Guitar 0:0 |
-| lead | Choir, Voice oohs | FluidR3Mono_GM 0:52, 0:53 |
-| lead | Fiddle, Banjo, Bagpipe, Recorder | FluidR3Mono_GM 0:110, 0:105, 0:109, 0:74 |
-| lead | Organ · Krummhorn | Pipe Organ 0:124 |
-
-Kits (`presetKits`, and the kit folder's machines the packs name):
-
-- **Black Pearl 5**, **Red Zeppelin 5**: the AVL acoustic kits, the soundfonts inside their
-  FluidPlug LV2s (`/zynthian/zynthian-plugins/lv2/<kit>.lv2/FluidPlug.sf2`; the `sf2/` links to
-  them are broken, their names hold a literal `*`). Velocity-layered, mapped by General MIDI
-  key (their samples are unnamed); rendered: kick 0.09, snare 0.05, a little under the drum
-  machines. DrumKit names such a kit after its bundle ("Black Pearl 5", not "FluidPlug").
-- **Folk · bodhrán**: FluidR3's Room kit with TOM the low floor tom (the bodhrán), PERC the
-  tambourine, CYMBAL the ride.
-- **Orchestra · D**: the orchestra kit with its timpani on D (TOM, key 50) and the A below
-  (HAT, key 45), a D tonic and dominant.
-- From the kit folder: Boss DR55 (the Sisters of Mercy's Doktor Avalanche), Roland CR78.
-  `validate.py` knows the folder's files as listed on the device.
-
-### For the Hollywood pack
-
-Sources and a kit for the orchestra, found with `tools/soundfont.py presets` on the device and
-rendered there (`render --velocity 90`, peak over 3 s; the chords as an F minor triad from F3, the lead
-and bass on one note), see `tools/genre-research/hollywood.md`:
-
-| Machine | Source | Soundfont, bank:program | Peak |
-|---|---|---|---|
-| chords | Strings · Tremolo | Roland SC-88 0:44 | 0.18 (FluidR3's Tremolo 0.11) |
-| chords | Strings · Mood | Hip Hop Combo 0:54 | 0.17 |
-| chords | Piano + strings | Roland SC-88 0:2 | 0.24, the piano decaying over the strings |
-| lead | Violin · Warm | Roland SC-88 0:40 | 0.15 (FluidR3's Violin 0.05) |
-| lead | Cello | Roland SC-88 0:42 | 0.10 at C4 |
-| lead | Celesta | Roland SC-88 0:8 | 0.11, ringing 2 s (FluidR3's 0.05, gone in 0.5 s) |
-| lead | Harp · Concert | Roland SC-88 0:46 | 0.11 (FluidR3's Harp 0.05) |
-
-- **Orchestra · F** (`presetKits`): the orchestra kit with its timpani on F (TOM, key 53) and
-  the C below (HAT, key 48), an F-minor tonic and dominant; rendered: F 0.09, C 0.10.
-- The glockenspiel was left out: both fonts' are short and quiet (FluidR3 0.03, SC-88 0.05).
-
-### For the Solos pack
-
-Lead sources, found with `tools/soundfont.py presets` on the device and rendered there (`render
---notes 60 --velocity 90`, peak over 2 s), see `tools/genre-research/solos.md`:
-
-| Machine | Source | Soundfont, bank:program | Peak |
-|---|---|---|---|
-| lead | Soprano sax | FluidR3Mono_GM 0:64 | 0.04 (quiet: raise the lead's VOL) |
-| lead | Tenor sax · Bright | Roland SC-88 (Roand_SC-88.sf3) 0:66 | 0.10 |
-| lead | Trumpet · Cool | Roland SC-88 0:56 | 0.06, decaying to 0.04 (FluidR3's Trumpet 0.04, its Muted trumpet 0.06, the SC-88 mute 0.07) |
-
-The existing Alto sax and Tenor sax (FluidR3 0:65, 0:66) rendered at 0.07, the SC-88's alto
-0.07, soprano 0.09, baritone 0.08 (FluidR3's baritone 0.05).
-
-### For the R&B and Droon packs
-
-Sources from soundfonts already on the device, found with `tools/soundfont.py presets` and
-rendered there (a chord E3 G3 B3 D4 at velocity 90, single notes at 80; peak over 2 s), see
-`tools/genre-research/rnb.md`:
-
-| Machine | Source | Soundfont, bank:program | Peak |
-|---|---|---|---|
-| chords, lead | Rhodes · Suitcase | jRhodes4 0:0 | chord 0.18, a note 0.09 |
-| chords | Wurlitzer | DX7 Wurlitzer 0:0 | 0.38 (loud: lower the chords' VOL) |
-| chords | Grand · Warm | Full Grands 0:58 (Warm Grand Rev) | 0.26 |
-| chords | Pad · Warm | FluidR3Mono_GM 0:89 | 0.18, after a half-second swell |
-| chords | Pad · Vocal | SFZ Synths/Vocal Padds 0:0 | 0.12 |
-| lead | Strings | FluidR3Mono_GM 0:48 | 0.05 (quiet: raise the lead's VOL) |
+Soundfont sounds don't glide: a SLIDE only overlaps the notes. That's why the 808 lines use
+"808 · Monosynth".
 
 ## Classical: Major
 
@@ -293,10 +182,12 @@ rendered there (a chord E3 G3 B3 D4 at velocity 90, single notes at 80; peak ove
 | Prinner Pulse | chords | 2 | the galant Prinner (IV–I6–vii°6–I) in repeated eighths | 90–120 | Strings · Bowed |
 | Circle of Fifths | chords | 4 | I IV vii° iii vi ii V I in half notes | 70–100 | Harpsichord |
 
-References: [Lament bass (Wikipedia)](https://en.wikipedia.org/wiki/Lament_bass);
-[Music theory behind Canon in D](https://musiciangoods.com/blogs/music-theory/music-theory-behind-canon-in-d);
-[The art of the ostinato](https://thelistenersclub.com/2012/04/15/the-listeners-club-the-art-of-the-ostinato/);
-R. Gjerdingen, *Music in the Galant Style* (the Prinner).
+### References
+
+- [Lament bass (Wikipedia)](https://en.wikipedia.org/wiki/Lament_bass)
+- [Music theory behind Canon in D](https://musiciangoods.com/blogs/music-theory/music-theory-behind-canon-in-d)
+- [The art of the ostinato](https://thelistenersclub.com/2012/04/15/the-listeners-club-the-art-of-the-ostinato/)
+- R. Gjerdingen, *Music in the Galant Style* (the Prinner)
 
 The public-domain scores, on IMSLP: Bach BWV 846 and BWV 1068, Pachelbel's Canon, Beethoven
 Symphony 9, Mozart K. 545, Bizet *Carmen*.
@@ -326,10 +217,12 @@ Symphony 9, Mozart K. 545, Bizet *Carmen*.
 | Dark Strings | chords | 4 | i (two bars) – VI – v triads | 80–95 | Strings · Bowed |
 | Organ Vamp | chords | 2 | soul-jazz i7–IV7 (Dorian IV) stabs | 90–100 | Jazz organ |
 
-References: [Best drum patterns for hip hop](https://violetrecording.com/best-drum-patterns-for-hip-hop/);
-[What is boom bap (Native Instruments)](https://blog.native-instruments.com/what-is-boom-bap/);
-[How to make a boom bap beat](https://violetrecording.com/how-to-make-a-boom-bap-beat/);
-[Boom bap in FL Studio](https://www.audeobox.com/learn/fl-studio/how-to-make-boom-bap-beats-in-fl-studio/).
+### References
+
+- [Best drum patterns for hip hop](https://violetrecording.com/best-drum-patterns-for-hip-hop/)
+- [What is boom bap (Native Instruments)](https://blog.native-instruments.com/what-is-boom-bap/)
+- [How to make a boom bap beat](https://violetrecording.com/how-to-make-a-boom-bap-beat/)
+- [Boom bap in FL Studio](https://www.audeobox.com/learn/fl-studio/how-to-make-boom-bap-beats-in-fl-studio/)
 
 ## Pop: Major
 
@@ -356,10 +249,12 @@ References: [Best drum patterns for hip hop](https://violetrecording.com/best-dr
 | Royal Road | chords | 4 | IV–V–iii–vi, each bar pushed 3+3+2 | 90–110 | Rhodes |
 | Ballad Strings | chords | 4 | I–V/7–vi–IV–V with the stepping bass voiced in | 60–80 | Strings · Ensemble |
 
-References: [Hooktheory chord trends](https://www.hooktheory.com/blog/chord-progression-search-patterns-and-trends/);
-[Common pop progressions (Mixed In Key)](https://mixedinkey.com/captain-plugins/common-chord-progressions-pop-music/);
-[15 common drum beats](https://thedrumninja.com/common-drum-beats/);
-[Drum patterns (muted.io)](https://muted.io/drum-patterns/).
+### References
+
+- [Hooktheory chord trends](https://www.hooktheory.com/blog/chord-progression-search-patterns-and-trends/)
+- [Common pop progressions (Mixed In Key)](https://mixedinkey.com/captain-plugins/common-chord-progressions-pop-music/)
+- [15 common drum beats](https://thedrumninja.com/common-drum-beats/)
+- [Drum patterns (muted.io)](https://muted.io/drum-patterns/)
 
 ## Rock: Major, with ♭3, ♭7 and ♭VI/♭VII borrowed
 
@@ -386,10 +281,12 @@ References: [Hooktheory chord trends](https://www.hooktheory.com/blog/chord-prog
 | Piano Pump | chords | 4 | I–IV–V–IV in a "1 2 3, 1 2 3, 1 2" push | 120–150 | Grand piano |
 | Clean Strum | chords | 4 | strummed I–V–IV–V, guitar voicings | 90–120 | Guitar · Clean |
 
-References: [15 common drum beats (shuffle, half-time shuffle)](https://thedrumninja.com/common-drum-beats/);
-[Basic drum beats (Gear4music)](https://www.gear4music.com/blog/?p=43811);
-[Rock and disco drum patterns](https://c.enwp.org/wiki/File:Characteristic_rock_and_disco_drum_patterns.png);
-the Bo Diddley beat (Wikipedia).
+### References
+
+- [15 common drum beats (shuffle, half-time shuffle)](https://thedrumninja.com/common-drum-beats/)
+- [Basic drum beats (Gear4music)](https://www.gear4music.com/blog/?p=43811)
+- [Rock and disco drum patterns](https://c.enwp.org/wiki/File:Characteristic_rock_and_disco_drum_patterns.png)
+- The Bo Diddley beat (Wikipedia)
 
 ## Trap: Natural Minor, with harmonic-minor 7 and Phrygian ♭2
 
@@ -418,10 +315,12 @@ The drum grid is sixteenths at the track's tempo, with the clap on beat 3: a hal
 | Drill Pizzicato | chords | 2 | i and ♭II plucked 3-3-2 | 140–145 | Pizzicato strings |
 | Glassy Stabs | chords | 2 | i–v–VI–VII, each half bar 3-3-2 | 130–150 | Alien · Glassy |
 
-References: [Best drum patterns for trap](https://violetrecording.com/best-drum-patterns-for-trap/);
-[Creating trap rhythms (Cubase seminar)](https://sleepfreaks-dtm.com/en/produce-recipe/cubase-pro-10-musicseminar-1);
-[MPC modern trap workflow](https://www.audeobox.com/learn/mpc-software/modern-trap-workflow/);
-[How to make trap beats](https://thedrumninja.com/how-to-make-trap-beats/).
+### References
+
+- [Best drum patterns for trap](https://violetrecording.com/best-drum-patterns-for-trap/)
+- [Creating trap rhythms (Cubase seminar)](https://sleepfreaks-dtm.com/en/produce-recipe/cubase-pro-10-musicseminar-1)
+- [MPC modern trap workflow](https://www.audeobox.com/learn/mpc-software/modern-trap-workflow/)
+- [How to make trap beats](https://thedrumninja.com/how-to-make-trap-beats/)
 
 ## Reggaeton: Natural Minor
 
@@ -450,10 +349,12 @@ The dembow: the kick on every beat, the snare on steps 4, 7, 12 and 15 (3-3-2 tw
 | Pad VI–VII–i | chords | 4 | sustained pad | 88–98 | Strings · Digital |
 | Organ Offbeats | chords | 4 | off-beat stabs i–VI–i–v | 105–110 | Organ · House |
 
-References: [How to make reggaeton beats](https://violetrecording.com/how-to-make-reggaeton-beats/);
-[Reggaetón Lento (Hooktheory)](https://www.hooktheory.com/theorytab/view/cnco/reggaeton-lento-(bailemos));
-[Reggaeton chord progressions](https://unison.audio/reggaeton-chord-progressions/);
-Wikipedia's "Dembow" (Shabba Ranks' "Dem Bow", Steely & Clevie's "Poco Man Jam" riddim).
+### References
+
+- [How to make reggaeton beats](https://violetrecording.com/how-to-make-reggaeton-beats/)
+- [Reggaetón Lento (Hooktheory)](https://www.hooktheory.com/theorytab/view/cnco/reggaeton-lento-(bailemos))
+- [Reggaeton chord progressions](https://unison.audio/reggaeton-chord-progressions/)
+- Wikipedia's "Dembow" (Shabba Ranks' "Dem Bow", Steely & Clevie's "Poco Man Jam" riddim)
 
 ## Punk: Major, with ♭3, ♭7 and ♭VI/♭VII borrowed
 
@@ -480,9 +381,11 @@ Wikipedia's "Dembow" (Shabba Ranks' "Dem Bow", Steely & Clevie's "Poco Man Jam" 
 | Crust I–♭VI–♭VII | chords | 2 | chugged I, then ♭VI–♭VII | 150–190 | Guitar · Overdrive |
 | Piano Bash | chords | 4 | straight eighth triads I–IV–I–V | 160–190 | Grand piano |
 
-References: [D-beat (Wikipedia)](https://en.wikipedia.org/wiki/D-beat);
-[Punk drum beats and rhythms](https://drumhelper.com/learning-drums/punk-drum-beats-and-rhythms/);
-[The history of the punk beat in 10 songs](https://www.pastemagazine.com/music/punk/the-history-of-the-punk-beat-in-10-songs).
+### References
+
+- [D-beat (Wikipedia)](https://en.wikipedia.org/wiki/D-beat)
+- [Punk drum beats and rhythms](https://drumhelper.com/learning-drums/punk-drum-beats-and-rhythms/)
+- [The history of the punk beat in 10 songs](https://www.pastemagazine.com/music/punk/the-history-of-the-punk-beat-in-10-songs)
 
 ## Tropical: Major, with salsa and bachata on the relative minor (degree 6)
 
@@ -513,20 +416,14 @@ straight (SWING 50).
 | Vallenato Guitar | chords | 4 | strum pattern, I–IV–V–I | 90–110, straight | Nylon guitar |
 | Champeta Stabs | chords | 4 | synth stabs on the "e" after each beat, I–IV–V–IV | 110–125, straight | TAL NoiseMaker |
 
-References:
-- Salsa: [Tumbao (Wikipedia)](https://www.wikipedia.org/wiki/Tumbao);
-  [Tumbao (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/tumbao);
-  [Latin and counting (TalkBass)](https://www.talkbass.com/threads/latin-and-counting.366625/)
-- Merengue: [Merengue rhythm (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/merengue-rhythm);
-  [Merengue music (Wikipedia)](https://www.wikipedia.org/wiki/Merenque);
-  [Merengue típico (Wikipedia)](https://www.wikipedia.com/wiki/Perico_Ripiao)
-- Bachata: [Breaking down bachata, part 1](https://www.ubisoft.com/en-us/game/rocksmith/plus/news-updates/4JGuRsatSHe2lZ4XuGxuUF/breaking-down-bachata-part-1-overview)
-  and [part 3, guitars](https://www.ubisoft.com/en-us/game/rocksmith/plus/news-updates/42YP2fih1AY3wVyZhWhLrZ/breaking-down-bachata-part-3-guitars)
-- Vallenato: the Colombian university theses on paseo bass lines
-  ([UPN](https://repositorio.upn.edu.co/bitstreams/a8d7eb05-b98d-43b9-8c23-10c73eb38508/download),
-  [Unireformada](https://repository.unireformada.edu.co/bitstreams/235e80db-ab95-4fed-be63-fb1fa7493731/download))
-- Champeta: [Champeta (Wikipedia)](https://en.wikipedia.org/wiki/Champeta);
-  [Palenque Records guide (Bandcamp Daily)](https://daily.bandcamp.com/lists/palaneque-records-label-guide)
+### References
+
+- - Salsa: [Tumbao (Wikipedia)](https://www.wikipedia.org/wiki/Tumbao)
+- [Tumbao (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/tumbao)
+- [Latin and counting (TalkBass)](https://www.talkbass.com/threads/latin-and-counting.366625/) - Merengue: [Merengue rhythm (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/merengue-rhythm)
+- [Merengue music (Wikipedia)](https://www.wikipedia.org/wiki/Merenque)
+- [Merengue típico (Wikipedia)](https://www.wikipedia.com/wiki/Perico_Ripiao) - Bachata: [Breaking down bachata, part 1](https://www.ubisoft.com/en-us/game/rocksmith/plus/news-updates/4JGuRsatSHe2lZ4XuGxuUF/breaking-down-bachata-part-1-overview) and [part 3, guitars](https://www.ubisoft.com/en-us/game/rocksmith/plus/news-updates/42YP2fih1AY3wVyZhWhLrZ/breaking-down-bachata-part-3-guitars) - Vallenato: the Colombian university theses on paseo bass lines ([UPN](https://repositorio.upn.edu.co/bitstreams/a8d7eb05-b98d-43b9-8c23-10c73eb38508/download), [Unireformada](https://repository.unireformada.edu.co/bitstreams/235e80db-ab95-4fed-be63-fb1fa7493731/download)) - Champeta: [Champeta (Wikipedia)](https://en.wikipedia.org/wiki/Champeta)
+- [Palenque Records guide (Bandcamp Daily)](https://daily.bandcamp.com/lists/palaneque-records-label-guide)
 
 ## Cumbia: Major, with the minor styles on the relative minor (degree 6)
 
@@ -557,26 +454,28 @@ cowbell (campana). The güiro plays "chu-chucu": a stroke on the beat, then down
 | Chicha Surf | chords | 4 | surf guitar strums: i–VII–i–V of the relative minor (V major, chromatic) | 90–100 | Guitar · Clean |
 | Orquesta Hits | chords | 4 | brass hits on the "and" of 2 and on 4, I–IV–V–I | 90–105 | Brass section |
 
-References:
-- [Cumbia villera (Wikipedia)](https://en.wikipedia.org/wiki/Cumbia_villera);
-  [Cumbia santafesina (Wikipedia)](https://en.wikipedia.org/wiki/Cumbia_santafesina);
-  [Guacharaca (Wikipedia)](https://en.wikipedia.org/wiki/Guacharaca)
-- [Latin Beats: cumbia on a drum kit and congas (Reverb)](https://reverb.com/news/latin-beats-how-to-play-the-cumbia-style);
-  [What is cumbia (Orphiq)](https://orphiq.com/resources/what-is-cumbia)
-- The Jamzone cumbia lesson, which gives the güira's down, down-up figure; its PDF link is now
-  dead.
-- Sergio Martín's gaita / porro / cumbia analysis in the [Berklee archive](https://archives.berklee.edu/node/50311/ocr)
-- Chicha: [MasterClass chicha guide](https://www.masterclass.com/articles/chicha-music-guide);
-  [My Hot Chicha Summer](https://newdirectionsinmusic.substack.com/p/my-hot-chicha-summer);
-  [Cumbia is just like techno](https://globalbassstudies.substack.com/p/im-here-to-convince-you-that-cumbia)
+### References
+
+- - [Cumbia villera (Wikipedia)](https://en.wikipedia.org/wiki/Cumbia_villera)
+- [Cumbia santafesina (Wikipedia)](https://en.wikipedia.org/wiki/Cumbia_santafesina)
+- [Guacharaca (Wikipedia)](https://en.wikipedia.org/wiki/Guacharaca) - [Latin Beats: cumbia on a drum kit and congas (Reverb)](https://reverb.com/news/latin-beats-how-to-play-the-cumbia-style)
+- [What is cumbia (Orphiq)](https://orphiq.com/resources/what-is-cumbia) - The Jamzone cumbia lesson, which gives the güira's down, down-up figure
+- Its PDF link is now dead. - Sergio Martín's gaita / porro / cumbia analysis in the [Berklee archive](https://archives.berklee.edu/node/50311/ocr) - Chicha: [MasterClass chicha guide](https://www.masterclass.com/articles/chicha-music-guide)
+- [My Hot Chicha Summer](https://newdirectionsinmusic.substack.com/p/my-hot-chicha-summer)
+- [Cumbia is just like techno](https://globalbassstudies.substack.com/p/im-here-to-convince-you-that-cumbia)
 
 ## Piig: Natural Minor, with the Dorian IV and the harmonic V
 
-After the candle-lit lo-fi hip-hop and neo-soul of Biig Piig's early EPs (*Big Fan of the
-Sesh*, *A World Without Snooze*, *No Place for Patience*): lazy 2- and 4-bar loops, muted
-drums (rim, shaker, brushes, soft kicks), a round legato bass, Rhodes and jazz-guitar 7th and
-9th chords, and saxes in the background. **Play it in D minor at 79 BPM**, the key and tempo
-of *24K* (songbpm.com; chord sites that say 150 count it in double time), with SWING 56–60.
+After the candle-lit lo-fi hip-hop and neo-soul of Biig Piig's early EPs: *Big Fan of the
+Sesh*, *A World Without Snooze* and *No Place for Patience*.
+
+- Lazy 2- and 4-bar loops.
+- Muted drums: rim, shaker, brushes and soft kicks.
+- A round, legato bass.
+- Rhodes and jazz-guitar 7th and 9th chords, with saxes in the background.
+
+**Play it in D minor at 79 BPM**, with SWING 56–60. That's the key and tempo of *24K*
+(songbpm.com). Chord sites that say 150 count it in double time.
 
 Three families, one preset of each instrument in each. A family's four presets share their
 chord changes, so they play together; the 2-bar drums loop under the 4-bar parts. The
@@ -603,21 +502,27 @@ progressions come from the songs (Ultimate Guitar's chord sheets), and every lin
 | Lay Here Guitar | chords | 2 | i7 – V7 comped in the bossa's eighths | 76–84 | Jazz guitar |
 | Daffodil Keys | chords | 4 | VIIadd9 – iv9 – i9 – i11, laid late and touched again | 76–84 | Upright piano |
 
-The texture the records have (vinyl crackle, a 12-bit sampler's grit, the tape's wobble, a
-low-pass on the chords) is not in a pattern: the machines' FX (a low-pass, DRIVE, a little
-reverb) get part of the way.
+The records' texture isn't in a pattern: vinyl crackle, a 12-bit sampler's grit, the tape's
+wobble. The machines' effects get you part of the way: a low-pass, DRIVE and a little reverb.
 
-References: [24K, tempo and key (songbpm)](https://songbpm.com/@biig-piig/24k);
-[Biig Piig chords and tabs (Ultimate Guitar)](https://www.ultimate-guitar.com/artist/biig_piig_618029):
-*Perdida*, *Sunny*, *Switch*, *Oh No*, *Feels Right*.
+### References
+
+- [24K, tempo and key (songbpm)](https://songbpm.com/@biig-piig/24k)
+- [Biig Piig chords and tabs (Ultimate Guitar)](https://www.ultimate-guitar.com/artist/biig_piig_618029): *Perdida*, *Sunny*, *Switch*, *Oh No*, *Feels Right*
 
 ## Folk: Major, the modal tunes on degree 2 (Dorian)
 
-Made for **G major**. The chords are the songs' (Ultimate Guitar): Knockin' on Heaven's Door
-(G D Am | G D C), The Times They Are A-Changin' in 3/4 (G Em C G | G Am C D), The House of the
-Rising Sun in 6/8 (Am C D F Am E Am E: the F and the E major from outside the key), Dirty Old
-Town and Whiskey in the Jar (I IV I | V vi), Scarborough Fair and Matty Groves (A Dorian in G
-major: ii I ii IV | ii IV V ii). Drunken Sailor is the traditional tune (public domain).
+Made for **G major**. The chords come from the songs (Ultimate Guitar):
+
+| Song | Chords |
+|---|---|
+| Knockin' on Heaven's Door | G D Am, G D C |
+| The Times They Are A-Changin' (3/4) | G Em C G, G Am C D |
+| The House of the Rising Sun (6/8) | Am C D F Am E Am E (the F and the E major from outside the key) |
+| Dirty Old Town, Whiskey in the Jar | I IV I, V vi |
+| Scarborough Fair, Matty Groves | A Dorian in G major: ii I ii IV, ii IV V ii |
+
+Drunken Sailor is the traditional tune, in the public domain.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -644,10 +549,17 @@ major: ii I ii IV | ii IV V ii). Drunken Sailor is the traditional tune (public 
 
 ## Heavy Metal: Natural Minor, with the ♭2, the ♭5 and the raised 7th
 
-Made for **E minor**. From Ultimate Guitar's tabs and chord sheets: Black Sabbath's Paranoid
-(Em D G D Em) and Iron Man (B D D E E, G F♯ G F♯ G F♯ D D E E); Iron Maiden's The Trooper
-(E5 D G D, C5 D) and Fear of the Dark (Dm B♭ C: i VI VII); Judas Priest; Metallica's Master of
-Puppets (the chromatic fall from E); Motörhead's Ace of Spades. The drums are on the AVL kits.
+Made for **E minor**. From Ultimate Guitar's tabs and chord sheets:
+
+| Song | Riff or chords |
+|---|---|
+| Black Sabbath, Paranoid | Em D G D Em |
+| Black Sabbath, Iron Man | B D D E E, G F♯ G F♯ G F♯ D D E E |
+| Iron Maiden, The Trooper | E5 D G D, C5 D |
+| Iron Maiden, Fear of the Dark | Dm B♭ C (i VI VII) |
+| Metallica, Master of Puppets | the chromatic fall from E |
+
+Motörhead's Ace of Spades and Judas Priest are in there too. The drums are on the AVL kits.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -674,12 +586,20 @@ Puppets (the chromatic fall from E); Motörhead's Ace of Spades. The drums are o
 
 ## Black Metal: Natural Minor, with the Phrygian ♭2 and the ♭5
 
-Made for **E minor**. From Ultimate Guitar's tabs: Darkthrone's Transilvanian Hunger (a falling
-tremolo line over an open pedal), Burzum's Dunkelheit (Em arpeggios moving a half step up),
-Mayhem's Freezing Moon, Emperor's I Am the Black Wizards, Bathory's One Rode to Asa Bay
-(i VII … VI). The blast beat after Wikipedia's: the kick and the snare alternating sixteenths,
-a cymbal with each kick; the hammer blast all three together; the skank beat. SyncTimer stops
-at 200 BPM: the fastest presets sit just under it.
+Made for **E minor**. From Ultimate Guitar's tabs:
+
+- Darkthrone, Transilvanian Hunger: a falling tremolo line over an open pedal.
+- Burzum, Dunkelheit: Em arpeggios moving a half step up.
+- Mayhem, Freezing Moon; Emperor, I Am the Black Wizards.
+- Bathory, One Rode to Asa Bay: i VII … VI.
+
+The drums follow Wikipedia's blast beats:
+
+- **The blast beat:** the kick and the snare alternate in sixteenths, with a cymbal on each kick.
+- **The hammer blast:** all three together.
+- **The skank beat.**
+
+The sequencer tops out at 200 BPM, so the fastest presets sit just under it.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -706,13 +626,21 @@ at 200 BPM: the fastest presets sit just under it.
 
 ## Post-Punk: Natural Minor, with the Dorian IV
 
-Made for **A minor**. The progressions are the bands' (Ultimate Guitar), each on its degrees of
-a minor key: The Cure's A Forest (Am C F D: i III VI IV, the Dorian major IV), Lullaby (i VI) and
-Boys Don't Cry (A Bm C♯m D in F♯ minor: III iv v VI); Joy Division's Love Will Tear Us Apart
-(D A Bm Em in B minor: III VII i iv), Disorder and She's Lost Control; Siouxsie and the Banshees'
-Spellbound (D Dorian: i7 VII IV); The Sisters of Mercy's Temple of Love (i III IV) and Lucretia My
-Reflection (i III iv); Bauhaus's Bela Lugosi's Dead. The bass leads (Peter Hook), high and
-melodic, some notes a little late (NUDGE).
+Made for **A minor**. The progressions come from the bands (Ultimate Guitar), each on its
+degrees of a minor key:
+
+| Song | Chords |
+|---|---|
+| The Cure, A Forest | Am C F D: i III VI IV, with the Dorian major IV |
+| The Cure, Lullaby | i VI |
+| The Cure, Boys Don't Cry | A Bm C♯m D in F♯ minor: III iv v VI |
+| Joy Division, Love Will Tear Us Apart | D A Bm Em in B minor: III VII i iv |
+| Siouxsie and the Banshees, Spellbound | D Dorian: i7 VII IV |
+| The Sisters of Mercy, Temple of Love | i III IV |
+| The Sisters of Mercy, Lucretia My Reflection | i III iv |
+
+Joy Division's Disorder and She's Lost Control, and Bauhaus's Bela Lugosi's Dead, are in there
+too. The bass leads, high and melodic like Peter Hook's, with some notes a little late.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -739,14 +667,17 @@ melodic, some notes a little late (NUDGE).
 
 ## Gregorian (old gothic): Dorian
 
-Made for **D Dorian** (SCALE Dorian, ROOT D), the chant's first mode. The Dies Irae (13th
-century, public domain) is the three phrases of the mfiles.co.uk MIDI: F E F D E C D D |
-F F G F E D C E | F E D A C D D. **Organum Above** (lead) and **Organum Below** (bass) sing it a
-perfect fifth over and a perfect fourth under, note for note, in its rhythm (organum's parallel
-fifths and fourths, after the Musica enchiriadis): any two of the three loop together. Dead Can
-Dance's i v VII IV (In Power We Entrust the Love Advocated: Am Em G D), a saltarello in 6/8, the
-drone under the chant, and a breakbeat under it the 90s way. The chant's notes swell to the
-phrase's middle (80–98) and lean a hair early or late.
+Made for **D Dorian** (SCALE Dorian, ROOT D), the chant's first mode.
+
+- **The Dies Irae:** 13th century, in the public domain. It's the three phrases of the
+  mfiles.co.uk MIDI: F E F D E C D D | F F G F E D C E | F E D A C D D.
+- **Organum Above** (lead) and **Organum Below** (bass) sing it a perfect fifth above and a
+  perfect fourth below, note for note. That's organum's parallel fifths and fourths, after the
+  *Musica enchiriadis*. Any two of the three loop together.
+- **Dead Can Dance:** In Power We Entrust the Love Advocated's i v VII IV (Am Em G D).
+- **Also:** a saltarello in 6/8, the drone under the chant, and a 90s-style breakbeat under it.
+
+The chant's notes swell towards the middle of each phrase, and lean a hair early or late.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -771,29 +702,36 @@ phrase's middle (80–98) and lean a hair early or late.
 | Vox Humana | chords | 4 | Dsus2 Dm Dsus4 Dm | 50–80 | Organ · Vox humana |
 | Harp Psalter | chords | 3 (6/8) | i and VII on the dotted quarters | 150–170 | Harp |
 
-References for the five packs:
-[Ultimate Guitar](https://www.ultimate-guitar.com) (each song's chord sheet or tab, found with
-`tools/genre-research/ug-chords.py`);
-[Blast beat (Wikipedia)](https://en.wikipedia.org/wiki/Blast_beat);
-[Organum (Wikipedia)](https://en.wikipedia.org/wiki/Organum);
-[Dies Irae, score and MIDI (mfiles)](https://www.mfiles.co.uk/scores/gregorian-dies-irae.htm);
-[The jig rhythm (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/jig-rhythm);
-[A Matter of Life and Drums (Invisible Oranges)](https://www.invisibleoranges.com/?p=44567)
-(Clive Burr's sixteenth hats).
+### References for the five packs
+
+- [Ultimate Guitar](https://www.ultimate-guitar.com) (each song's chord sheet or tab, found with `tools/genre-research/ug-chords.py`)
+- [Blast beat (Wikipedia)](https://en.wikipedia.org/wiki/Blast_beat)
+- [Organum (Wikipedia)](https://en.wikipedia.org/wiki/Organum)
+- [Dies Irae, score and MIDI (mfiles)](https://www.mfiles.co.uk/scores/gregorian-dies-irae.htm)
+- [The jig rhythm (Soundbrenner)](https://www.soundbrenner.com/blogs/articles/jig-rhythm)
+- [A Matter of Life and Drums (Invisible Oranges)](https://www.invisibleoranges.com/?p=44567) (Clive Burr's sixteenth hats)
 
 ## Solos: Major (ballads after Coltrane's *Ballads* and Chet Baker)
 
-Made for **Eb major** (a tenor's ballad key; the lead's degree 1 is Eb4, so the tenor sings
-"5-".."1+" and cries up to "2+", the soprano floats "5".."3+", the trumpet stays "7-".."6").
-The minor moods sit on degree 6 (C minor), and Devotion vamps on degree 2 (F Dorian). Six
-original ballad solos for the LEAD, each with the brushes, the bass and the chords it is heard
-over. They are moody, prolonged and passionate, with no fast passages. The model is the John
-Coltrane Quartet's *Ballads* (Impulse!, 1962/63: Tyner, Garrison, Jones), plus Baker's slow
-trumpet. Nothing is quoted: the album's standards and the recorded solos are copyrighted. The
-style was studied (`tools/genre-research/solos.md`), and every line, progression and rhythm is
-new.
+Made for **Eb major**, a tenor's ballad key. The minor moods sit on degree 6 (C minor), and
+Devotion vamps on degree 2 (F Dorian).
 
-The playing:
+The lead's degree 1 is Eb4, so each horn has its own range:
+
+| Horn | Range |
+|---|---|
+| Tenor | "5-" to "1+", crying up to "2+" |
+| Soprano | "5" to "3+" |
+| Trumpet | "7-" to "6" |
+
+Six original ballad solos for the LEAD, each with the brushes, bass and chords it's heard over.
+They're moody, long-breathed and passionate, with no fast passages.
+
+The model is the John Coltrane Quartet's *Ballads* (Impulse!, 1962–63, with Tyner, Garrison
+and Jones), plus Chet Baker's slow trumpet. Nothing is quoted: the album's standards and the
+recorded solos are copyrighted. Every line, progression and rhythm is new.
+
+### The playing
 
 - Tempo 56–70.
 - Long held notes, 6–12 steps, with a beat or half a bar of air between phrases.
@@ -805,11 +743,13 @@ The playing:
   note.
 - A scoop or slur (~) into a long tone.
 
-The chords are Tyner-style: rootless 9ths and 13ths, the So What fourths, fourths planed over
-a pedal, Lydian clusters, the minor iv (Abm6) and the backdoor Db9, each held a bar or half a
-bar and then re-voiced. The bass is Garrison's two-feel, whole notes and pedal. The drums are
-brushes only, darkened with TONE/CUTOFF, with a crash rolled up into the downbeat for the
-cymbal swell.
+### The band
+
+- **Chords:** Tyner-style rootless 9ths and 13ths, So What fourths, fourths planed over a pedal,
+  Lydian clusters, the minor iv (Abm6) and the backdoor Db9. Each is held a bar or half a bar,
+  then re-voiced.
+- **Bass:** Garrison's two-feel, in whole notes and pedals.
+- **Drums:** brushes only, darkened with TONE and CUTOFF, with a crash rolled into the downbeat.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -843,16 +783,18 @@ milo (see the research notes). The first version (bebop: Bird Changes, Bird Blue
 Countdown, Trane Fourths, Baker Ballad, Baker Cool, and their drums, bass and chords, in Bb
 major) is in commit 3d3f71f.
 
-References: [Ballads (Wikipedia)](https://en.wikipedia.org/wiki/Ballads_(John_Coltrane_album));
-[Ballads review (Positive Feedback)](https://positive-feedback.com/reviews/music-reviews/john-coltrane-quartet-ballads/);
-[Ballads review (MusicWeb International)](https://musicweb-international.com/jazz/2002/Apr02/Coltrane_ballads.htm);
-[Balladen, die zweite Seele des John Coltrane (SRF)](https://www.srf.ch/kultur/musik/musik-balladen-die-zweite-seele-des-john-coltrane);
-[Ballads, editorial notes (Apple Music)](https://music.apple.com/album/1440747672);
-[You Don't Know What Love Is (Michael's jazz blog)](https://michaelsjazzblog.com/?p=32);
-[Quartal voicings (Piano with Willie)](https://pianowithwillie.com/quartal-fourth-voicings/);
-[McCoy Tyner (jazz.com)](https://jazz.com/encyclopedia/tyner-mccoy);
-[Chet Baker: My Funny Valentine (jazz.com)](https://jazz.com/music/chet-baker-my-funny-valentine-1952);
-[Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye).
+### References
+
+- [Ballads (Wikipedia)](https://en.wikipedia.org/wiki/Ballads_(John_Coltrane_album))
+- [Ballads review (Positive Feedback)](https://positive-feedback.com/reviews/music-reviews/john-coltrane-quartet-ballads/)
+- [Ballads review (MusicWeb International)](https://musicweb-international.com/jazz/2002/Apr02/Coltrane_ballads.htm)
+- [Balladen, die zweite Seele des John Coltrane (SRF)](https://www.srf.ch/kultur/musik/musik-balladen-die-zweite-seele-des-john-coltrane)
+- [Ballads, editorial notes (Apple Music)](https://music.apple.com/album/1440747672)
+- [You Don't Know What Love Is (Michael's jazz blog)](https://michaelsjazzblog.com/?p=32)
+- [Quartal voicings (Piano with Willie)](https://pianowithwillie.com/quartal-fourth-voicings/)
+- [McCoy Tyner (jazz.com)](https://jazz.com/encyclopedia/tyner-mccoy)
+- [Chet Baker: My Funny Valentine (jazz.com)](https://jazz.com/music/chet-baker-my-funny-valentine-1952)
+- [Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye)
 
 ## Jazz
 
@@ -860,19 +802,33 @@ The original pack. It has no `sound` field. See `jazz-presets/build.py`.
 
 ## Vuelo (Flight Facilities)
 
-Natural Minor; A minor is Arty Boy's key, C# minor Crave You's (the two templates, both at
-120: Crave You is 120 on every listing, Arty Boy's groove sits there too). The band's own
-progressions from their chord sheets (Ultimate Guitar): Arty Boy's verse F Am Em C
-(VI i v III) in its timing (the first chord a bar and a half, the second the last two beats:
-| F F F F | F F Am Am |), its pre-chorus F Am Dm E (VI i iv V, the major V chromatic), its
-chorus F Em (VI v); Crave You's C#m7 Gdim7 F#m7 B7sus4 (i7, a chromatic ♯iv°7, iv7, a chromatic
-VII7sus4), one bar each; Need You's Am G F G (i VII VI VII); Two Bodies' F C Am G (VI III i
-VII); Stranded's Gmaj7 A Em7 A Bm (VI VII iv VII i). The lines are original: nu-disco drums
-(a 909 four on the floor with claps and open hats on the off-beats, an 808 for Crave You's
-laid-back pulse, a Linn disco shuffle with 16th hats, a build with a snare roll into a
-crash), octave disco basses riding between the kicks, a slap riff, a sub with slides, the
-funk guitar riff with muted 16ths (@42), a Rhodes hook, a string rise written as a velocity
-swell, an 80s synth lead on slides, a lazy sax behind the beat (>8).
+Natural Minor. There are two templates, both at 120 BPM: **Vuelo** in A minor, Arty Boy's key,
+and **Vuelo · Crave** in C# minor, Crave You's.
+
+### The songs
+
+The band's own progressions, from their chord sheets (Ultimate Guitar):
+
+| Song | Chords |
+|---|---|
+| Arty Boy, verse | F Am Em C (VI i v III): the first chord a bar and a half, the second the last two beats |
+| Arty Boy, pre-chorus | F Am Dm E (VI i iv V, the major V chromatic) |
+| Arty Boy, chorus | F Em (VI v) |
+| Crave You | C#m7 Gdim7 F#m7 B7sus4, one bar each (i7, a chromatic ♯iv°7, iv7, a chromatic VII7sus4) |
+| Need You | Am G F G (i VII VI VII) |
+| Two Bodies | F C Am G (VI III i VII) |
+| Stranded | Gmaj7 A Em7 A Bm (VI VII iv VII i) |
+
+### The playing
+
+The lines are original:
+
+- **Drums:** a 909 four on the floor with claps and open hats on the off-beats. An 808 plays
+  Crave You's laid-back pulse, a Linn plays a disco shuffle with 16th hats, and a build runs a
+  snare roll into a crash.
+- **Bass:** octave disco lines riding between the kicks, a slap riff, and a sub with slides.
+- **On top:** a funk guitar riff with muted 16ths, a Rhodes hook, a string rise written as a
+  velocity swell, an 80s synth lead on slides, and a lazy sax behind the beat.
 
 | Preset | Bars | BPM | Sound |
 |---|---|---|---|
@@ -897,38 +853,59 @@ swell, an 80s synth lead on slides, a lazy sax behind the beat (>8).
 | Vuelo · Chorus Stabs | 2 | 118–124 | Organ · House |
 | Vuelo · String Pads | 4 | 116–122 | Strings · Ensemble |
 
-References: the chord sheets (ug-chords.py: Arty Boy 2137129, Crave You 1132236, Need You
-5587641, Stranded 3235883, Two Bodies 1931097), hand-made charts of Arty Boy's strumming
-timing and Crave You's groove (minimal struck chords in the verse, a down-up rhythm in the
-chorus), SongBPM's 120 for Crave You, the band on their own sound (70s disco grooves, 909
-rhythms, slinky basslines: Boss Hunting and Mixmag interviews, 2017–2024).
+### References
+
+- The chord sheets (ug-chords.py: Arty Boy 2137129, Crave You 1132236, Need You 5587641,
+  Stranded 3235883, Two Bodies 1931097).
+- Hand-made charts of Arty Boy's strumming and Crave You's groove: struck chords in the verse,
+  a down-up rhythm in the chorus.
+- SongBPM's 120 for Crave You.
+- The band on their own sound (70s disco grooves, 909 rhythms, slinky basslines), in Boss
+  Hunting and Mixmag interviews, 2017–2024.
 
 ## Bebop: Major (horn solos after Parker, Coltrane and Baker)
 
 Fast horn solos and their comping, in their own group (`Bebop · …`).
 
-Made for **Bb major** (the horn key; the lead's degree 1 is Bb4, so the alto plays "1-".."7",
-the tenor "5-".."4", the soprano "1".."4+", the trumpet "6-".."7"). Six original solos for the
-LEAD, each with the chords, the bass and the drums it is heard over: nothing is quoted (the
-players' recorded solos and tunes are copyrighted), the vocabulary was studied
-(`tools/genre-research/bebop.md`) and every line, progression and rhythm is new. The
-progressions are generic schemes: a rhythm-changes-type A section (I VI7 | ii7 V7 | I VI7 |
-ii7 V7 | I I7 | IV7 ♯iv°7 | iii7 VI7 | ii7 V7), an 8-bar bop blues (I7 | IV7 | I7 | v7 I7 |
-IV7 | ♯iv°7 | I7 vi7 | ii7 V7), the Countdown reharm of a ii–V–I (ii7 ♭II7 | ♭VImaj7 VII7 |
-IIImaj7 V7 | Imaj7, chromatic voicings), a modal vamp on the ii7 with two bars of V7sus
-(quartal "So What"-type voicings), a ballad's I vi ii V | iii VI ii V, and a cool medium's
-I | ii V | iii vi | ii V | IV | iv ♭VII | iii VI | ii V. The chords are rootless A and B forms.
-SWING swings the EIGHTHS here (the templates set it): the ride's "ding ding-a" and the bebop
-eighths sit on the 16-step grid two steps apart.
+Made for **Bb major**, the horn key. The lead's degree 1 is Bb4, so each horn has its range:
 
-The playing: Parker's lines run in eighths on the chord tones with chromatic approach notes
-and enclosures, the off-beats a touch louder (@ +8), the approach notes snapped in early
-(<8), the blue ♭3 scooped into the 3 (~), a breath between phrases, a motif stated then
-displaced a beat. Coltrane's sheets of sound are sixteenth 1-2-3-5 cells up and their mirror
-down on every chord, each run swelling to its top; the modal solo is pentatonic cells, stacked
-fourths up to the Eb6 and a high note cried four times, on the soprano. Baker's lines are few
-notes, long and soft (@62–88), every one behind the beat (>8–14), a scoop, and air: the
-trumpet with its cutoff down a little and a longer release.
+| Horn | Range |
+|---|---|
+| Alto | "1-" to "7" |
+| Tenor | "5-" to "4" |
+| Soprano | "1" to "4+" |
+| Trumpet | "6-" to "7" |
+
+Six original solos for the LEAD, each with the chords, bass and drums it's heard over. Nothing
+is quoted: the players' recorded solos and tunes are copyrighted. Every line, progression and
+rhythm is new.
+
+### The progressions
+
+Generic schemes, with the chords as rootless A and B forms:
+
+| Scheme | Chords |
+|---|---|
+| Rhythm-changes A section | I VI7, ii7 V7, I VI7, ii7 V7, I I7, IV7 ♯iv°7, iii7 VI7, ii7 V7 |
+| 8-bar bop blues | I7, IV7, I7, v7 I7, IV7, ♯iv°7, I7 vi7, ii7 V7 |
+| The Countdown reharm of a ii–V–I | ii7 ♭II7, ♭VImaj7 VII7, IIImaj7 V7, Imaj7 |
+| Modal vamp | the ii7, with two bars of V7sus, in "So What" fourths |
+| Ballad | I vi ii V, iii VI ii V |
+| Cool medium | I, ii V, iii vi, ii V, IV, iv ♭VII, iii VI, ii V |
+
+### The playing
+
+SWING works on the EIGHTHS here, and the templates set it. The ride's "ding ding-a" and the
+bebop eighths sit two steps apart on the 16-step grid.
+
+- **Parker:** lines in eighths on the chord tones, with chromatic approach notes and
+  enclosures. The off-beats are a touch louder, the approach notes snap in early, and the blue
+  ♭3 scoops into the 3. A motif is stated, then displaced a beat, with a breath between phrases.
+- **Coltrane:** sheets of sound, sixteenth 1-2-3-5 cells up and their mirror down on every
+  chord, each run swelling to its top. The modal solo, on soprano, is pentatonic cells and
+  stacked fourths up to the Eb6, with a high note cried four times.
+- **Baker:** few notes, long and soft, every one behind the beat, with a scoop and room to
+  breathe. The trumpet's cutoff is down a little and its release longer.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -959,34 +936,49 @@ trumpet with its cutoff down a little and a longer release.
 
 The trumpet ballad plays soft by design: raise the lead's VOL or keep the room small.
 
-References: [Use bebop scales like a pro (Learn Jazz Standards)](https://www.learnjazzstandards.com/blog/learning-jazz/jazz-theory/use-bebop-scales-like-pro/);
-[The truth about bebop scales (keyboardimprov)](https://keyboardimprov.com/the-truth-about-bebop-scales/);
-[Charlie Parker for guitar (Premier Guitar)](https://www.premierguitar.com/lessons/jazz/charlie-parker-for-guitar);
-[Billie's Bounce lesson (jazzguitar.be)](https://www.jazzguitar.be/blog/billies-bounce);
-[Coltrane changes (Wikipedia)](https://en.wikipedia.org/wiki/Coltrane_changes);
-[Coltrane in the Rutgers Journal of Jazz Studies](https://jjs.libraries.rutgers.edu/index.php/jjs/article/download/317/310/2430);
-[Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye);
-the USFQ theses on Baker's *But Not for Me* and *Autumn Leaves* solos (`tools/genre-research/bebop.md`).
+### References
+
+- [Use bebop scales like a pro (Learn Jazz Standards)](https://www.learnjazzstandards.com/blog/learning-jazz/jazz-theory/use-bebop-scales-like-pro/)
+- [The truth about bebop scales (keyboardimprov)](https://keyboardimprov.com/the-truth-about-bebop-scales/)
+- [Charlie Parker for guitar (Premier Guitar)](https://www.premierguitar.com/lessons/jazz/charlie-parker-for-guitar)
+- [Billie's Bounce lesson (jazzguitar.be)](https://www.jazzguitar.be/blog/billies-bounce)
+- [Coltrane changes (Wikipedia)](https://en.wikipedia.org/wiki/Coltrane_changes)
+- [Coltrane in the Rutgers Journal of Jazz Studies](https://jjs.libraries.rutgers.edu/index.php/jjs/article/download/317/310/2430)
+- [Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye)
+- The USFQ theses on Baker's *But Not for Me* and *Autumn Leaves* solos (`tools/genre-research/bebop.md`)
 
 ## R&B: Natural Minor (after Jorja Smith and Snoh Aalegra)
 
 Made for **E minor**, the key of Be Honest, Teenage Fantasy and Fool For You on their chord
-sheets (Ultimate Guitar). The songs, set on its degrees: Be Honest's VImaj7 V7 i i, Teenage
-Fantasy's iv V7 i VII, Blue Lights' VI VII i VII (its major key's relative minor), Don't Watch
-Me Cry's VII i VI III, Fool For You's i9 IV13 VIImaj7 v7 V7 (the F#m(b9) shape over A is the
-Dorian IV13), Situationship's i9 ii11 (the Dorian ii), Whoa's VImaj7 V7 ♭vii9 i7. The major V,
-the Dorian IV and ii and the ♭vii are chromatic voicings; every chord is extended (maj7, maj9,
-min9, 11, 13, 7#9, 7b9). The tempos are the songs' (84–94; Fool For You 75), the template the
-middle at 86 with a lazy 16th swing; **R&B · Slow Jam** is Fool For You's 75. The lines are
-original.
+sheets (Ultimate Guitar). The template sits at 86 BPM with a lazy 16th swing, the middle of the
+songs' 84–94. **R&B · Slow Jam** is Fool For You's 75.
 
-The playing: the drums lay back by placement (a drum chart has no per-hit velocity or nudge:
-the backbeats are its accented steps, the ghost notes its plain hits, a kick on the "a" of two,
-a ghost a 16th after the snare to drag it) and by the swing; the bass and the lead sit
-6–14 % of a step late (>6–14), grace notes snap in early (<4–12), the vocal lines run
-pentatonic melismas into long notes, scoop (~) and swell by velocity. MODS: dark kits (TONE),
-the 808's tail longer, soft-attack strings and voices, Rhodes and pad releases, chorus on the
-Rhodes.
+### The songs
+
+Set on E minor's degrees:
+
+| Song | Chords |
+|---|---|
+| Be Honest | VImaj7 V7 i i |
+| Teenage Fantasy | iv V7 i VII |
+| Blue Lights | VI VII i VII (its major key's relative minor) |
+| Don't Watch Me Cry | VII i VI III |
+| Fool For You | i9 IV13 VIImaj7 v7 V7 (the F#m(b9) shape over A is the Dorian IV13) |
+| Situationship | i9 ii11 (the Dorian ii) |
+| Whoa | VImaj7 V7 ♭vii9 i7 |
+
+The major V, the Dorian IV and ii, and the ♭vii are chromatic voicings. Every chord is extended:
+maj7, maj9, min9, 11, 13, 7#9, 7b9. The lines are original.
+
+### The playing
+
+- **Drums** lay back by where the hits sit, and by the swing. A drum chart has no per-hit
+  velocity or nudge, so the backbeats are its accented steps and the ghost notes its plain hits.
+  A kick lands on the "a" of two, and a ghost a 16th after the snare drags it.
+- **Bass and lead** sit 6–14 % of a step late, and grace notes snap in early.
+- **The vocal lines** run pentatonic melismas into long notes, scoop, and swell.
+- **The MODS:** dark kits (TONE), a longer 808 tail, soft-attack strings and voices, Rhodes and
+  pad releases, and chorus on the Rhodes.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -1011,32 +1003,52 @@ Rhodes.
 | Situation Wurli | chords | 2 | i9 and the quartal ii11 comped long-short-short | 84–94 | Wurlitzer (MODS: CUTOFF down; lower its VOL) |
 | Whoa Pads | chords | 4 | VImaj7 V7 ♭vii9 i7 a bar each on a pad that breathes in | 84–94 | Pad · Warm |
 
-References: the chord sheets (ug-chords.py: Be Honest 2800520, Teenage Fantasy 2065615, Blue
-Lights 2723457, Don't Watch Me Cry 2239329, Fool For You 2452745, Situationship 4027984, Whoa
-3085499, Lost You 3762680, I Want You Around 2622450, Find Someone Like You 2832151); the
-tempos from SongBPM and AcousticBrainz (`tools/genre-research/rnb.md`);
-[drum programming tips (soundbridge)](https://www.soundbridge.io/drum-programming-tips-for-producers-of-all-levels);
-[How to make neo-soul drums (UJAM)](https://www.ujam.com/tutorials/how-to-make-neo-soul-drums/);
-[How to add groove and swing (Violet Recording)](https://violetrecording.com/how-to-add-groove-to-a-beat/).
+### References
+
+- The chord sheets, by Ultimate Guitar id (ug-chords.py):
+  - Jorja Smith: Be Honest 2800520, Teenage Fantasy 2065615, Blue Lights 2723457, Don't Watch
+    Me Cry 2239329.
+  - Snoh Aalegra: Fool For You 2452745, Situationship 4027984, Whoa 3085499, Lost You 3762680,
+    I Want You Around 2622450, Find Someone Like You 2832151.
+- The tempos from SongBPM and AcousticBrainz (`tools/genre-research/rnb.md`)
+- [drum programming tips (soundbridge)](https://www.soundbridge.io/drum-programming-tips-for-producers-of-all-levels)
+- [How to make neo-soul drums (UJAM)](https://www.ujam.com/tutorials/how-to-make-neo-soul-drums/)
+- [How to add groove and swing (Violet Recording)](https://violetrecording.com/how-to-add-groove-to-a-beat/)
 
 ## Droon: Natural Minor (after Sonder)
 
-Sonder is the R&B trio of Brent Faiyaz, Dpat and Atu; the model is their EP *Into* (Feel,
+Sonder is the R&B trio of Brent Faiyaz, Dpat and Atu. The model is their EP *Into* (Feel,
 Lovely, Sirens, Too Fast, Baldwin Park, Searchin', Care) and the single What You Heard. Every
-Into song is in a minor key. Made for **E minor at 74**, Too Fast's key and tempo (SongBPM's
-99 in three is the triplet reading of AcousticBrainz's 75); the EP's other songs pulse at
-62–82 felt in half time. **Droon · Care** is Care's and Searchin's Bb minor at 64, the
-eighths swung toward the triplet lilt that SongBPM's three-beat reading of Care hints at. The
-progressions on E minor's degrees: Too Fast's refrain i VII i v | i VII i VI, its intro
-iv i VI ii i v i (the Dorian ii chromatic) and interlude i VI iv VI III iv III i; Care's chorus
-iv(add9) v i7 (its tab's three arpeggiated shapes); What You Heard's VImaj7 IIImaj7 iv V7.
+song on *Into* is in a minor key.
+
+- **Droon:** E minor at 74 BPM, Too Fast's key and tempo. The EP's other songs pulse at 62–82,
+  felt in half time.
+- **Droon · Care:** Bb minor at 64, the key of Care and Searchin'. The eighths swing toward the
+  triplet lilt of Care.
+
+### The songs
+
+Set on E minor's degrees:
+
+| Song | Chords |
+|---|---|
+| Too Fast, refrain | i VII i v, i VII i VI |
+| Too Fast, intro | iv i VI ii i v i (the Dorian ii chromatic) |
+| Too Fast, interlude | i VI iv VI III iv III i |
+| Care, chorus | iv(add9) v i7, its tab's three arpeggiated shapes |
+| What You Heard | VImaj7 IIImaj7 iv V7 |
+
 The lines, riffs and rhythms are original.
 
-The feel: slow, spacious and moody: sparse kicks, quarter-note and dotted-8th hats, a rimshot
-alone in the room, the 808's tail long, every kit darkened (TONE), the template's ECHO for the
-reverb; subs that slide, a finger bass in Care's 3-3-2, a fretless walking; clean chorused
-guitar with hammer-on grace notes (<12), a Rhodes, a falsetto laid 10–14 % late, ghostly
-vocal pads (the reviews' "spotless guitars and ghostly backing vocals").
+### The feel
+
+Slow, spacious and moody:
+
+- **Drums:** sparse kicks, quarter-note and dotted-8th hats, a rimshot alone in the room, and
+  a long 808 tail. Every kit is darkened with TONE, and the template's ECHO does the reverb.
+- **Bass:** subs that slide, a finger bass in Care's 3-3-2, and a walking fretless.
+- **On top:** clean, chorused guitar with hammer-on grace notes, a Rhodes, a falsetto laid back
+  10–14 %, and ghostly vocal pads: the reviews' "spotless guitars and ghostly backing vocals".
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -1061,21 +1073,27 @@ vocal pads (the reviews' "spotless guitars and ghostly backing vocals").
 | Intro Ghosts | chords | 4 | Too Fast's intro iv i VI ii i v i as ghostly backing vocals, slow in and out | 66–78 | Pad · Vocal (MODS: slow attack, long release) |
 | Interlude Keys | chords | 4 | Too Fast's interlude i VI iv VI III iv III i, struck on one and the "and" of two | 70–78 | Grand · Warm |
 
-References: the chord sheets (ug-chords.py: Too Fast 2155579, What You Heard 5197296, Care's
-tab 5376447); the tempos and keys from SongBPM and AcousticBrainz
-(`tools/genre-research/droon.md`);
-[Sonder on Into, track by track (The Line of Best Fit)](https://www.thelineofbestfit.com/features/track-by-track/sonder-into);
-[Into (Album of the Year)](https://www.albumoftheyear.org/album/70743-sonder-into.php);
-[Hypebeast](https://hypebeast.com/2017/2/sonder-into-ep-release-354);
-[highclouds](https://highclouds.org/rb-trio-sonder-release-their-90s-and-groovy-debut-ep-into/);
-[Okayplayer](https://www.okayplayer.com/sonder-brings-soulful-sultry-rb-with-new-into-ep/427549).
+### References
+
+- The chord sheets (ug-chords.py: Too Fast 2155579, What You Heard 5197296, Care's tab 5376447)
+- The tempos and keys from SongBPM and AcousticBrainz (`tools/genre-research/droon.md`)
+- [Sonder on Into, track by track (The Line of Best Fit)](https://www.thelineofbestfit.com/features/track-by-track/sonder-into)
+- [Into (Album of the Year)](https://www.albumoftheyear.org/album/70743-sonder-into.php)
+- [Hypebeast](https://hypebeast.com/2017/2/sonder-into-ep-release-354)
+- [highclouds](https://highclouds.org/rb-trio-sonder-release-their-90s-and-groovy-debut-ep-into/)
+- [Okayplayer](https://www.okayplayer.com/sonder-brings-soulful-sultry-rb-with-new-into-ep/427549)
 
 ## Hollywood: Natural Minor (Lana Del Rey under old-Hollywood strings)
 
-Made for **F minor**, the key of Blue Jeans and Honeymoon: the contrabass's and the cello's low
-F and C sit under the strings, and the orchestra kit's timpani reach F. Lana Del Rey's beats and
-progressions, from *Born to Die* to *Norman Fucking Rockwell!*, with an old-Hollywood orchestra
-(violins, cellos, string sections, harp, celesta, timpani): vintage, cinematic, melancholic.
+Made for **F minor**, the key of Blue Jeans and Honeymoon. The contrabass's and cello's low F
+and C sit under the strings, and the orchestra kit's timpani reach F.
+
+Lana Del Rey's beats and progressions, from *Born to Die* to *Norman Fucking Rockwell!*, with an
+old-Hollywood orchestra: violins, cellos, string sections, harp, celesta and timpani. Vintage,
+cinematic and melancholic.
+
+### The songs
+
 Her progressions come from the chord sheets, set on the scale's degrees:
 
 - Video Games' i III v VI (F#m A C#m D).
@@ -1090,7 +1108,7 @@ The old-Hollywood scoring adds the minor line cliché (Fm, Fm(maj7), Fm7, Fm6, t
 strings swelling, and harp sweeps. Nothing is quoted: her songs are copyrighted, so the style
 was studied (`tools/genre-research/hollywood.md`) and every line, melody and rhythm is new.
 
-The playing:
+### The playing
 
 - Slow: 56–88, the half-time beats written at their felt tempo.
 - Velocity swells across each bowed phrase, and long holds.
@@ -1099,9 +1117,12 @@ The playing:
 - Harp sweeps rising in velocity to a held top note.
 - The celesta's grace notes snapped in early (<12), and slides on the 808 sub.
 
-The MODS slow the strings' ATTACK (2400–4800), lengthen the RELEASE (the hall), pull the
-FILTER down for the vintage tone, add a little VIBRATO to the solo strings, darken the drum kits
-(TONE) and tune the SP1200 down two semitones.
+The MODS shape the sound:
+
+- the strings' ATTACK slowed (2400–4800) and their RELEASE lengthened, for the hall;
+- the FILTER pulled down, for the vintage tone;
+- a little VIBRATO on the solo strings;
+- the drum kits darkened (TONE), and the SP1200 tuned down two semitones.
 
 | Preset | Part | Bars | What it is | Tempo | Sound |
 |---|---|---|---|---|---|
@@ -1126,17 +1147,11 @@ FILTER down for the vintage tone, add a little VIBRATO to the solo strings, dark
 | Honeymoon Piano | chords | 3 (3/4) | i VI iv6 V7 struck on one, touched again on three | 72–78 | Grand piano |
 | Venice Plagal | chords | 4 | Ab Ab7 Db Dbm6 (the major chord turning minor), then VI i VII iv, struck and touched again | 72–80 | Piano + strings |
 
-References: the chord sheets ([Ultimate Guitar](https://www.ultimate-guitar.com), with
-`tools/genre-research/ug-chords.py`);
-[Video Games](https://en.wikipedia.org/wiki/Video_Games_(Lana_Del_Rey_song)),
-[Summertime Sadness](https://en.wikipedia.org/wiki/Summertime_Sadness),
-[Blue Jeans](https://en.wikipedia.org/wiki/Blue_Jeans_(Lana_Del_Rey_song)),
-[Born to Die (song)](https://en.wikipedia.org/wiki/Born_to_Die_(Lana_Del_Rey_song)),
-[Born to Die (album)](https://en.wikipedia.org/wiki/Born_to_Die_(album)),
-[Ultraviolence](https://en.wikipedia.org/wiki/Ultraviolence_(album)),
-[Honeymoon](https://en.wikipedia.org/wiki/Honeymoon_(Lana_Del_Rey_album)),
-[Norman Fucking Rockwell!](https://en.wikipedia.org/wiki/Norman_Fucking_Rockwell!) (Wikipedia);
-the tempos and keys on [SongBPM](https://songbpm.com/@lana-del-rey);
-[The Singles Jukebox on Born to Die](https://thesinglesjukebox.com/?p=2305);
-[The James Bond chord (Sciencebase)](https://www.sciencebase.com/science-blog/?p=58635);
-[The thrilling scores of Bernard Herrmann (Cleveland Orchestra)](https://www.clevelandorchestra.com/posts/the-thrilling-scores-of-bernard-herrmann).
+### References
+
+- The chord sheets ([Ultimate Guitar](https://www.ultimate-guitar.com), with `tools/genre-research/ug-chords.py`)
+- [Video Games](https://en.wikipedia.org/wiki/Video_Games_(Lana_Del_Rey_song)), [Summertime Sadness](https://en.wikipedia.org/wiki/Summertime_Sadness), [Blue Jeans](https://en.wikipedia.org/wiki/Blue_Jeans_(Lana_Del_Rey_song)), [Born to Die (song)](https://en.wikipedia.org/wiki/Born_to_Die_(Lana_Del_Rey_song)), [Born to Die (album)](https://en.wikipedia.org/wiki/Born_to_Die_(album)), [Ultraviolence](https://en.wikipedia.org/wiki/Ultraviolence_(album)), [Honeymoon](https://en.wikipedia.org/wiki/Honeymoon_(Lana_Del_Rey_album)), [Norman Fucking Rockwell!](https://en.wikipedia.org/wiki/Norman_Fucking_Rockwell!) (Wikipedia)
+- The tempos and keys on [SongBPM](https://songbpm.com/@lana-del-rey)
+- [The Singles Jukebox on Born to Die](https://thesinglesjukebox.com/?p=2305)
+- [The James Bond chord (Sciencebase)](https://www.sciencebase.com/science-blog/?p=58635)
+- [The thrilling scores of Bernard Herrmann (Cleveland Orchestra)](https://www.clevelandorchestra.com/posts/the-thrilling-scores-of-bernard-herrmann)
