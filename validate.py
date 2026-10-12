@@ -408,9 +408,9 @@ def main():
             genres = {preset_genre for (_, n) in presets for preset_genre in [n.split(" · ")[0]]}
             if genres and template.get("genre") not in genres:
                 errors.append(f"{where}: genre {template.get('genre')!r} is not the presets' {sorted(genres)}")
-        # five of each instrument, or three in the smaller packs (piig), the same for all four
-        if len(set(counts.values())) != 1 or set(counts.values()) - {3, 5}:
-            errors.append(f"{pack_name}: {dict(counts)} presets, not 5 (or 3) of each instrument")
+        # five of each instrument, three in the smaller packs (piig) or six (solos), the same for all four
+        if len(set(counts.values())) != 1 or set(counts.values()) - {3, 5, 6}:
+            errors.append(f"{pack_name}: {dict(counts)} presets, not 5 (or 3, or 6) of each instrument")
         # no two of a genre and instrument the same, or nearly
         closest = {}
         for group in LIBRARY:
