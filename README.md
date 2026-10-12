@@ -169,9 +169,9 @@ copy is present.
 
 **Limits of these sounds:** FluidSynth sources don't glide; a SLIDE only overlaps the notes.
 The 808 lines therefore use "808 · Monosynth", which does glide. "Sine sub" (8:80) stays
-registered, but no preset uses it any more.
+registered, but no preset uses it.
 
-### Added with the folk, metal, black metal, post-punk and Gregorian packs (2026-10-10)
+### For the folk, metal, black metal, post-punk and Gregorian packs
 
 Sources from soundfonts already on milo (`SF2 Instruments/`; each preset found with
 `tools/soundfont.py presets` and rendered there: peaks 0.02–0.31 like the others, except
@@ -206,7 +206,7 @@ Kits (`presetKits`, and the kit folder's machines the packs name):
 - From the kit folder: Boss DR55 (the Sisters of Mercy's Doktor Avalanche), Roland CR78.
   `validate.py` knows the folder's files as listed on milo.
 
-### Added with the Solos pack (2026-10-11)
+### For the Solos pack
 
 Lead sources, found with `tools/soundfont.py presets` on milo and rendered there (`render
 --notes 60 --velocity 90`, peak over 2 s), see `tools/genre-research/solos.md`:
@@ -814,7 +814,7 @@ The original pack. It has no `sound` field. See `jazz-presets/build.py`.
 
 Natural Minor; A minor is Arty Boy's key, C# minor Crave You's (the two templates, both at
 120: Crave You is 120 on every listing, Arty Boy's groove sits there too). The band's own
-progressions from their chord sheets (Ultimate Guitar, 2026-10-11): Arty Boy's verse F Am Em C
+progressions from their chord sheets (Ultimate Guitar): Arty Boy's verse F Am Em C
 (VI i v III) in its timing (the first chord a bar and a half, the second the last two beats:
 | F F F F | F F Am Am |), its pre-chorus F Am Dm E (VI i iv V, the major V chromatic), its
 chorus F Em (VI v); Crave You's C#m7 Gdim7 F#m7 B7sus4 (i7, a chromatic ♯iv°7, iv7, a chromatic
@@ -850,15 +850,14 @@ swell, an 80s synth lead on slides, a lazy sax behind the beat (>8).
 | Vuelo · String Pads | 4 | 116–122 | Strings · Ensemble |
 
 References: the chord sheets (ug-chords.py: Arty Boy 2137129, Crave You 1132236, Need You
-5587641, Stranded 3235883, Two Bodies 1931097), the user's charts of Arty Boy's strumming
+5587641, Stranded 3235883, Two Bodies 1931097), hand-made charts of Arty Boy's strumming
 timing and Crave You's groove (minimal struck chords in the verse, a down-up rhythm in the
 chorus), SongBPM's 120 for Crave You, the band on their own sound (70s disco grooves, 909
 rhythms, slinky basslines: Boss Hunting and Mixmag interviews, 2017–2024).
 
 ## Bebop: Major (horn solos after Parker, Coltrane and Baker)
 
-The first Solos pack, kept under its own name when Solos became ballads (2026-10-12): the same
-presets, renamed `Bebop · …`, in their own group.
+Fast horn solos and their comping, in their own group (`Bebop · …`).
 
 Made for **Bb major** (the horn key; the lead's degree 1 is Bb4, so the alto plays "1-".."7",
 the tenor "5-".."4", the soprano "1".."4+", the trumpet "6-".."7"). Six original solos for the
@@ -910,10 +909,7 @@ trumpet with its cutoff down a little and a longer release.
 | Ballad Pads | chords | 8 | I vi ii V iii VI ii V held, touched again on 3 in the other form | 60–70 | Upright piano |
 | Cool Comp | chords | 8 | short guitar chords on 2 and 4, a push on the "and" of 4 into each change | 110–130 | Jazz guitar |
 
-Smoke-tested on milo (2026-10-12, from the stick with WITH ITS SOUND and MODS, metered on the
-lanes): the Bird set at 200 gives drums 0.14, bass 0.10, chords 0.13, the alto 0.10 RMS; the
-bright tenor 0.10, the soprano 0.07, the trumpet ballad at 64 0.03 (soft by design: raise the
-lead's VOL or keep the room small).
+The trumpet ballad plays soft by design: raise the lead's VOL or keep the room small.
 
 References: [Use bebop scales like a pro (Learn Jazz Standards)](https://www.learnjazzstandards.com/blog/learning-jazz/jazz-theory/use-bebop-scales-like-pro/);
 [The truth about bebop scales (keyboardimprov)](https://keyboardimprov.com/the-truth-about-bebop-scales/);
