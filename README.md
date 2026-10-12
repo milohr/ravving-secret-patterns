@@ -174,7 +174,7 @@ registered, but no preset uses it.
 
 ### For the folk, metal, black metal, post-punk and Gregorian packs
 
-Sources from soundfonts already on milo (`SF2 Instruments/`; each preset found with
+Sources from soundfonts already on the device (`SF2 Instruments/`; each preset found with
 `tools/soundfont.py presets` and rendered there: peaks 0.02–0.31 like the others, except
 **Organ · Plein jeu**, 0.66: lower its machine's VOL):
 
@@ -205,11 +205,11 @@ Kits (`presetKits`, and the kit folder's machines the packs name):
 - **Orchestra · D**: the orchestra kit with its timpani on D (TOM, key 50) and the A below
   (HAT, key 45), a D tonic and dominant.
 - From the kit folder: Boss DR55 (the Sisters of Mercy's Doktor Avalanche), Roland CR78.
-  `validate.py` knows the folder's files as listed on milo.
+  `validate.py` knows the folder's files as listed on the device.
 
 ### For the Solos pack
 
-Lead sources, found with `tools/soundfont.py presets` on milo and rendered there (`render
+Lead sources, found with `tools/soundfont.py presets` on the device and rendered there (`render
 --notes 60 --velocity 90`, peak over 2 s), see `tools/genre-research/solos.md`:
 
 | Machine | Source | Soundfont, bank:program | Peak |
