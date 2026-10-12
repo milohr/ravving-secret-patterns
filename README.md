@@ -1,9 +1,10 @@
 # Secret pattern packs
 
-Sixteen genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
+Seventeen genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
 tropical, cumbia, folk, heavy metal, black metal, post-punk, Gregorian (old gothic), vuelo
-(Flight Facilities' nu-disco) and solos (six ballad solos after Coltrane's *Ballads* and Chet Baker). Each
-has five pattern presets for each of the drums, the bass, the lead and the chords (solos six).
+(Flight Facilities' nu-disco), solos (six ballad solos after Coltrane's *Ballads* and Chet Baker) and
+bebop (six fast horn solos after Parker, Coltrane and Baker: the first Solos pack). Each has five
+pattern presets for each of the drums, the bass, the lead and the chords (solos and bebop six).
 A smaller style pack, piig, has three of each. They are not installed with ravving. To play one, copy a
 pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
 plays them straight from there (`PresetExchange::stickPatterns` / `loadStickPattern`), and
@@ -25,7 +26,7 @@ chords, `{"kit": …}` for the drums (a subset of `Machine::soundState()`).
 written for one scale, so its four instruments play together:
 
 - Natural Minor: hip-hop, trap, reggaeton, piig, heavy metal, black metal, post-punk, vuelo.
-- Major: classical, pop, rock, punk, tropical, cumbia, folk, solos.
+- Major: classical, pop, rock, punk, tropical, cumbia, folk, solos, bebop.
 - Dorian: Gregorian.
 - Tropical's minor styles (salsa, bachata) and cumbia's (villera, chicha) sit on degree 6,
   the relative minor, so each pack stays in one key. In C major they play in A minor.
@@ -44,6 +45,7 @@ quarter-note BPM on the 16-step grid. Every preset plays straight (SWING 50) exc
 | Rock · Half-Time Shuffle | about 66, the triplet shuffle |
 | Piig · every preset | 56–60, the lazy MPC swing |
 | Solos · every preset | 54–58 with SWING on the EIGHTHS (the templates set it), a ballad's lilt; straight works |
+| Bebop · every preset | 58–64 with SWING on the EIGHTHS (the templates set it); Trane Countdown and Trane Drive straight to 54, their sixteenths are the swing |
 
 Set the same swing on every machine playing along.
 
@@ -75,6 +77,8 @@ tempos; the key is the one a pack was made for where it says so, else a usual ke
 | Vuelo · Crave | 120 | C# minor | 52 | 0 · 0.25 · 0.25 |
 | Solos | 64 | Eb major | 56 (eighths) | 0 · 0.35 · 0 |
 | Solos · Late Night | 58 | Eb major | 54 (eighths) | 0 · 0.45 · 0 |
+| Bebop | 160 | Bb major | 62 (eighths) | 0 · 0.15 · 0 |
+| Bebop · Ballad | 64 | Bb major | 58 (eighths) | 0 · 0.3 · 0 |
 
 **The notes may carry their own velocity and nudge** (SELECT's knobs 2 and 3, the chart's
 `VELOCITY` and `NUDGE` lanes by step): patternkit writes them from a note token's `@64` and
@@ -850,3 +854,72 @@ References: the chord sheets (ug-chords.py: Arty Boy 2137129, Crave You 1132236,
 timing and Crave You's groove (minimal struck chords in the verse, a down-up rhythm in the
 chorus), SongBPM's 120 for Crave You, the band on their own sound (70s disco grooves, 909
 rhythms, slinky basslines: Boss Hunting and Mixmag interviews, 2017–2024).
+
+## Bebop: Major (horn solos after Parker, Coltrane and Baker)
+
+The first Solos pack, kept under its own name when Solos became ballads (2026-10-12): the same
+presets, renamed `Bebop · …`, in their own group.
+
+Made for **Bb major** (the horn key; the lead's degree 1 is Bb4, so the alto plays "1-".."7",
+the tenor "5-".."4", the soprano "1".."4+", the trumpet "6-".."7"). Six original solos for the
+LEAD, each with the chords, the bass and the drums it is heard over: nothing is quoted (the
+players' recorded solos and tunes are copyrighted), the vocabulary was studied
+(`tools/genre-research/bebop.md`) and every line, progression and rhythm is new. The
+progressions are generic schemes: a rhythm-changes-type A section (I VI7 | ii7 V7 | I VI7 |
+ii7 V7 | I I7 | IV7 ♯iv°7 | iii7 VI7 | ii7 V7), an 8-bar bop blues (I7 | IV7 | I7 | v7 I7 |
+IV7 | ♯iv°7 | I7 vi7 | ii7 V7), the Countdown reharm of a ii–V–I (ii7 ♭II7 | ♭VImaj7 VII7 |
+IIImaj7 V7 | Imaj7, chromatic voicings), a modal vamp on the ii7 with two bars of V7sus
+(quartal "So What"-type voicings), a ballad's I vi ii V | iii VI ii V, and a cool medium's
+I | ii V | iii vi | ii V | IV | iv ♭VII | iii VI | ii V. The chords are rootless A and B forms.
+SWING swings the EIGHTHS here (the templates set it): the ride's "ding ding-a" and the bebop
+eighths sit on the 16-step grid two steps apart.
+
+The playing: Parker's lines run in eighths on the chord tones with chromatic approach notes
+and enclosures, the off-beats a touch louder (@ +8), the approach notes snapped in early
+(<8), the blue ♭3 scooped into the 3 (~), a breath between phrases, a motif stated then
+displaced a beat. Coltrane's sheets of sound are sixteenth 1-2-3-5 cells up and their mirror
+down on every chord, each run swelling to its top; the modal solo is pentatonic cells, stacked
+fourths up to the Eb6 and a high note cried four times, on the soprano. Baker's lines are few
+notes, long and soft (@62–88), every one behind the beat (>8–14), a scoop, and air: the
+trumpet with its cutoff down a little and a longer release.
+
+| Preset | Part | Bars | What it is | Tempo | Sound |
+|---|---|---|---|---|---|
+| Bird Bop | drums | 2 | the ride's "ding, ding-a" with 2 and 4 leaned on, the foot, snare chatter, kick bombs on the off-beats | 190–200 | Jazz · ride |
+| Bird Blues Swing | drums | 2 | medium bop: the ride, the foot, the snare touching 2 and 4 with a ghost, the kick on 1 and 3, a tom turn | 150–170 | Jazz · ride |
+| Trane Drive | drums | 2 | the ride in eighths, off-beat snare accents, a snare roll into the loop | 130–150 | Jazz · ride |
+| Elvin Fourths | drums | 2 | the ride, toms every three steps and the kick every six against the four, the snare cracking | 150–170 | Jazz · ride |
+| Baker Brushes | drums | 2 | brushes sweeping the snare in eighths, the foot, the kick once a bar, a ride touch | 60–70 | Brush · ride |
+| Cool Two-Feel | drums | 2 | brushes on the ride, the foot, the kick on 1 and 3, a snare touch | 110–130 | Brush · ride |
+| Bird Walk | bass | 8 | walking the rhythm changes, chord tones on the beats, a chromatic step into each change, 2 and 4 leaned on | 190–200 | Upright |
+| Bird Blues Walk | bass | 8 | walking the bop blues, a ghosted skip on the last beat of bars 4 and 8 | 150–170 | Upright |
+| Countdown Walk | bass | 4 | the Countdown reharm, a root a half bar, the fifth or a chromatic step into the next | 130–150 | Upright |
+| Garrison Pedal | bass | 8 | the pedal under the vamp: the C on 1, its G on 3, a push on the "and" of 4; the F under the V7sus; A, B back home | 150–170 | Upright |
+| Ballad Two | bass | 8 | half notes, root then fifth or third, each a little late, the last bar stepping up | 60–70 | Acoustic bass |
+| Cool Two-Beat | bass | 8 | the two-feel with an eighth pickup into each change, the last bar walking | 110–130 | Acoustic bass |
+| Bird Changes | lead | 8 | the Parker-style solo over the rhythm changes: Bb6 up, F7's bebop scale down, a jab and the blue Db, an enclosure of G, E°7's tones, the turnaround and a breath | 190–200 | Alto sax |
+| Bird Blues | lead | 8 | the Parker-style blues: the scoop into the 3rd, the ♭7 and ♭5 passing, the motif displaced a beat, F E Eb into the scoop | 150–170 | Alto sax |
+| Trane Countdown | lead | 4 | the sheets of sound through the Countdown reharm, sixteenth 1-2-3-5 cells swelling, a landing that slides and breathes | 130–150 (straight) | Tenor sax · Bright |
+| Trane Fourths | lead | 8 | the modal solo: the pentatonic cell, a fourths climb to the Eb6, falling fourths, the cry four times, home on the C | 150–170 | Soprano sax |
+| Baker Ballad | lead | 8 | long tones at @62–80, all behind the beat, a scoop up to the G, half a bar of air | 60–70 | Trumpet · Cool |
+| Baker Cool | lead | 8 | a narrow sung line, phrases >8 late, the long F, the iv's Gb, G7's B held | 110–130 | Trumpet · Cool |
+| Bird Changes Comp | chords | 8 | the rhythm changes comped on the beat and the "and", the even bars pushed to the "and" of 1 | 190–200 | Grand piano |
+| Bird Blues Comp | chords | 8 | the bop blues comped on the "and"s, the forms alternating | 150–170 | Grand piano |
+| Countdown Comp | chords | 4 | the reharm a chord a half bar, struck and re-struck, the Imaj7 then its sixth | 130–150 | Grand piano |
+| Fourths Vamp | chords | 8 | quartal stabs on 1, the "and" of 2 and 4, a sixteenth push, climbing; the V7sus bars on the F | 150–170 | Grand piano |
+| Ballad Pads | chords | 8 | I vi ii V iii VI ii V held, touched again on 3 in the other form | 60–70 | Upright piano |
+| Cool Comp | chords | 8 | short guitar chords on 2 and 4, a push on the "and" of 4 into each change | 110–130 | Jazz guitar |
+
+Smoke-tested on milo (2026-10-12, from the stick with WITH ITS SOUND and MODS, metered on the
+lanes): the Bird set at 200 gives drums 0.14, bass 0.10, chords 0.13, the alto 0.10 RMS; the
+bright tenor 0.10, the soprano 0.07, the trumpet ballad at 64 0.03 (soft by design: raise the
+lead's VOL or keep the room small).
+
+References: [Use bebop scales like a pro (Learn Jazz Standards)](https://www.learnjazzstandards.com/blog/learning-jazz/jazz-theory/use-bebop-scales-like-pro/);
+[The truth about bebop scales (keyboardimprov)](https://keyboardimprov.com/the-truth-about-bebop-scales/);
+[Charlie Parker for guitar (Premier Guitar)](https://www.premierguitar.com/lessons/jazz/charlie-parker-for-guitar);
+[Billie's Bounce lesson (jazzguitar.be)](https://www.jazzguitar.be/blog/billies-bounce);
+[Coltrane changes (Wikipedia)](https://en.wikipedia.org/wiki/Coltrane_changes);
+[Coltrane in the Rutgers Journal of Jazz Studies](https://jjs.libraries.rutgers.edu/index.php/jjs/article/download/317/310/2430);
+[Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye);
+the USFQ theses on Baker's *But Not for Me* and *Autumn Leaves* solos (`tools/genre-research/bebop.md`).
