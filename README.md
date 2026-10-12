@@ -1,11 +1,12 @@
 # Secret pattern packs
 
-Seventeen genre packs plus the jazz pack: classical, hip-hop, pop, rock, trap, reggaeton, punk,
-tropical, cumbia, folk, heavy metal, black metal, post-punk, Gregorian (old gothic), vuelo
-(Flight Facilities' nu-disco), solos (six ballad solos after Coltrane's *Ballads* and Chet Baker) and
-bebop (six fast horn solos after Parker, Coltrane and Baker: the first Solos pack). Each has five
-pattern presets for each of the drums, the bass, the lead and the chords (solos and bebop six).
-A smaller style pack, piig, has three of each. They are not installed with ravving. To play one, copy a
+Nineteen secret pattern packs in all, none of them installed with ravving: seventeen genre
+packs (classical, hip-hop, pop, rock, trap, reggaeton, punk, tropical, cumbia, folk, heavy metal,
+black metal, post-punk, Gregorian (old gothic), vuelo (Flight Facilities' nu-disco), solos (six
+ballad solos after Coltrane's *Ballads* and Chet Baker) and bebop (six fast horn solos after
+Parker, Coltrane and Baker)), the jazz pack, and piig, a smaller style pack. Each genre pack has
+five pattern presets for each of the drums, the bass, the lead and the chords (solos and bebop
+six, piig three). To play one, copy a
 pack's `ravving` folder to the root of a USB stick: the presets dialog's **SOURCE · USB**
 plays them straight from there (`PresetExchange::stickPatterns` / `loadStickPattern`), and
 the USB page can import them.
