@@ -91,7 +91,7 @@ SOURCES, KITS = known_sounds()
 # from it is checked to exist (a missing preset would leave the source silent).
 GM_FONT = "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3"
 GM_SHA256 = "cfcd66d89e8386823400eca64934b14fbea7bf48ba1f00d21189af1262794ec2"
-GM_COPY = os.environ.get("FLUIDR3MONO", os.path.expanduser("~/Downloads/ravving-soundfonts/fluidr3mono/FluidR3Mono_GM.sf3"))
+GM_COPY = os.environ.get("FLUIDR3MONO", "FluidR3Mono_GM.sf3")  # a local copy of the device's font, if any
 
 
 def check_gm_presets():
@@ -126,7 +126,7 @@ def check_gm_presets():
 # lv2info dumps of the engines kits.json's jalv sources play (taken on the device for the
 # engine mods): every control a source sets is checked to be a port within its range
 LV2INFO = {"http://calf.sourceforge.net/plugins/Monosynth":
-           os.path.expanduser("~/Coding/engine-mods/calf_monosynth_mod/docs/engine-symbols.txt")}
+           os.path.join(HERE, "ravving-data", "calf-monosynth-lv2info.txt")}
 
 
 def lv2_ports(path):

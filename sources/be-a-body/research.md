@@ -79,7 +79,7 @@ From the previews' note and onset analysis (study only, nothing transcribed into
 No MIDI transcription of the song was found: BitMidi, MuseScore (behind a challenge page),
 Online Sequencer (behind a challenge page), Hooktheory (its MIDI export needs an account) and
 web searches turned up nothing. Instead, the two 30-second store previews (the public iTunes
-and Deezer preview URLs) were read with `~/.local/share/music-analysis-venv/style.py` and
+and Deezer preview URLs) were read with a local audio-analysis script and
 Basic Pitch, and the notes printed on a 140-BPM sixteenth grid, to study register, rhythm
 density and the missing 3rd. No full recording was used (a YouTube download failed with 403). The previews and
 their MIDI stayed in the session's scratch folder.

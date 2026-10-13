@@ -1246,6 +1246,8 @@ sources/<pack>/build.py      a pack's script: python3 build.py writes its preset
 sources/<pack>/files.txt     the files that script wrote (it keeps this list itself)
 sources/<pack>/research.md   the songs and sources behind a pack, for some packs
 sources/research/            how a pack is researched, and the scripts that help
+sources/ravving-data/        a copy of ravving's list of sounds, for the checks
+.claude/skills/              the instructions Claude follows to make a pack
 sources/patternkit.py        what the build.py scripts write with
 sources/validate.py          checks every pack against ravving's own readers
 sources/build-zip.py         builds the release zip
@@ -1253,8 +1255,15 @@ sources/build-zip.py         builds the release zip
 
 The scripts check each sound a preset names against ravving's list of sounds. So clone
 [ravving](https://github.com/ravving/ravving) next to this repository, or work in ravving's
-`data/packs` folder, where these packs sit as a submodule. To use a ravving clone somewhere
-else, point `RAVVING_DATA` at its `data` folder.
+`data/packs` folder, where these packs sit as a submodule. Without either, they use the copy in
+`sources/ravving-data`. To use a ravving clone somewhere else, point `RAVVING_DATA` at its
+`data` folder.
+
+### Make a custom pack with Claude
+
+Ask for one by its style, a song or a mood. Working in this repository, Claude Code picks up
+the skill in `.claude/skills/ravving-genre-packs/SKILL.md`. It researches the songs, writes
+the pack's `build.py`, checks it and adds the pack to this page, following the steps below.
 
 ### Add a pack
 

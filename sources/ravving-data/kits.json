@@ -1,0 +1,1122 @@
+{
+    "_comment": [
+        "presetKits are kits picked inside a soundfont, \"<file>#<bank>:<program>\": a General MIDI font's acoustic kits sit at bank 128 (FluidR3: Jazz 32, Brush 40, Standard 0, Room 8, Power 16, Orchestra 48: its timpani span keys 41–53, so the \"Orchestra\" entry puts timpani C on TOM and G on HAT, the triangle on OPEN, the concert crash on CYMBAL, the tambourine on PERC; castanets stay on CLAP; the \"Cumbia\" entries put the güiro on PERC, a timbale on TOM, the cowbell (campana) on CYMBAL, a conga (llamador) on CLAP); \"?CYMBAL=51&HAT=44\" after it picks a row's key (the ride and the hi-hat foot for jazz), see DrumKit.",
+        "The machines and the engines they play. Each plays on its own sketchpad track (0-9) and",
+        "Zynthian channel (0-15). drumMachines are page 1's: engine.soundfont is the default kit, any",
+        "soundfont in kitFolder can replace it (tap the nameplate); rows are read from the kit itself",
+        "(eight roles: KICK SNARE CLAP TOM HAT OPEN CYMBAL PERC). machines are the rest, by kind:",
+        "'mono' (a one-note-per-step line with accents and slides: bass, lead) or 'chords'. For each:",
+        "engine.controls sets plugin ports (an alternative source's are where its MODS knobs start);",
+        "the SOUND MODIFIERS (MODS) of every engine are in engines.json, by engine (EngineProfiles);",
+        "presets is its presets file (in scale degrees); defaultPreset is what a fresh",
+        "machine starts with; baseNote is degree 1 at octave 0 (before the root).",
+        "'sampler' is page 5's SAMPLE KING: no engine, it plays samples on libzynthbox's SamplerSynth (track 6, slot notes from baseNote up).",
+        "sampleFolders are where the sampler's LOAD looks for audio files (recursively)."
+    ],
+    "kitFolder": "/zynthian/zynthian-data/soundfonts/SFZ Drum Machines",
+    "presetKits": [
+        {"name": "Jazz · ride", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:32?CYMBAL=51&HAT=44", "group": "ACOUSTIC"},
+        {"name": "Jazz · crash", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:32", "group": "ACOUSTIC"},
+        {"name": "Brush · ride", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:40?CYMBAL=51&HAT=44", "group": "ACOUSTIC"},
+        {"name": "Brush · crash", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:40", "group": "ACOUSTIC"},
+        {"name": "Standard", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:0", "group": "ACOUSTIC"},
+        {"name": "Room", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:8", "group": "ACOUSTIC"},
+        {"name": "Power", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:16", "group": "ACOUSTIC"},
+        {"name": "Orchestra", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:48?TOM=48&HAT=43&OPEN=81&CYMBAL=57&PERC=54", "group": "ACOUSTIC"},
+        {"name": "Cumbia · timbal", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:0?PERC=73&TOM=65&CYMBAL=56&CLAP=63", "group": "ACOUSTIC"},
+        {"name": "Cumbia · room", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:8?PERC=74&TOM=66&CYMBAL=56&CLAP=63", "group": "ACOUSTIC"},
+        {"name": "Latin · congas", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:0?SNARE=63&CLAP=62&TOM=64&HAT=75&OPEN=70&CYMBAL=56&PERC=73", "group": "ACOUSTIC"},
+        {"name": "Latin · güira", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:0?SNARE=60&TOM=61&CLAP=62&OPEN=64&HAT=70&CYMBAL=56&PERC=69", "group": "ACOUSTIC"},
+        {"name": "Black Pearl 5", "path": "/zynthian/zynthian-plugins/lv2/Black_Pearl_5.lv2/FluidPlug.sf2", "group": "ACOUSTIC"},
+        {"name": "Red Zeppelin 5", "path": "/zynthian/zynthian-plugins/lv2/Red_Zeppelin_5.lv2/FluidPlug.sf2", "group": "ACOUSTIC"},
+        {"name": "Folk · bodhrán", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:8?TOM=41&PERC=54&CYMBAL=51", "group": "ACOUSTIC"},
+        {"name": "Orchestra · D", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:48?TOM=50&HAT=45&OPEN=81&CYMBAL=57&PERC=54", "group": "ACOUSTIC"},
+        {"name": "Orchestra · F", "path": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:48?TOM=53&HAT=48&OPEN=81&CYMBAL=57&PERC=54", "group": "ACOUSTIC"}
+    ],
+    "input": {
+        "card": "sndrpihifiberry",
+        "portsCard": "HiFiBerry DAC+ADC Pro HiFi multicodec-0",
+        "left": "Built-in Audio Stereo:capture_FL",
+        "right": "Built-in Audio Stereo:capture_FR",
+        "track": 9
+    },
+    "sampleFolders": [
+        "/zynthian/zynthian-my-data/samples",
+        "/zynthian/zynthian-my-data/sketchpads"
+    ],
+    "drumMachines": [
+        {
+            "key": "drums1",
+            "track": 0,
+            "zynthianChannel": 0,
+            "engine": {
+                "type": "fluidsynth",
+                "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Drum Machines/Roland TR909.sf3",
+                "bank": 0,
+                "program": 0
+            },
+            "defaultPreset": "Classic House"
+        },
+        {
+            "key": "drums2",
+            "track": 1,
+            "zynthianChannel": 1,
+            "engine": {
+                "type": "fluidsynth",
+                "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Drum Machines/Roland TR808.sf3",
+                "bank": 0,
+                "program": 0
+            },
+            "defaultPreset": "Electro"
+        },
+        {
+            "key": "drums3",
+            "track": 2,
+            "zynthianChannel": 2,
+            "engine": {
+                "type": "fluidsynth",
+                "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Drum Machines/LINN9000 1.sf3",
+                "bank": 0,
+                "program": 0
+            },
+            "defaultPreset": "Funk"
+        }
+    ],
+    "machines": [
+        {
+            "key": "chords",
+            "kind": "chords",
+            "track": 4,
+            "zynthianChannel": 4,
+            "soundPresets": {
+                "file": "/usr/local/lib/lv2/TAL-NoiseMaker.lv2/presets.ttl",
+                "keep": [
+                    "voices",
+                    "volume",
+                    "transpose"
+                ],
+                "base": "! Startup Juno Osc TAL"
+            },
+            "engine": {
+                "type": "jalv",
+                "uri": "http://kunz.corrupt.ch/products/tal-noisemaker",
+                "controls": {
+                    "volume": 0.25,
+                    "voices": 1,
+                    "filtertype": 0,
+                    "keyfollow": 0.3,
+                    "filtercontour": 0.5,
+                    "ampsustain": 1,
+                    "ampdecay": 0.5,
+                    "osc3volume": 0,
+                    "transpose": 0.5,
+                    "lfo1waveform": 0,
+                    "lfo1destination": 0.142857,
+                    "lfo1rate": 0.3,
+                    "lfo1sync": 0,
+                    "portamentomode": 1,
+                    "reverbwet": 0,
+                    "delaywet": 0,
+                    "velocityvolume": 0.2
+                }
+            },
+            "presets": "chord-presets.json",
+            "defaultPreset": "Classic",
+            "baseNote": 48,
+            "velocity": 96,
+            "sourceName": "TAL NoiseMaker",
+            "sources": [
+                {
+                    "name": "Grand piano",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Fazioli Grand.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Upright piano",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Kawai Upright Piano.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Rhodes",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 4
+                    }
+                },
+                {
+                    "name": "Vibes",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 11
+                    }
+                },
+                {
+                    "name": "Jazz organ",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 17
+                    }
+                },
+                {
+                    "name": "Strings",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 48
+                    }
+                },
+                {
+                    "name": "Choir",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 52
+                    }
+                },
+                {
+                    "name": "Nylon guitar",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 24
+                    }
+                },
+                {
+                    "name": "Jazz guitar",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Jazz Guitars.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Strings · Ensemble",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ensemble Strings.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Strings · Fat",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/FatString.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Strings · Digital",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/DigiString.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Strings · Rise",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/RiseString.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Strings · Bowed",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/BowString.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Strings · Piano",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Piano Strings.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Organ · Phaser",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/PhaserOrgan.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Organ · Pipe 16+8+4",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Pipe Organ.sf3",
+                        "bank": 1,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Organ · House",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Dance Organs.sf3",
+                        "bank": 0,
+                        "program": 4
+                    }
+                },
+                {
+                    "name": "Organ · Extreme",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Dance Organs.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Alien · The Thing",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ambients & Drones/The Thing.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Alien · Strange voices",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ambients & Drones/Extrange Voices.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Alien · Crystal voice",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ambients & Drones/Cristal Voice.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Alien · Glassy",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ambients & Drones/Glassy.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Alien · Winds",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ambients & Drones/Winds.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Alien · Chaos",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ambients & Drones/Chaos Short.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Alien · The Pulse",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Ambients & Drones/The Pulse.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Harpsichord",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 6
+                    }
+                },
+                {
+                    "name": "Guitar · Clean",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 27
+                    }
+                },
+                {
+                    "name": "Guitar · Overdrive",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 29
+                    }
+                },
+                {
+                    "name": "Guitar · Distortion",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 30
+                    }
+                },
+                {
+                    "name": "Marimba",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 12
+                    }
+                },
+                {
+                    "name": "Steel drums",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 114
+                    }
+                },
+                {
+                    "name": "Accordion",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 21
+                    }
+                },
+                {
+                    "name": "Brass section",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 61
+                    }
+                },
+                {
+                    "name": "Pizzicato strings",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 45
+                    }
+                },
+                {
+                    "name": "Guitar · Heavy rhythm",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Heavy Guitars.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Guitar · Chorus",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Stratocaster.sf3",
+                        "bank": 0,
+                        "program": 3
+                    }
+                },
+                {
+                    "name": "Guitar · 12-string",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Acoustic Guitars.sf3",
+                        "bank": 0,
+                        "program": 8
+                    }
+                },
+                {
+                    "name": "Guitar · Acoustic",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Acoustic Guitars.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Organ · Vox humana",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Pipe Organ.sf3",
+                        "bank": 0,
+                        "program": 45
+                    }
+                },
+                {
+                    "name": "Organ · Plein jeu",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Pipe Organ.sf3",
+                        "bank": 0,
+                        "program": 114
+                    }
+                },
+                {
+                    "name": "Harp",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 46
+                    }
+                },
+                {
+                    "name": "Rhodes · Suitcase",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/jRhodes4.sf3", "bank": 0, "program": 0}
+                },
+                {
+                    "name": "Wurlitzer",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/DX7 Wurlitzer.sf3", "bank": 0, "program": 0}
+                },
+                {
+                    "name": "Grand · Warm",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Full Grands.sf3", "bank": 0, "program": 58}
+                },
+                {
+                    "name": "Pad · Warm",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3", "bank": 0, "program": 89}
+                },
+                {
+                    "name": "Pad · Vocal",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SFZ Synths/Vocal Padds.sf3", "bank": 0, "program": 0}
+                },
+                {
+                    "name": "Strings · Tremolo",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 44}
+                },
+                {
+                    "name": "Strings · Mood",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Hip Hop Combo.sf3", "bank": 0, "program": 54}
+                },
+                {
+                    "name": "Piano + strings",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 2}
+                },
+                {
+                    "name": "Pad · Polysynth",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 90}
+                },
+                {
+                    "name": "Synth brass",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 62}
+                },
+                {
+                    "name": "Pad · Choir",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 91}
+                }
+            ]
+        },
+        {
+            "key": "bass",
+            "kind": "mono",
+            "track": 3,
+            "zynthianChannel": 3,
+            "engine": {
+                "type": "jalv",
+                "uri": "http://distrho.sf.net/plugins/Nekobi",
+                "controls": {
+                    "volume": 100
+                }
+            },
+            "presets": "bass-presets.json",
+            "defaultPreset": "Acid",
+            "baseNote": 36,
+            "velocities": {
+                "plain": 80,
+                "accent": 127
+            },
+            "sourceName": "Nekobi",
+            "sources": [
+                {
+                    "name": "Upright",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/ACBass.sf3",
+                        "bank": 0,
+                        "program": 3
+                    }
+                },
+                {
+                    "name": "Acoustic bass",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 32
+                    }
+                },
+                {
+                    "name": "Finger bass",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 33
+                    }
+                },
+                {
+                    "name": "Fretless",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 35
+                    }
+                },
+                {
+                    "name": "Synth bass",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 38
+                    }
+                },
+                {
+                    "name": "Picked bass",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 34
+                    }
+                },
+                {
+                    "name": "Slap bass",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 36
+                    }
+                },
+                {
+                    "name": "Sine sub",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 8,
+                        "program": 80
+                    }
+                },
+                {
+                    "name": "Contrabass",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 43
+                    }
+                },
+                {
+                    "name": "Cello",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 42
+                    }
+                },
+                {
+                    "name": "808 · Monosynth",
+                    "engine": {
+                        "type": "jalv",
+                        "uri": "http://calf.sourceforge.net/plugins/Monosynth",
+                        "controls": {
+                            "master": 0.5,
+                            "o1_wave": 3,
+                            "o2_wave": 4,
+                            "o2_xpose": 12,
+                            "o12_mix": 0.15,
+                            "o12_detune": 0,
+                            "phase_mode": 0,
+                            "filter": 0,
+                            "cutoff": 400,
+                            "res": 0.7,
+                            "key_follow": 1,
+                            "env2cutoff": 2400,
+                            "env2res": 0,
+                            "env2amp": 0,
+                            "adsr_a": 1,
+                            "adsr_d": 60,
+                            "adsr_s": 0,
+                            "adsr_r": 50,
+                            "adsr2_amp": 1,
+                            "adsr2_cutoff": 0,
+                            "adsr2_a": 1,
+                            "adsr2_d": 1800,
+                            "adsr2_s": 0.3,
+                            "adsr2_r": 250,
+                            "legato": 3,
+                            "portamento": 80,
+                            "vel2amp": 0.3,
+                            "vel2filter": 0.2,
+                            "pbend_range": 1200,
+                            "lfo2pitch": 0,
+                            "lfo2filter": 0,
+                            "lfo2pw": 0,
+                            "lfo_delay": 0,
+                            "mwhl2lfo": 0
+                        }
+                    }
+                },
+                {
+                    "name": "Squier bass",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Squierbass.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Organ · Bourdon 16",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Pipe Organ.sf3",
+                        "bank": 0,
+                        "program": 59
+                    }
+                },
+                {
+                    "name": "Guitar · Heavy muted",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Heavy Guitars.sf3",
+                        "bank": 0,
+                        "program": 4
+                    }
+                },
+                {
+                    "name": "Synth bass 2",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3", "bank": 0, "program": 39}
+                }
+            ]
+        },
+        {
+            "key": "lead",
+            "kind": "mono",
+            "track": 5,
+            "zynthianChannel": 5,
+            "engine": {
+                "type": "jalv",
+                "uri": "http://calf.sourceforge.net/plugins/Monosynth",
+                "controls": {
+                    "master": 0.3,
+                    "legato": 1,
+                    "filter": 1,
+                    "o12_mix": 0,
+                    "pbend_range": 1200,
+                    "vel2amp": 0.3,
+                    "vel2filter": 0.3,
+                    "lfo_rate": 5.5,
+                    "lfo_delay": 0,
+                    "lfo2pitch": 0,
+                    "lfo2filter": 0,
+                    "key_follow": 0.5,
+                    "adsr_a": 5,
+                    "adsr_d": 400,
+                    "adsr_s": 0.4,
+                    "adsr2_a": 4,
+                    "adsr2_s": 1
+                }
+            },
+            "presets": "lead-presets.json",
+            "defaultPreset": "Theremin",
+            "baseNote": 60,
+            "velocities": {
+                "plain": 90,
+                "accent": 120
+            },
+            "sourceName": "Calf Monosynth",
+            "sources": [
+                {
+                    "name": "Rhodes",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 4
+                    }
+                },
+                {
+                    "name": "Vibes",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 11
+                    }
+                },
+                {
+                    "name": "Nylon guitar",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 24
+                    }
+                },
+                {
+                    "name": "Alto sax",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 65
+                    }
+                },
+                {
+                    "name": "Tenor sax",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 66
+                    }
+                },
+                {
+                    "name": "Grand piano",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Fazioli Grand.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Flute",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 73
+                    }
+                },
+                {
+                    "name": "Muted trumpet",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 59
+                    }
+                },
+                {
+                    "name": "Oboe",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 68
+                    }
+                },
+                {
+                    "name": "Violin",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 40
+                    }
+                },
+                {
+                    "name": "Harpsichord",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 6
+                    }
+                },
+                {
+                    "name": "Trumpet",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 56
+                    }
+                },
+                {
+                    "name": "Guitar · Overdrive",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 29
+                    }
+                },
+                {
+                    "name": "Marimba",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 12
+                    }
+                },
+                {
+                    "name": "Steel drums",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 114
+                    }
+                },
+                {
+                    "name": "Pan flute",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 75
+                    }
+                },
+                {
+                    "name": "Accordion",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 21
+                    }
+                },
+                {
+                    "name": "Music box",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 10
+                    }
+                },
+                {
+                    "name": "Guitar · Clean",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 27
+                    }
+                },
+                {
+                    "name": "Guitar · Heavy lead",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Heavy Guitars.sf3",
+                        "bank": 0,
+                        "program": 2
+                    }
+                },
+                {
+                    "name": "Guitar · Heavy muted",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Heavy Guitars.sf3",
+                        "bank": 0,
+                        "program": 4
+                    }
+                },
+                {
+                    "name": "Guitar · Chorus",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Stratocaster.sf3",
+                        "bank": 0,
+                        "program": 3
+                    }
+                },
+                {
+                    "name": "Guitar · Valve OD",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Valve OD Guitar.sf3",
+                        "bank": 0,
+                        "program": 0
+                    }
+                },
+                {
+                    "name": "Choir",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 52
+                    }
+                },
+                {
+                    "name": "Voice oohs",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 53
+                    }
+                },
+                {
+                    "name": "Fiddle",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 110
+                    }
+                },
+                {
+                    "name": "Banjo",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 105
+                    }
+                },
+                {
+                    "name": "Bagpipe",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 109
+                    }
+                },
+                {
+                    "name": "Recorder",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 74
+                    }
+                },
+                {
+                    "name": "Harp",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3",
+                        "bank": 0,
+                        "program": 46
+                    }
+                },
+                {
+                    "name": "Organ · Krummhorn",
+                    "engine": {
+                        "type": "fluidsynth",
+                        "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Pipe Organ.sf3",
+                        "bank": 0,
+                        "program": 124
+                    }
+                },
+                {
+                    "name": "Soprano sax",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3", "bank": 0, "program": 64}
+                },
+                {
+                    "name": "Tenor sax · Bright",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 66}
+                },
+                {
+                    "name": "Trumpet · Cool",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 56}
+                },
+                {
+                    "name": "Rhodes · Suitcase",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/jRhodes4.sf3", "bank": 0, "program": 0}
+                },
+                {
+                    "name": "Strings",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3", "bank": 0, "program": 48}
+                },
+                {
+                    "name": "Violin · Warm",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 40}
+                },
+                {
+                    "name": "Cello",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 42}
+                },
+                {
+                    "name": "Celesta",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 8}
+                },
+                {
+                    "name": "Harp · Concert",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 46}
+                },
+                {
+                    "name": "Lead · Square",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 80}
+                },
+                {
+                    "name": "Synth voice",
+                    "engine": {"type": "fluidsynth", "soundfont": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/Roand_SC-88.sf3", "bank": 0, "program": 54}
+                }
+            ]
+        },
+        {
+            "key": "sampler",
+            "kind": "sampler",
+            "track": 6,
+            "zynthianChannel": -1,
+            "presets": "sampler-presets.json",
+            "defaultPreset": "Groove",
+            "baseNote": 60
+        },
+        {
+            "key": "pads",
+            "kind": "pads",
+            "track": 7,
+            "secondTrack": 8,
+            "zynthianChannel": -1,
+            "presets": "pads-presets.json",
+            "defaultPreset": "Boom Bap",
+            "baseNote": 36
+        }
+    ]
+}

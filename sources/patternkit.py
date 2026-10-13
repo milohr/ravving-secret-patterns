@@ -120,11 +120,13 @@ MANIFEST = "files.txt"                                  # a pack's list of the f
 def ravving_data():
     """ravving's data/ folder, where the sounds the packs name are listed (kits.json,
     engines.json, demos/): $RAVVING_DATA when set, else the folder above the repository (the
-    packs as ravving's data/packs submodule), else a ravving clone beside the repository."""
+    packs as ravving's data/packs submodule), else a ravving clone beside the repository, else
+    the snapshot of those files in sources/ravving-data (refresh it when ravving's change)."""
     if os.environ.get("RAVVING_DATA"):
         candidates = [os.environ["RAVVING_DATA"]]
     else:
-        candidates = [os.path.dirname(REPO), os.path.join(os.path.dirname(REPO), "ravving", "data")]
+        candidates = [os.path.dirname(REPO), os.path.join(os.path.dirname(REPO), "ravving", "data"),
+                      os.path.join(SOURCES, "ravving-data")]
     for folder in candidates:
         if os.path.isfile(os.path.join(folder, "kits.json")):
             return folder

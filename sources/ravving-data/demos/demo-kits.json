@@ -1,0 +1,20 @@
+[
+    {
+        "kit": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:32"
+    },
+    {
+        "kit": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:32?CYMBAL=51&HAT=44"
+    },
+    {
+        "kit": "/zynthian/zynthian-data/soundfonts/SF2 Instruments/FluidR3Mono_GM.sf3#128:40?CYMBAL=51&HAT=44"
+    },
+    {
+        "kit": "/zynthian/zynthian-data/soundfonts/SFZ Drum Machines/Roland TR808.sf3"
+    },
+    {
+        "kit": "/zynthian/zynthian-data/soundfonts/SFZ Drum Machines/Roland TR909.sf3"
+    },
+    {
+        "kit": "/zynthian/zynthian-data/soundfonts/SFZ Drum Machines/SP1200 1.sf3"
+    }
+]

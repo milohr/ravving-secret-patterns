@@ -30,7 +30,7 @@ script, in `sources/<pack>/research.md`. Paths below are this repository's; `too
 - Look for fitting instruments among the soundfonts on the device:
   `tools/soundfont.py presets FILE` (bank:program and name), `keys FILE` (a kit's drums by
   key), `render FILE --bank B --program P --notes …` (that it speaks, and how loud). Copy the
-  script to milo first: `tools/device.sh tools`.
+  script to the device first (ravving's `tools/device.sh tools`, or `scp`).
 - Add what the pack needs to `data/kits.json`: a machine's `sources`, or a drum kit in
   `presetKits` (a General MIDI kit with keys picked for the rows: "…#128:8?TOM=41&PERC=54"). A
   pack's drums may also name any kit in the kit folder.
@@ -55,7 +55,7 @@ TEMPLATES; `pack.done()` refuses a pack without one). Add its row to the README'
   renamed preset leaves no stale file), then `python3 ../validate.py`: no errors, no two
   presets of an instrument nearly the same, no file two packs write.
 - Deploy the kits.json change (`tools/device.sh deploy`), copy the presets to the stick
-  (`tar -cf - ravving | ssh root@milo.local 'tar --no-same-owner -xf - -C /media/root/EVS'`, from the repository's root)
+  (`tar -cf - ravving | ssh root@<device> 'tar --no-same-owner -xf - -C /media/root/<stick>'`, from the repository's root)
   and load the presets from SOURCE · USB with WITH ITS SOUND and WITH ITS MODS.
 - `README.md`, the published packs page, written to `docs/writing-the-guide.md`
   (`python3 tools/check-guide-style.py --strict` passes): the pack's section (scale and key,

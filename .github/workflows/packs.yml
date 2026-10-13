@@ -18,16 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # the sounds a pack may name are listed in ravving's data/ (kits.json, engines.json, demos/)
-      - uses: actions/checkout@v4
-        with:
-          repository: ravving/ravving
-          path: ravving-app
-          sparse-checkout: data
-
+      # the sounds a pack may name: the snapshot of ravving's data/ in sources/ravving-data
       - name: Validate the packs
-        env:
-          RAVVING_DATA: ${{ github.workspace }}/ravving-app/data
         run: python3 sources/validate.py
 
       - name: Build the stick zip

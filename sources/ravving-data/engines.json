@@ -1,0 +1,130 @@
+{
+    "_comment": [
+        "The SOUND MODIFIERS (MODS) of each engine, in one place: a machine shows the profile of the engine",
+        "its sound source plays, found by the engine's type and, for jalv, its plugin URI (EngineProfiles,",
+        "docs/engines.md). A profile is the cards of knobs on the engine's controls (see SoundControls: a",
+        "knob maps 0..1 onto min..max of its symbol, 'curve': 'log' exponentially; a knob with choices is",
+        "a switch that may set several controls) and its expressions, the live controls a page plays (the",
+        "lead ribbon's vibrato: symbol and maximum). A source starts its knobs where its own",
+        "engine.controls put those ports. Symbols are checked against the engines' ports: on the laptop",
+        "(tools/check-engines.py, ctest -R engines, over tests/data/lv2-ports.json) and when an engine starts",
+        "(an issue names the knobs that reach nothing).",
+        "tal-noisemaker: the chords' own synth; nekobi: the bass's; calf-monosynth: the lead's (and the",
+        "bass's 808 source).",
+        "fluidsynth is the MODS of every soundfont source (one set for all of a machine's soundfonts): 'gen:N' is an",
+        "offset to SoundFont 2 generator N in its own units (8 filter cutoff in cents: 0 = the preset's own,",
+        "usually open; 9 resonance in centibels; 34 attack and 38 release in timecents: +1200 doubles; 15 the",
+        "chorus send in tenths of a percent), sent as an SF2 NRPN; 'cc:N' a MIDI controller (1 the vibrato:",
+        "at most 50 cents through FluidSynth's default modulator, engine-mods fluidsynth2_mod RESEARCH.md).",
+        "No reverb knob: CC 91 adds at most a 20 % send (RESEARCH.md), generator 16 a full one, but every",
+        "engine would run its own reverb next to the studio's (SOUND EFFECTS → REVERB): the studio's it is.",
+        "Chorus by generator 15, not CC 93: the Rhodes' stereo side level 0.005 → 0.067 at 100 %, CC 93's",
+        "20 % ceiling reached 0.018 (milo, FluidSynth 2.6.0).",
+        "Measured on milo (FluidR3 Rhodes, ACBass Upright): the cutoff is heard below about -3600, the attack",
+        "+9600 took 15 ms to 252 ms, the release +4800 lengthened the tail 2.5x, CC 1 only moves presets",
+        "that have a vibrato LFO (the Upright 25 cents, the Rhodes none).",
+        "Its expressions: the ribbon's vibrato is the depth of",
+        "the soundfont's vibrato LFO (generator 6, cents), which reaches notes already held (measured: a saw",
+        "lead 107 cents half way through a note); the FluidR3 Rhodes has its LFO stopped and stays still.",
+        "kitSound (fluidsynth): the drum machines' MODS (EngineProfiles::resolveKit), on the whole kit: it is one",
+        "soundfont on one channel, so a knob moves every drum (TONE the filter, SHAPE the attack and LENGTH the release, PITCH",
+        "the coarse tune in semitones and the fine in cents). Per drum would need a channel per row."
+    ],
+    "engines": [
+        {
+            "id": "tal-noisemaker",
+            "type": "jalv",
+            "uri": "http://kunz.corrupt.ch/products/tal-noisemaker",
+            "sound": [
+                { "title": "FILTER", "knobs": [
+                    {"name": "CUTOFF", "symbol": "cutoff", "min": 0, "max": 1, "default": 0.6},
+                    {"name": "RESO", "symbol": "resonance", "min": 0, "max": 1, "default": 0.15},
+                    {"name": "LFO", "symbol": "lfo1amount", "min": 0.5, "max": 1, "default": 0}
+                ] },
+                { "title": "SHAPE", "knobs": [
+                    {"name": "ATTACK", "symbol": "ampattack", "min": 0, "max": 0.55, "default": 0.27},
+                    {"name": "LENGTH", "symbol": "amprelease", "min": 0.15, "max": 0.65, "default": 0.6},
+                    {"name": "GLIDE", "symbol": "portamento", "min": 0, "max": 1, "default": 0}
+                ] },
+                { "title": "TONE", "knobs": [
+                    {"name": "WAVE", "default": 0, "choices": [{"label": "SAW", "controls": {"osc1waveform": 0, "osc1pw": 0.5, "osc1volume": 0.8, "osc2waveform": 0, "osc2volume": 0}}, {"label": "JUNO", "controls": {"osc1waveform": 0.5, "osc1pw": 0.75, "osc1volume": 0.8, "osc2waveform": 0, "osc2volume": 0}}, {"label": "SQR", "controls": {"osc1waveform": 0.5, "osc1pw": 0.5, "osc1volume": 0.8, "osc2waveform": 0, "osc2volume": 0}}, {"label": "TRI", "controls": {"osc1waveform": 0, "osc1pw": 0.5, "osc1volume": 0, "osc2waveform": 0.5, "osc2volume": 0.8}}]},
+                    {"name": "SPREAD", "symbol": "detune", "min": 0, "max": 1, "default": 0.25},
+                    {"name": "CHORUS", "default": 0.5, "choices": [{"label": "OFF", "controls": {"chorus1enable": 0, "chorus2enable": 0}}, {"label": "I", "controls": {"chorus1enable": 1, "chorus2enable": 0}}, {"label": "II", "controls": {"chorus1enable": 0, "chorus2enable": 1}}]}
+                ] }
+            ]
+        },
+        {
+            "id": "nekobi",
+            "type": "jalv",
+            "uri": "http://distrho.sf.net/plugins/Nekobi",
+            "sound": [
+                { "title": "WAVE", "knobs": [
+                    {"name": "WAVE", "symbol": "waveform", "default": 0, "choices": [{"label": "SAW", "value": 1}, {"label": "SQR", "value": 0}]}
+                ] },
+                { "title": "FILTER", "knobs": [
+                    {"name": "CUTOFF", "symbol": "cutoff", "min": 0, "max": 100, "default": 0.3},
+                    {"name": "RESO", "symbol": "resonance", "min": 0, "max": 95, "default": 0.55},
+                    {"name": "ENV MOD", "symbol": "env_mod", "min": 0, "max": 100, "default": 0.5}
+                ] },
+                { "title": "VOICE", "knobs": [
+                    {"name": "DECAY", "symbol": "decay", "min": 100, "max": 0, "default": 0.4},
+                    {"name": "ACCENT", "symbol": "accent", "min": 0, "max": 100, "default": 0.6},
+                    {"name": "TUNE", "symbol": "tuning", "min": -12, "max": 12, "default": 0.5}
+                ] }
+            ]
+        },
+        {
+            "id": "calf-monosynth",
+            "type": "jalv",
+            "uri": "http://calf.sourceforge.net/plugins/Monosynth",
+            "expressions": {"vibrato": {"symbol": "lfo2pitch", "max": 60}},
+            "sound": [
+                { "title": "WAVE", "knobs": [
+                    {"name": "WAVE", "symbol": "o1_wave", "default": 0, "choices": [{"label": "SAW", "value": 0}, {"label": "SQR", "value": 1}, {"label": "SIN", "value": 3}, {"label": "TRI", "value": 4}]}
+                ] },
+                { "title": "FILTER", "knobs": [
+                    {"name": "CUTOFF", "symbol": "cutoff", "min": 300, "max": 9000, "default": 0.55, "curve": "log"},
+                    {"name": "RESO", "symbol": "res", "min": 0.7, "max": 8, "default": 0.2},
+                    {"name": "ENV", "symbol": "env2cutoff", "min": 0, "max": 4800, "default": 0.25}
+                ] },
+                { "title": "VOICE", "knobs": [
+                    {"name": "GLIDE", "symbol": "portamento", "min": 1, "max": 400, "default": 0.6, "curve": "log"},
+                    {"name": "LENGTH", "symbol": "adsr2_r", "min": 10, "max": 3000, "default": 0.45, "curve": "log"}
+                ] }
+            ]
+        },
+        {
+            "id": "fluidsynth",
+            "type": "fluidsynth",
+            "expressions": {"vibrato": {"symbol": "gen:6", "max": 100}},
+            "sound": [
+                { "title": "FILTER", "knobs": [
+                    {"name": "CUTOFF", "symbol": "gen:8", "min": -8400, "max": 0, "default": 1},
+                    {"name": "RESO", "symbol": "gen:9", "min": 0, "max": 150, "default": 0}
+                ] },
+                { "title": "ENVELOPE", "knobs": [
+                    {"name": "ATTACK", "symbol": "gen:34", "min": 0, "max": 13200, "default": 0},
+                    {"name": "RELEASE", "symbol": "gen:38", "min": -2400, "max": 6000, "default": 0.2857}
+                ] },
+                { "title": "MOTION", "knobs": [
+                    {"name": "CHORUS", "symbol": "gen:15", "min": 0, "max": 1000, "default": 0},
+                    {"name": "VIBRATO", "symbol": "cc:1", "min": 0, "max": 127, "default": 0}
+                ] }
+            ],
+            "kitSound": [
+                { "title": "TONE", "knobs": [
+                    {"name": "CUTOFF", "symbol": "gen:8", "min": -8400, "max": 0, "default": 1},
+                    {"name": "RESO", "symbol": "gen:9", "min": 0, "max": 150, "default": 0}
+                ] },
+                { "title": "SHAPE", "knobs": [
+                    {"name": "ATTACK", "symbol": "gen:34", "min": 0, "max": 8400, "default": 0},
+                    {"name": "LENGTH", "symbol": "gen:38", "min": -6000, "max": 2400, "default": 0.7143}
+                ] },
+                { "title": "PITCH", "knobs": [
+                    {"name": "TUNE", "symbol": "gen:51", "min": -12, "max": 12, "default": 0.5},
+                    {"name": "FINE", "symbol": "gen:52", "min": -50, "max": 50, "default": 0.5}
+                ] }
+            ]
+        }
+    ]
+}
