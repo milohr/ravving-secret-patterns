@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Tropical · Bachata Bass.json
+ravving/presets/bass/patterns/Tropical · Champeta Bass.json
+ravving/presets/bass/patterns/Tropical · Merengue Bass.json
+ravving/presets/bass/patterns/Tropical · Salsa Tumbao.json
+ravving/presets/bass/patterns/Tropical · Vallenato Paseo.json
+ravving/presets/chords/patterns/Tropical · Champeta Stabs.json
+ravving/presets/chords/patterns/Tropical · Merengue Brass.json
+ravving/presets/chords/patterns/Tropical · Piano Montuno.json
+ravving/presets/chords/patterns/Tropical · Segunda Strum.json
+ravving/presets/chords/patterns/Tropical · Vallenato Guitar.json
+ravving/presets/drums/patterns/Tropical · Bachata.json
+ravving/presets/drums/patterns/Tropical · Champeta.json
+ravving/presets/drums/patterns/Tropical · Merengue.json
+ravving/presets/drums/patterns/Tropical · Salsa.json
+ravving/presets/drums/patterns/Tropical · Vallenato.json
+ravving/presets/lead/patterns/Tropical · Acordeón Paseo.json
+ravving/presets/lead/patterns/Tropical · Mambo Horns.json
+ravving/presets/lead/patterns/Tropical · Requinto.json
+ravving/presets/lead/patterns/Tropical · Sax Jaleo.json
+ravving/presets/lead/patterns/Tropical · Sebene Guitar.json
+ravving/presets/templates/Tropical.json

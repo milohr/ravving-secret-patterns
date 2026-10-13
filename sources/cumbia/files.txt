@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Cumbia · Digital 808.json
+ravving/presets/bass/patterns/Cumbia · Root–Fifth Tumbao.json
+ravving/presets/bass/patterns/Cumbia · Sonidera Walk.json
+ravving/presets/bass/patterns/Cumbia · Tónica-Dominante.json
+ravving/presets/bass/patterns/Cumbia · Villera i–VII.json
+ravving/presets/chords/patterns/Cumbia · Accordion Offbeats.json
+ravving/presets/chords/patterns/Cumbia · Chicha Surf.json
+ravving/presets/chords/patterns/Cumbia · Orquesta Hits.json
+ravving/presets/chords/patterns/Cumbia · Sonidera Organ.json
+ravving/presets/chords/patterns/Cumbia · Villera Stabs.json
+ravving/presets/drums/patterns/Cumbia · Chicha.json
+ravving/presets/drums/patterns/Cumbia · Colombiana.json
+ravving/presets/drums/patterns/Cumbia · Digital.json
+ravving/presets/drums/patterns/Cumbia · Sonidera.json
+ravving/presets/drums/patterns/Cumbia · Villera.json
+ravving/presets/lead/patterns/Cumbia · Acordeón.json
+ravving/presets/lead/patterns/Cumbia · Caña de Millo.json
+ravving/presets/lead/patterns/Cumbia · Chicha Guitar.json
+ravving/presets/lead/patterns/Cumbia · Orquesta Brass.json
+ravving/presets/lead/patterns/Cumbia · Villera Lead.json
+ravving/presets/templates/Cumbia.json

@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Black Metal · Pedal Swell.json
+ravving/presets/bass/patterns/Black Metal · Phrygian Crawl.json
+ravving/presets/bass/patterns/Black Metal · Symphonic Drone.json
+ravving/presets/bass/patterns/Black Metal · Tremolo Roots.json
+ravving/presets/bass/patterns/Black Metal · Viking Walk.json
+ravving/presets/chords/patterns/Black Metal · Cathedral Organ.json
+ravving/presets/chords/patterns/Black Metal · Dunkelheit Shapes.json
+ravving/presets/chords/patterns/Black Metal · Hunger Chords.json
+ravving/presets/chords/patterns/Black Metal · Phrygian Dread.json
+ravving/presets/chords/patterns/Black Metal · Symphonic Strings.json
+ravving/presets/drums/patterns/Black Metal · Frozen March.json
+ravving/presets/drums/patterns/Black Metal · Hammer Blast.json
+ravving/presets/drums/patterns/Black Metal · Skank Beat.json
+ravving/presets/drums/patterns/Black Metal · Traditional Blast.json
+ravving/presets/drums/patterns/Black Metal · Viking March.json
+ravving/presets/lead/patterns/Black Metal · Dunkelheit Arpeggio.json
+ravving/presets/lead/patterns/Black Metal · Frozen Melody.json
+ravving/presets/lead/patterns/Black Metal · Hunger Tremolo.json
+ravving/presets/lead/patterns/Black Metal · Symphonic Choir.json
+ravving/presets/lead/patterns/Black Metal · Tritone Riff.json
+ravving/presets/templates/Black Metal.json

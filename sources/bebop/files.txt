@@ -1,0 +1,26 @@
+ravving/presets/bass/patterns/Bebop · Ballad Two.json
+ravving/presets/bass/patterns/Bebop · Bird Blues Walk.json
+ravving/presets/bass/patterns/Bebop · Bird Walk.json
+ravving/presets/bass/patterns/Bebop · Cool Two-Beat.json
+ravving/presets/bass/patterns/Bebop · Countdown Walk.json
+ravving/presets/bass/patterns/Bebop · Garrison Pedal.json
+ravving/presets/chords/patterns/Bebop · Ballad Pads.json
+ravving/presets/chords/patterns/Bebop · Bird Blues Comp.json
+ravving/presets/chords/patterns/Bebop · Bird Changes Comp.json
+ravving/presets/chords/patterns/Bebop · Cool Comp.json
+ravving/presets/chords/patterns/Bebop · Countdown Comp.json
+ravving/presets/chords/patterns/Bebop · Fourths Vamp.json
+ravving/presets/drums/patterns/Bebop · Baker Brushes.json
+ravving/presets/drums/patterns/Bebop · Bird Blues Swing.json
+ravving/presets/drums/patterns/Bebop · Bird Bop.json
+ravving/presets/drums/patterns/Bebop · Cool Two-Feel.json
+ravving/presets/drums/patterns/Bebop · Elvin Fourths.json
+ravving/presets/drums/patterns/Bebop · Trane Drive.json
+ravving/presets/lead/patterns/Bebop · Baker Ballad.json
+ravving/presets/lead/patterns/Bebop · Baker Cool.json
+ravving/presets/lead/patterns/Bebop · Bird Blues.json
+ravving/presets/lead/patterns/Bebop · Bird Changes.json
+ravving/presets/lead/patterns/Bebop · Trane Countdown.json
+ravving/presets/lead/patterns/Bebop · Trane Fourths.json
+ravving/presets/templates/Bebop · Ballad.json
+ravving/presets/templates/Bebop.json

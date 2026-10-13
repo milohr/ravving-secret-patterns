@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Trap · 808 Root Glide.json
+ravving/presets/bass/patterns/Trap · Drill Slides.json
+ravving/presets/bass/patterns/Trap · Harmonic Minor 808.json
+ravving/presets/bass/patterns/Trap · Phonk Bounce.json
+ravving/presets/bass/patterns/Trap · Triplet 808.json
+ravving/presets/chords/patterns/Trap · Choir i–VII–VI–VII.json
+ravving/presets/chords/patterns/Trap · Drill Pizzicato.json
+ravving/presets/chords/patterns/Trap · Glassy Stabs.json
+ravving/presets/chords/patterns/Trap · i–VI Pad.json
+ravving/presets/chords/patterns/Trap · i–iv–VI–V Stabs.json
+ravving/presets/drums/patterns/Trap · Classic Trap.json
+ravving/presets/drums/patterns/Trap · Drill.json
+ravving/presets/drums/patterns/Trap · Phonk Cowbell.json
+ravving/presets/drums/patterns/Trap · Sparse Snap.json
+ravving/presets/drums/patterns/Trap · Triplet Flow.json
+ravving/presets/lead/patterns/Trap · Bell Melody.json
+ravving/presets/lead/patterns/Trap · Dark Piano.json
+ravving/presets/lead/patterns/Trap · Flute Riff.json
+ravving/presets/lead/patterns/Trap · Phrygian Riff.json
+ravving/presets/lead/patterns/Trap · Triplet Synth.json
+ravving/presets/templates/Trap.json

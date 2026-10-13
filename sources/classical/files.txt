@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Classical · Alberti Bass.json
+ravving/presets/bass/patterns/Classical · Lament Bass.json
+ravving/presets/bass/patterns/Classical · Octave Continuo.json
+ravving/presets/bass/patterns/Classical · Pachelbel Ground.json
+ravving/presets/bass/patterns/Classical · Waltz Oom.json
+ravving/presets/chords/patterns/Classical · Chorale Cadence.json
+ravving/presets/chords/patterns/Classical · Circle of Fifths.json
+ravving/presets/chords/patterns/Classical · Pachelbel Progression.json
+ravving/presets/chords/patterns/Classical · Prinner Pulse.json
+ravving/presets/chords/patterns/Classical · Waltz Pah-Pah.json
+ravving/presets/drums/patterns/Classical · Galop.json
+ravving/presets/drums/patterns/Classical · Habanera.json
+ravving/presets/drums/patterns/Classical · March.json
+ravving/presets/drums/patterns/Classical · Timpani Cadence.json
+ravving/presets/drums/patterns/Classical · Waltz.json
+ravving/presets/lead/patterns/Classical · Baroque Sequence.json
+ravving/presets/lead/patterns/Classical · Classical Phrase.json
+ravving/presets/lead/patterns/Classical · Fanfare.json
+ravving/presets/lead/patterns/Classical · Ode Theme.json
+ravving/presets/lead/patterns/Classical · Prelude Arpeggio.json
+ravving/presets/templates/Classical.json

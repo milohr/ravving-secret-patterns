@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Reggaeton · Dembow 808.json
+ravving/presets/bass/patterns/Reggaeton · Offbeat Pump.json
+ravving/presets/bass/patterns/Reggaeton · Perreo Sub.json
+ravving/presets/bass/patterns/Reggaeton · Romántico Walk.json
+ravving/presets/bass/patterns/Reggaeton · Syncopated Synth.json
+ravving/presets/chords/patterns/Reggaeton · Andalusian Strum.json
+ravving/presets/chords/patterns/Reggaeton · Organ Offbeats.json
+ravving/presets/chords/patterns/Reggaeton · Pad VI–VII–i.json
+ravving/presets/chords/patterns/Reggaeton · Romántico Piano.json
+ravving/presets/chords/patterns/Reggaeton · i–VI–III–VII Dembow.json
+ravving/presets/drums/patterns/Reggaeton · Dembow Clásico.json
+ravving/presets/drums/patterns/Reggaeton · Dembow Dominicano.json
+ravving/presets/drums/patterns/Reggaeton · Dembow Timbal.json
+ravving/presets/drums/patterns/Reggaeton · Moombahton.json
+ravving/presets/drums/patterns/Reggaeton · Perreo Lento.json
+ravving/presets/lead/patterns/Reggaeton · Flauta Perreo.json
+ravving/presets/lead/patterns/Reggaeton · Guitarra Romántica.json
+ravving/presets/lead/patterns/Reggaeton · Marimba Dembow.json
+ravving/presets/lead/patterns/Reggaeton · Pluck Hook.json
+ravving/presets/lead/patterns/Reggaeton · Sax Romántico.json
+ravving/presets/templates/Reggaeton.json

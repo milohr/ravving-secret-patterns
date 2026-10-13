@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Folk · Changin' Oom-Pah.json
+ravving/presets/bass/patterns/Folk · Dorian Drone.json
+ravving/presets/bass/patterns/Folk · Heaven's Door Roots.json
+ravving/presets/bass/patterns/Folk · Jig Bass.json
+ravving/presets/bass/patterns/Folk · Rising Sun Walk.json
+ravving/presets/chords/patterns/Folk · Changin' 12-String.json
+ravving/presets/chords/patterns/Folk · Dirty Old Town Pah.json
+ravving/presets/chords/patterns/Folk · Heaven's Door Strum.json
+ravving/presets/chords/patterns/Folk · Rising Sun Accordion.json
+ravving/presets/chords/patterns/Folk · Scarborough Harp.json
+ravving/presets/drums/patterns/Folk · Bodhran Jig.json
+ravving/presets/drums/patterns/Folk · Changin' Waltz.json
+ravving/presets/drums/patterns/Folk · Dylan Shuffle.json
+ravving/presets/drums/patterns/Folk · Reel Stomp.json
+ravving/presets/drums/patterns/Folk · Whiskey Gallop.json
+ravving/presets/lead/patterns/Folk · Banjo Roll.json
+ravving/presets/lead/patterns/Folk · Drunken Sailor.json
+ravving/presets/lead/patterns/Folk · Fiddle Jig.json
+ravving/presets/lead/patterns/Folk · Rising Sun Harp.json
+ravving/presets/lead/patterns/Folk · Whistle Air.json
+ravving/presets/templates/Folk.json

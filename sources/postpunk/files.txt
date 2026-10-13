@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Post-Punk · Boys Walk.json
+ravving/presets/bass/patterns/Post-Punk · Disorder Run.json
+ravving/presets/bass/patterns/Post-Punk · Forest Pulse.json
+ravving/presets/bass/patterns/Post-Punk · Hook Melody.json
+ravving/presets/bass/patterns/Post-Punk · Undead Dub Bass.json
+ravving/presets/chords/patterns/Post-Punk · Boys Strum.json
+ravving/presets/chords/patterns/Post-Punk · Forest Chords.json
+ravving/presets/chords/patterns/Post-Punk · Lucretia Gloom.json
+ravving/presets/chords/patterns/Post-Punk · Spellbound Dorian.json
+ravving/presets/chords/patterns/Post-Punk · Tear Apart Strings.json
+ravving/presets/drums/patterns/Post-Punk · Doktor Avalanche.json
+ravving/presets/drums/patterns/Post-Punk · Forest Run.json
+ravving/presets/drums/patterns/Post-Punk · Lost Control.json
+ravving/presets/drums/patterns/Post-Punk · Tribal Toms.json
+ravving/presets/drums/patterns/Post-Punk · Undead Dub.json
+ravving/presets/lead/patterns/Post-Punk · Forest Arpeggio.json
+ravving/presets/lead/patterns/Post-Punk · Lullaby Creep.json
+ravving/presets/lead/patterns/Post-Punk · Spellbound Sixteenths.json
+ravving/presets/lead/patterns/Post-Punk · Tear Apart Synth.json
+ravving/presets/lead/patterns/Post-Punk · Temple Chime.json
+ravving/presets/templates/Post-Punk.json

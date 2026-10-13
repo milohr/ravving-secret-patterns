@@ -1,0 +1,26 @@
+ravving/presets/bass/patterns/Body · Bridge Sub.json
+ravving/presets/bass/patterns/Body · Intro Sub.json
+ravving/presets/bass/patterns/Body · Mini Pulse.json
+ravving/presets/bass/patterns/Body · Outro Drive.json
+ravving/presets/bass/patterns/Body · Rave Offbeat.json
+ravving/presets/bass/patterns/Body · Verse Bounce.json
+ravving/presets/chords/patterns/Body · Bridge Lift.json
+ravving/presets/chords/patterns/Body · Intro Haze.json
+ravving/presets/chords/patterns/Body · Intro Stabs.json
+ravving/presets/chords/patterns/Body · Juno Offbeats.json
+ravving/presets/chords/patterns/Body · Major Ending.json
+ravving/presets/chords/patterns/Body · Verse Choir.json
+ravving/presets/drums/patterns/Body · Drop Build.json
+ravving/presets/drums/patterns/Body · Gnarly Toms.json
+ravving/presets/drums/patterns/Body · Half-Time.json
+ravving/presets/drums/patterns/Body · Intro Tick.json
+ravving/presets/drums/patterns/Body · Rave Pulse.json
+ravving/presets/drums/patterns/Body · Visions Break.json
+ravving/presets/lead/patterns/Body · Intro Bells.json
+ravving/presets/lead/patterns/Body · Intro Chops.json
+ravving/presets/lead/patterns/Body · Intro Harp.json
+ravving/presets/lead/patterns/Body · Square Riff.json
+ravving/presets/lead/patterns/Body · Theremin Glide.json
+ravving/presets/lead/patterns/Body · Voice Hook.json
+ravving/presets/templates/Body · Intro.json
+ravving/presets/templates/Body.json

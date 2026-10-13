@@ -1,0 +1,26 @@
+ravving/presets/bass/patterns/Solos · Devotion Pedal.json
+ravving/presets/bass/patterns/Solos · Lament Pedal.json
+ravving/presets/bass/patterns/Solos · Nocturne Roots.json
+ravving/presets/bass/patterns/Solos · Rain Long Tones.json
+ravving/presets/bass/patterns/Solos · Twilight Two.json
+ravving/presets/bass/patterns/Solos · Vow Two.json
+ravving/presets/chords/patterns/Solos · Devotion Fourths.json
+ravving/presets/chords/patterns/Solos · Lament Line.json
+ravving/presets/chords/patterns/Solos · Nocturne Floating.json
+ravving/presets/chords/patterns/Solos · Rain Rhodes.json
+ravving/presets/chords/patterns/Solos · Twilight Piano.json
+ravving/presets/chords/patterns/Solos · Vow Voicings.json
+ravving/presets/drums/patterns/Solos · Devotion Mallets.json
+ravving/presets/drums/patterns/Solos · Lament Swells.json
+ravving/presets/drums/patterns/Solos · Nocturne Whisper.json
+ravving/presets/drums/patterns/Solos · Rain Brushes.json
+ravving/presets/drums/patterns/Solos · Twilight Swirl.json
+ravving/presets/drums/patterns/Solos · Vow Brushes.json
+ravving/presets/lead/patterns/Solos · Baker Rain.json
+ravving/presets/lead/patterns/Solos · Baker Twilight.json
+ravving/presets/lead/patterns/Solos · Soprano Nocturne.json
+ravving/presets/lead/patterns/Solos · Trane Devotion.json
+ravving/presets/lead/patterns/Solos · Trane Lament.json
+ravving/presets/lead/patterns/Solos · Trane Vow.json
+ravving/presets/templates/Solos · Late Night.json
+ravving/presets/templates/Solos.json

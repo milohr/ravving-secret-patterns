@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Rock · Blues-Rock Riff.json
+ravving/presets/bass/patterns/Rock · Boogie Walk.json
+ravving/presets/bass/patterns/Rock · Gallop Bass.json
+ravving/presets/bass/patterns/Rock · Root Eighths.json
+ravving/presets/bass/patterns/Rock · Root–Fifth Two-Beat.json
+ravving/presets/chords/patterns/Rock · Clean Strum.json
+ravving/presets/chords/patterns/Rock · Organ Pushes.json
+ravving/presets/chords/patterns/Rock · Piano Pump.json
+ravving/presets/chords/patterns/Rock · Power I–♭VII–IV.json
+ravving/presets/chords/patterns/Rock · ♭VI–♭VII–I.json
+ravving/presets/drums/patterns/Rock · Arena Ride.json
+ravving/presets/drums/patterns/Rock · Bo Diddley Toms.json
+ravving/presets/drums/patterns/Rock · Gallop.json
+ravving/presets/drums/patterns/Rock · Half-Time Shuffle.json
+ravving/presets/drums/patterns/Rock · Straight Backbeat.json
+ravving/presets/lead/patterns/Rock · Anthem Hook.json
+ravving/presets/lead/patterns/Rock · Boogie Piano.json
+ravving/presets/lead/patterns/Rock · Clean Arpeggio.json
+ravving/presets/lead/patterns/Rock · Honking Sax.json
+ravving/presets/lead/patterns/Rock · Pentatonic Lick.json
+ravving/presets/templates/Rock.json

@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Jazz · Bebop Walk.json
+ravving/presets/bass/patterns/Jazz · Bossa Root–Fifth.json
+ravving/presets/bass/patterns/Jazz · Tumbao.json
+ravving/presets/bass/patterns/Jazz · Two-Feel.json
+ravving/presets/bass/patterns/Jazz · Walking ii–V–i.json
+ravving/presets/chords/patterns/Jazz · Ballad Changes.json
+ravving/presets/chords/patterns/Jazz · Bossa i–iv.json
+ravving/presets/chords/patterns/Jazz · Minor Blues.json
+ravving/presets/chords/patterns/Jazz · Quartal Vamp.json
+ravving/presets/chords/patterns/Jazz · ii–V–i Charleston.json
+ravving/presets/drums/patterns/Jazz · Ballad Brushes.json
+ravving/presets/drums/patterns/Jazz · Bebop Bombs.json
+ravving/presets/drums/patterns/Jazz · Bossa Nova.json
+ravving/presets/drums/patterns/Jazz · Samba.json
+ravving/presets/drums/patterns/Jazz · Swing Ride.json
+ravving/presets/lead/patterns/Jazz · Ballad.json
+ravving/presets/lead/patterns/Jazz · Bebop Line.json
+ravving/presets/lead/patterns/Jazz · Blues Call & Answer.json
+ravving/presets/lead/patterns/Jazz · Bossa Melody.json
+ravving/presets/lead/patterns/Jazz · Dorian Riff.json
+ravving/presets/templates/Jazz.json

@@ -1,0 +1,22 @@
+ravving/presets/bass/patterns/Hollywood · Blue Jeans Pizz.json
+ravving/presets/bass/patterns/Hollywood · Born To Die Sub.json
+ravving/presets/bass/patterns/Hollywood · Honeymoon Sway.json
+ravving/presets/bass/patterns/Hollywood · Lament Line.json
+ravving/presets/bass/patterns/Hollywood · Video Games Bows.json
+ravving/presets/chords/patterns/Hollywood · Born To Die Stabs.json
+ravving/presets/chords/patterns/Hollywood · Honeymoon Piano.json
+ravving/presets/chords/patterns/Hollywood · Line Cliché.json
+ravving/presets/chords/patterns/Hollywood · Venice Plagal.json
+ravving/presets/chords/patterns/Hollywood · Video Games Strings.json
+ravving/presets/drums/patterns/Hollywood · Born To Die Beat.json
+ravving/presets/drums/patterns/Hollywood · Honeymoon Waltz.json
+ravving/presets/drums/patterns/Hollywood · Summertime Halftime.json
+ravving/presets/drums/patterns/Hollywood · Timpani Swell.json
+ravving/presets/drums/patterns/Hollywood · Ultraviolence Room.json
+ravving/presets/lead/patterns/Hollywood · Celesta Box.json
+ravving/presets/lead/patterns/Hollywood · Cello Lament.json
+ravving/presets/lead/patterns/Hollywood · Harp Sweeps.json
+ravving/presets/lead/patterns/Hollywood · Tremolo Violins.json
+ravving/presets/lead/patterns/Hollywood · Video Games Violin.json
+ravving/presets/templates/Hollywood · Video Games.json
+ravving/presets/templates/Hollywood.json

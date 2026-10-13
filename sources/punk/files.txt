@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Punk · D-Beat Riff.json
+ravving/presets/bass/patterns/Punk · New Wave Octaves.json
+ravving/presets/bass/patterns/Punk · Pop-Punk Eighths.json
+ravving/presets/bass/patterns/Punk · Ska Walk.json
+ravving/presets/bass/patterns/Punk · Skate Walk-Up.json
+ravving/presets/chords/patterns/Punk · Crust I–♭VI–♭VII.json
+ravving/presets/chords/patterns/Punk · Piano Bash.json
+ravving/presets/chords/patterns/Punk · Pop-Punk Pushes.json
+ravving/presets/chords/patterns/Punk · Power I–IV–V.json
+ravving/presets/chords/patterns/Punk · Ska Upstrokes.json
+ravving/presets/drums/patterns/Punk · D-Beat.json
+ravving/presets/drums/patterns/Punk · Half-Time Breakdown.json
+ravving/presets/drums/patterns/Punk · Ska Offbeat.json
+ravving/presets/drums/patterns/Punk · Skate Beat.json
+ravving/presets/drums/patterns/Punk · Straight Eighths.json
+ravving/presets/lead/patterns/Punk · Gang Chant.json
+ravving/presets/lead/patterns/Punk · Piano Pounding.json
+ravving/presets/lead/patterns/Punk · Pop-Punk Hook.json
+ravving/presets/lead/patterns/Punk · Ska Horns.json
+ravving/presets/lead/patterns/Punk · Street Riff.json
+ravving/presets/templates/Punk.json

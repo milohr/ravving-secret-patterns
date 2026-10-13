@@ -1,0 +1,22 @@
+ravving/presets/bass/patterns/Vuelo · Arty Pulse.json
+ravving/presets/bass/patterns/Vuelo · Crave Walk.json
+ravving/presets/bass/patterns/Vuelo · Octave Disco.json
+ravving/presets/bass/patterns/Vuelo · Slap Riff.json
+ravving/presets/bass/patterns/Vuelo · Sub Pulse.json
+ravving/presets/chords/patterns/Vuelo · Arty Pre.json
+ravving/presets/chords/patterns/Vuelo · Arty Verse.json
+ravving/presets/chords/patterns/Vuelo · Chorus Stabs.json
+ravving/presets/chords/patterns/Vuelo · Crave Loop.json
+ravving/presets/chords/patterns/Vuelo · String Pads.json
+ravving/presets/drums/patterns/Vuelo · Arty Funk.json
+ravving/presets/drums/patterns/Vuelo · Build And Crash.json
+ravving/presets/drums/patterns/Vuelo · Crave Groove.json
+ravving/presets/drums/patterns/Vuelo · Disco Shuffle.json
+ravving/presets/drums/patterns/Vuelo · Four On The Floor.json
+ravving/presets/lead/patterns/Vuelo · Guitar Riff.json
+ravving/presets/lead/patterns/Vuelo · Rhodes Hook.json
+ravving/presets/lead/patterns/Vuelo · Sax Line.json
+ravving/presets/lead/patterns/Vuelo · String Rise.json
+ravving/presets/lead/patterns/Vuelo · Synth Slide.json
+ravving/presets/templates/Vuelo · Crave.json
+ravving/presets/templates/Vuelo.json

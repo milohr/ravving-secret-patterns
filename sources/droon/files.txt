@@ -1,0 +1,22 @@
+ravving/presets/bass/patterns/Droon · Care Line.json
+ravving/presets/bass/patterns/Droon · Heard Walk.json
+ravving/presets/bass/patterns/Droon · Searchin Pulse.json
+ravving/presets/bass/patterns/Droon · Sirens Drone.json
+ravving/presets/bass/patterns/Droon · Too Fast Sub.json
+ravving/presets/chords/patterns/Droon · Care Chorus.json
+ravving/presets/chords/patterns/Droon · Heard Rhodes.json
+ravving/presets/chords/patterns/Droon · Interlude Keys.json
+ravving/presets/chords/patterns/Droon · Intro Ghosts.json
+ravving/presets/chords/patterns/Droon · Too Fast Strum.json
+ravving/presets/drums/patterns/Droon · Care Lilt.json
+ravving/presets/drums/patterns/Droon · Lovely Halftime.json
+ravving/presets/drums/patterns/Droon · Searchin Knock.json
+ravving/presets/drums/patterns/Droon · Sirens Space.json
+ravving/presets/drums/patterns/Droon · Too Fast Drift.json
+ravving/presets/lead/patterns/Droon · Care Lick.json
+ravving/presets/lead/patterns/Droon · Feel Falsetto.json
+ravving/presets/lead/patterns/Droon · Into Keys.json
+ravving/presets/lead/patterns/Droon · Lovely Glide.json
+ravving/presets/lead/patterns/Droon · Too Fast Guitar.json
+ravving/presets/templates/Droon · Care.json
+ravving/presets/templates/Droon.json

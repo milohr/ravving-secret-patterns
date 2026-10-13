@@ -15,13 +15,28 @@ with ravving. Each one is written in a style, often after the bands and records 
 Most packs have five presets each for the drums, the bass, the lead and the chords. Solos,
 Bebop and Body have six, and Piig has three.
 
+## Get the packs
+
+Download [ravving-packs.zip](https://github.com/milohr/ravving-secret-patterns/releases/latest/download/ravving-packs.zip).
+That link always gives you the newest packs, all of them in one zip.
+
+The packs live in their own repository,
+[ravving-secret-patterns](https://github.com/milohr/ravving-secret-patterns), and you can add
+yours: see [Make a pack](#make-a-pack).
+
 ## Play a pack
 
-1. Copy the pack's `ravving` folder to the root of a USB stick.
+1. Unzip ravving-packs.zip onto the root of a USB stick. Its `ravving` folder goes right at the
+   root, and merges with one already there.
 2. Plug the stick into your MIKO.
 3. Open a preset dialog and pick **SOURCE · USB**. The presets play straight from the stick.
 
-The USB page can also import them, so they stay on the device.
+The USB page can also import them, so they stay on the device. The templates show up under
+TEMPLATES in the projects dialog, from the stick too.
+
+GitHub's **Download ZIP** button puts everything inside one more folder,
+`ravving-secret-patterns-main`. If you use it, copy what's inside that folder to the stick,
+not the folder itself.
 
 ## The notes follow your key
 
@@ -116,32 +131,6 @@ use that for feel:
 Some presets are in 3/4 or 6/8, like Classical's waltz trio (Waltz, Waltz Oom and Waltz
 Pah-Pah). Three 16-step bars hold four 12-step bars, so they loop together. The tempo counts a
 quarter as four steps, so a jig at a dotted quarter of 110 reads 165.
-
-## Making a pack
-
-Each pack is built by a script, and a checker tests every pack against ravving's own readers.
-
-```
-data/secret/<genre>-presets/build.py                     the generator (python3 build.py)
-data/secret/<genre>-presets/ravving/presets/<drums|bass|lead|chords>/patterns/<Genre> · <Name>.json
-data/secret/patternkit.py                                shared by the genre build.py files (not the jazz one)
-data/secret/validate.py                                  checks every pack against ravving's parsers
-```
-
-Each preset file is
-`{"ravving": "preset", "type": "pattern", "library": "<x>-presets.json", "preset": {"name", "genre", "chart", "sound"}}`.
-
-- **`chart`:** the pattern, in the shipped libraries' format.
-- **`sound`:** the sound it was written for. That's `{"soundSource": …}` for the bass, lead and
-  chords, and `{"kit": …}` for the drums.
-- **Velocity and nudge:** patternkit writes them from a note's `@64` and `<10` / `>10` tokens
-  (10 % of a step early or late). They land in the chart's `VELOCITY` and `NUDGE` lanes.
-- **Length:** a note's `_` steps, in the chart's HOLD lane.
-- **Templates:** `pack.template(…)` writes `ravving/presets/templates/<genre>.json`, and a second
-  one under its own `name=`.
-
-The stick's presets reach the dialog through `PresetExchange::stickPatterns` and
-`loadStickPattern`.
 
 ## Sounds
 
@@ -707,7 +696,7 @@ The chant's notes swell towards the middle of each phrase, and lean a hair early
 
 ### References for the five packs
 
-- [Ultimate Guitar](https://www.ultimate-guitar.com) (each song's chord sheet or tab, found with `tools/genre-research/ug-chords.py`)
+- [Ultimate Guitar](https://www.ultimate-guitar.com) (each song's chord sheet or tab, found with `sources/research/ug-chords.py`)
 - [Blast beat (Wikipedia)](https://en.wikipedia.org/wiki/Blast_beat)
 - [Organum (Wikipedia)](https://en.wikipedia.org/wiki/Organum)
 - [Dies Irae, score and MIDI (mfiles)](https://www.mfiles.co.uk/scores/gregorian-dies-irae.htm)
@@ -948,7 +937,7 @@ The trumpet ballad plays soft by design: raise the lead's VOL or keep the room s
 - [Coltrane changes (Wikipedia)](https://en.wikipedia.org/wiki/Coltrane_changes)
 - [Coltrane in the Rutgers Journal of Jazz Studies](https://jjs.libraries.rutgers.edu/index.php/jjs/article/download/317/310/2430)
 - [Chet Baker's long goodbye (Hackworth)](https://martinhackworth.substack.com/p/chet-bakers-long-goodbye)
-- The USFQ theses on Baker's *But Not for Me* and *Autumn Leaves* solos (`tools/genre-research/bebop.md`)
+- The USFQ theses on Baker's *But Not for Me* and *Autumn Leaves* solos (`sources/bebop/research.md`)
 
 ## R&B: Natural Minor (after Jorja Smith and Snoh Aalegra)
 
@@ -1013,7 +1002,7 @@ maj7, maj9, min9, 11, 13, 7#9, 7b9. The lines are original.
     Me Cry 2239329.
   - Snoh Aalegra: Fool For You 2452745, Situationship 4027984, Whoa 3085499, Lost You 3762680,
     I Want You Around 2622450, Find Someone Like You 2832151.
-- The tempos from SongBPM and AcousticBrainz (`tools/genre-research/rnb.md`)
+- The tempos from SongBPM and AcousticBrainz (`sources/rnb/research.md`)
 - [drum programming tips (soundbridge)](https://www.soundbridge.io/drum-programming-tips-for-producers-of-all-levels)
 - [How to make neo-soul drums (UJAM)](https://www.ujam.com/tutorials/how-to-make-neo-soul-drums/)
 - [How to add groove and swing (Violet Recording)](https://violetrecording.com/how-to-add-groove-to-a-beat/)
@@ -1079,7 +1068,7 @@ Slow, spacious and moody:
 ### References
 
 - The chord sheets (ug-chords.py: Too Fast 2155579, What You Heard 5197296, Care's tab 5376447)
-- The tempos and keys from SongBPM and AcousticBrainz (`tools/genre-research/droon.md`)
+- The tempos and keys from SongBPM and AcousticBrainz (`sources/droon/research.md`)
 - [Sonder on Into, track by track (The Line of Best Fit)](https://www.thelineofbestfit.com/features/track-by-track/sonder-into)
 - [Into (Album of the Year)](https://www.albumoftheyear.org/album/70743-sonder-into.php)
 - [Hypebeast](https://hypebeast.com/2017/2/sonder-into-ep-release-354)
@@ -1109,7 +1098,7 @@ Her progressions come from the chord sheets, set on the scale's degrees:
 The old-Hollywood scoring adds the minor line cliché (Fm, Fm(maj7), Fm7, Fm6, the Bond theme's
 "suspense motif") with the lament bass walking down under it, the half-step sigh, tremolo
 strings swelling, and harp sweeps. Nothing is quoted: her songs are copyrighted, so the style
-was studied (`tools/genre-research/hollywood.md`) and every line, melody and rhythm is new.
+was studied (`sources/hollywood/research.md`) and every line, melody and rhythm is new.
 
 ### The playing
 
@@ -1152,7 +1141,7 @@ The MODS shape the sound:
 
 ### References
 
-- The chord sheets ([Ultimate Guitar](https://www.ultimate-guitar.com), with `tools/genre-research/ug-chords.py`)
+- The chord sheets ([Ultimate Guitar](https://www.ultimate-guitar.com), with `sources/research/ug-chords.py`)
 - [Video Games](https://en.wikipedia.org/wiki/Video_Games_(Lana_Del_Rey_song)), [Summertime Sadness](https://en.wikipedia.org/wiki/Summertime_Sadness), [Blue Jeans](https://en.wikipedia.org/wiki/Blue_Jeans_(Lana_Del_Rey_song)), [Born to Die (song)](https://en.wikipedia.org/wiki/Born_to_Die_(Lana_Del_Rey_song)), [Born to Die (album)](https://en.wikipedia.org/wiki/Born_to_Die_(album)), [Ultraviolence](https://en.wikipedia.org/wiki/Ultraviolence_(album)), [Honeymoon](https://en.wikipedia.org/wiki/Honeymoon_(Lana_Del_Rey_album)), [Norman Fucking Rockwell!](https://en.wikipedia.org/wiki/Norman_Fucking_Rockwell!) (Wikipedia)
 - The tempos and keys on [SongBPM](https://songbpm.com/@lana-del-rey)
 - [The Singles Jukebox on Born to Die](https://thesinglesjukebox.com/?p=2305)
@@ -1239,7 +1228,114 @@ with Mini Pulse and Juno Offbeats.
 - The chorus on [Hooktheory](https://www.hooktheory.com/theorytab/view/grimes/be-a-body): Eb
   major (F Dorian's notes), ii7 V7 vi7, 140 BPM
 - The chord timelines on Chordu, from the [album audio](https://chordu.com/chords-tabs-grimes-be-a-body-%E4%BE%98%E5%AF%82-video--id_Q713eHNFvuU) and the [instrumental](https://chordu.com/chords-tabs-grimes-be-a-body-%E4%BE%98%E5%AF%82-official-instrumental--id_P7GvNMYC1o4)
-- The tempo on [SongBPM](https://songbpm.com/@grimes/be-a-body) and AcousticBrainz (`tools/genre-research/be-a-body.md`)
+- The tempo on [SongBPM](https://songbpm.com/@grimes/be-a-body) and AcousticBrainz (`sources/be-a-body/research.md`)
 - [Grimes Synth Sounds (Reverb Machine)](https://reverbmachine.com/blog/grimes-synth-sounds/)
 - The reviews: [The Arts Desk](https://theartsdesk.com/new-music/cd-grimes-visions), [RA](https://ra.co/reviews/10473), [The Line of Best Fit](https://www.thelineofbestfit.com/reviews/albums/grimes-visions-85691)
 - [Visions (Wikipedia)](https://en.wikipedia.org/wiki/Visions_(Grimes_album))
+
+## Make a pack
+
+The repository is laid out like a USB stick. Its `ravving` folder holds every pack's presets
+and templates, exactly as ravving reads them from a stick. Your MIKO skips the rest: the
+scripts that write the presets, and this page.
+
+```
+README.md                    this page
+ravving/presets/…            every pack's presets and templates, as a stick holds them
+sources/<pack>/build.py      a pack's script: python3 build.py writes its presets
+sources/<pack>/files.txt     the files that script wrote (it keeps this list itself)
+sources/<pack>/research.md   the songs and sources behind a pack, for some packs
+sources/research/            how a pack is researched, and the scripts that help
+sources/patternkit.py        what the build.py scripts write with
+sources/validate.py          checks every pack against ravving's own readers
+sources/build-zip.py         builds the release zip
+```
+
+The scripts check each sound a preset names against ravving's list of sounds. So clone
+[ravving](https://github.com/ravving/ravving) next to this repository, or work in ravving's
+`data/packs` folder, where these packs sit as a submodule. To use a ravving clone somewhere
+else, point `RAVVING_DATA` at its `data` folder.
+
+### Add a pack
+
+1. Copy a recent pack's folder in `sources`, such as `gregorian` or `metal`, and name it after
+   your style.
+2. In its `build.py`, set the pack's name and scale: `pack = Pack("Disco", HERE, MINOR)`. Every
+   preset is then called "Disco · something", so no two packs write the same file.
+3. Write five presets each with `pack.drums`, `pack.bass`, `pack.lead` and `pack.chords`.
+   Three or six of each work too, as long as all four parts match.
+4. Give the pack a template before `pack.done()`: `pack.template(bpm, root, scale, swing=,
+   phaser=, echo=, heavy=, about=)`. A second one takes its own `name="Disco · Slow"`.
+5. Run `python3 build.py` in the folder. It writes the presets into `ravving/presets` and lists
+   them in `files.txt`.
+6. Run `python3 sources/validate.py`. Fix every ERROR, and read the warnings.
+7. Add the pack to this page: the table at the top, its scale, its template's row and a
+   section with its presets.
+8. Commit `build.py`, `files.txt` and the presets it wrote together, and open a pull request.
+
+The notation is explained at the top of `patternkit.py`: `_` holds a note, `~` slides into the
+next one, `@64` sets a note's velocity and `<10` plays it a little early.
+
+### Add a template on its own
+
+A template can come without presets: a tempo, key, swing and LIVE FX that suit presets already
+here. For a template that belongs to a pack, add one more `pack.template(…, name="Disco ·
+Slow")` line to that pack's `build.py`.
+
+For one that stands alone, make a folder in `sources` with a `build.py` like this one:
+
+```python
+import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))
+from patternkit import Outputs, write_template  # noqa: E402
+
+outputs = Outputs(HERE)
+write_template(outputs, "Late Night", 72, "D", "Natural Minor", swing=58, echo=0.3,
+               about="Slow and dusty, for any pack's minor presets.")
+outputs.save()
+```
+
+Then run it, run `validate.py`, add a row to the templates table and commit, as for a pack.
+
+### Try it on your MIKO
+
+1. Copy the repository's `ravving` folder to the root of a USB stick.
+2. Plug the stick in, open a preset dialog and pick **SOURCE · USB**.
+3. Load each new preset with **WITH ITS SOUND** on, and listen that it plays what you meant.
+4. Start a project from the pack's template under TEMPLATES, so the tempo and key match.
+
+### Release the packs
+
+A release is a tag. Push a tag named `v` and the next number, such as `v3`:
+
+```sh
+git tag v3
+git push origin v3
+```
+
+GitHub then checks every pack, builds ravving-packs.zip and attaches it to that release. The
+download link at the top always points at the newest release, so it never changes. The same
+check also runs on every push and pull request.
+
+ravving keeps these packs as a submodule at `data/packs`. After a release, move it to the new
+tag there and commit the change, so ravving's site shows the new packs too.
+
+### The preset files
+
+Each preset file is
+`{"ravving": "preset", "type": "pattern", "library": "<x>-presets.json", "preset": {"name", "genre", "chart", "sound"}}`.
+
+- **`chart`:** the pattern, in the shipped libraries' format.
+- **`sound`:** the sound it was written for. That's `{"soundSource": …}` for the bass, lead and
+  chords, and `{"kit": …}` for the drums.
+- **Velocity and nudge:** patternkit writes them from a note's `@64` and `<10` / `>10` tokens
+  (10 % of a step early or late). They land in the chart's `VELOCITY` and `NUDGE` lanes.
+- **Length:** a note's `_` steps, in the chart's HOLD lane.
+- **Templates:** `pack.template(…)` writes `ravving/presets/templates/<Genre>.json`, and a
+  second one under its own `name=`.
+
+The stick's presets reach the dialog through `PresetExchange::stickPatterns` and
+`loadStickPattern`.

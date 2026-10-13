@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Metal · Anthem Octaves.json
+ravving/presets/bass/patterns/Metal · Harris Gallop.json
+ravving/presets/bass/patterns/Metal · Iron Riff.json
+ravving/presets/bass/patterns/Metal · Paranoid Eighths.json
+ravving/presets/bass/patterns/Metal · Thrash Chromatic.json
+ravving/presets/chords/patterns/Metal · Anthem i-VI-VII.json
+ravving/presets/chords/patterns/Metal · Chromatic Fall.json
+ravving/presets/chords/patterns/Metal · Iron Doom.json
+ravving/presets/chords/patterns/Metal · Paranoid Power.json
+ravving/presets/chords/patterns/Metal · Trooper Gallop.json
+ravving/presets/drums/patterns/Metal · Doom Half-Time.json
+ravving/presets/drums/patterns/Metal · Double Kick.json
+ravving/presets/drums/patterns/Metal · Maiden Gallop.json
+ravving/presets/drums/patterns/Metal · Paranoid Drive.json
+ravving/presets/drums/patterns/Metal · Speed Rock.json
+ravving/presets/lead/patterns/Metal · Dark Anthem.json
+ravving/presets/lead/patterns/Metal · Harmonic Run.json
+ravving/presets/lead/patterns/Metal · Iron Theme.json
+ravving/presets/lead/patterns/Metal · Pentatonic Lick.json
+ravving/presets/lead/patterns/Metal · Trooper Twin Lead.json
+ravving/presets/templates/Metal.json

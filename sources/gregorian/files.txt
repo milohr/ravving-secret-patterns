@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Gregorian · Dorian Ground.json
+ravving/presets/bass/patterns/Gregorian · Ison Drone.json
+ravving/presets/bass/patterns/Gregorian · Open Fifths.json
+ravving/presets/bass/patterns/Gregorian · Organum Below.json
+ravving/presets/bass/patterns/Gregorian · Ostinato Pulse.json
+ravving/presets/chords/patterns/Gregorian · Dorian Cadence.json
+ravving/presets/chords/patterns/Gregorian · Gothic Choir.json
+ravving/presets/chords/patterns/Gregorian · Harp Psalter.json
+ravving/presets/chords/patterns/Gregorian · Organum Fifths.json
+ravving/presets/chords/patterns/Gregorian · Vox Humana.json
+ravving/presets/drums/patterns/Gregorian · Chant Breakbeat.json
+ravving/presets/drums/patterns/Gregorian · Processional.json
+ravving/presets/drums/patterns/Gregorian · Ritual Frame.json
+ravving/presets/drums/patterns/Gregorian · Saltarello.json
+ravving/presets/drums/patterns/Gregorian · Wrath Timpani.json
+ravving/presets/lead/patterns/Gregorian · Dies Irae.json
+ravving/presets/lead/patterns/Gregorian · Krummhorn Estampie.json
+ravving/presets/lead/patterns/Gregorian · Kyrie Melisma.json
+ravving/presets/lead/patterns/Gregorian · Organum Above.json
+ravving/presets/lead/patterns/Gregorian · Saltarello Recorder.json
+ravving/presets/templates/Gregorian.json

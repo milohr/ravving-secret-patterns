@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Pop · Axis Eighths.json
+ravving/presets/bass/patterns/Pop · Ballad Descent.json
+ravving/presets/bass/patterns/Pop · Funk-Pop Sixteenths.json
+ravving/presets/bass/patterns/Pop · Motown Walk.json
+ravving/presets/bass/patterns/Pop · Synth Octaves.json
+ravving/presets/chords/patterns/Pop · Axis Quarters.json
+ravving/presets/chords/patterns/Pop · Ballad Strings.json
+ravving/presets/chords/patterns/Pop · Doo-Wop Changes.json
+ravving/presets/chords/patterns/Pop · Minor-Start Pulse.json
+ravving/presets/chords/patterns/Pop · Royal Road.json
+ravving/presets/drums/patterns/Pop · 808 Pop.json
+ravving/presets/drums/patterns/Pop · 80s Gated.json
+ravving/presets/drums/patterns/Pop · Four on the Floor.json
+ravving/presets/drums/patterns/Pop · Half-Time Ballad.json
+ravving/presets/drums/patterns/Pop · Motown Stomp.json
+ravving/presets/lead/patterns/Pop · Axis Hook.json
+ravving/presets/lead/patterns/Pop · Ballad Melody.json
+ravving/presets/lead/patterns/Pop · Piano Ostinato.json
+ravving/presets/lead/patterns/Pop · Pluck Arp.json
+ravving/presets/lead/patterns/Pop · Sax Hook.json
+ravving/presets/templates/Pop.json

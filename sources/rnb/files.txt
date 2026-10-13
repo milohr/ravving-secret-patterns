@@ -1,0 +1,22 @@
+ravving/presets/bass/patterns/R&B · Cry Synth.json
+ravving/presets/bass/patterns/R&B · Fantasy Walk.json
+ravving/presets/bass/patterns/R&B · Fool Fretless.json
+ravving/presets/bass/patterns/R&B · Honest Sub.json
+ravving/presets/bass/patterns/R&B · Situation Sub.json
+ravving/presets/chords/patterns/R&B · Fantasy Keys.json
+ravving/presets/chords/patterns/R&B · Fool Strings.json
+ravving/presets/chords/patterns/R&B · Honest Rhodes.json
+ravving/presets/chords/patterns/R&B · Situation Wurli.json
+ravving/presets/chords/patterns/R&B · Whoa Pads.json
+ravving/presets/drums/patterns/R&B · Honest Pocket.json
+ravving/presets/drums/patterns/R&B · Lazy 808.json
+ravving/presets/drums/patterns/R&B · Nineties Clap.json
+ravving/presets/drums/patterns/R&B · Rimshot Ballad.json
+ravving/presets/drums/patterns/R&B · Teenage Swing.json
+ravving/presets/lead/patterns/R&B · Aalegra Strings.json
+ravving/presets/lead/patterns/R&B · Blue Light Flute.json
+ravving/presets/lead/patterns/R&B · Cry Answer.json
+ravving/presets/lead/patterns/R&B · Fantasy Glide.json
+ravving/presets/lead/patterns/R&B · Honest Hum.json
+ravving/presets/templates/R&B · Slow Jam.json
+ravving/presets/templates/R&B.json

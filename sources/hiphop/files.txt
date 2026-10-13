@@ -1,0 +1,21 @@
+ravving/presets/bass/patterns/Hip-Hop · Boom Bap Root.json
+ravving/presets/bass/patterns/Hip-Hop · Electro Funk.json
+ravving/presets/bass/patterns/Hip-Hop · G-Funk Glide.json
+ravving/presets/bass/patterns/Hip-Hop · Jazz Rap Walk.json
+ravving/presets/bass/patterns/Hip-Hop · Lo-Fi Sub.json
+ravving/presets/chords/patterns/Hip-Hop · Boom Bap Keys.json
+ravving/presets/chords/patterns/Hip-Hop · Dark Strings.json
+ravving/presets/chords/patterns/Hip-Hop · Lo-Fi Ninths.json
+ravving/presets/chords/patterns/Hip-Hop · Organ Vamp.json
+ravving/presets/chords/patterns/Hip-Hop · Soul Loop.json
+ravving/presets/drums/patterns/Hip-Hop · Boom Bap.json
+ravving/presets/drums/patterns/Hip-Hop · Golden Era Swing.json
+ravving/presets/drums/patterns/Hip-Hop · Jazz Rap.json
+ravving/presets/drums/patterns/Hip-Hop · Lo-Fi Lazy.json
+ravving/presets/drums/patterns/Hip-Hop · Old School 808.json
+ravving/presets/lead/patterns/Hip-Hop · Flute Loop.json
+ravving/presets/lead/patterns/Hip-Hop · G-Funk Whistle.json
+ravving/presets/lead/patterns/Hip-Hop · Horn Stabs.json
+ravving/presets/lead/patterns/Hip-Hop · Rhodes Riff.json
+ravving/presets/lead/patterns/Hip-Hop · Vibes Loop.json
+ravving/presets/templates/Hip-Hop.json

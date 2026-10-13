@@ -1,0 +1,47 @@
+# Checks every pack on each push and pull request; a pushed tag v* also builds the release
+# zip (ready to copy onto a USB stick) and attaches it to that tag's release as
+# ravving-packs.zip, so releases/latest/download/ravving-packs.zip is always the newest packs.
+name: packs
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  packs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # the sounds a pack may name are listed in ravving's data/ (kits.json, engines.json, demos/)
+      - uses: actions/checkout@v4
+        with:
+          repository: ravving/ravving
+          path: ravving-app
+          sparse-checkout: data
+
+      - name: Validate the packs
+        env:
+          RAVVING_DATA: ${{ github.workspace }}/ravving-app/data
+        run: python3 sources/validate.py
+
+      - name: Build the stick zip
+        run: python3 sources/build-zip.py ravving-packs.zip
+
+      - name: Attach it to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" ravving-packs.zip --clobber
+          else
+            gh release create "$TAG" ravving-packs.zip --title "ravving packs $TAG" \
+              --notes "Unzip onto a USB stick's root: the zip's ravving folder is the one ravving reads. The README says what each pack plays."
+          fi
